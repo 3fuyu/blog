@@ -1,0 +1,18 @@
+{
+  "name": "3fuyu_blog",
+  "version": "1.0.0",
+  "description": "3fuyu_blog",
+  "main": "app.js",
+  "scripts": {
+    "test": "debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/3fuyu/blog.git"
+  },
+  "author": "3fuyu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
