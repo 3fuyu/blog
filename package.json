@@ -4,7 +4,8 @@
   "description": "3fuyu_blog",
   "main": "app.js",
   "scripts": {
-    "test": "debug"
+    "test": "debug",
+    "start": "node myapp/bin/www"
   },
   "repository": {
     "type": "git",
