@@ -4,11 +4,27 @@
 
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/3fuyu');
+
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connect error'));
+db.once('open', function (callback) {
+    console.log.bind(console, 'connection success');
+});
+
+var kittySchema = mongoose.Schema({
+    name: String
+});
+var Kitten = mongoose.model('Kitten', kittySchema);
+var silence = new Kitten({name: 'this is form mogodb by 3fuyu'});
 
 router.get('/', function(req, res) {
     res.json({
         status: 200,
-        message: "这是一个JSON接口",
+        message: silence.name,
         data:[{
             a:1
         }, {
