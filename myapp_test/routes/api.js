@@ -6,7 +6,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/3fuyu');
+mongoose.connect('mongodb://localhost/real_db');
 
 var db = mongoose.connection;
 
@@ -20,6 +20,8 @@ var kittySchema = mongoose.Schema({
 });
 var Kitten = mongoose.model('Kitten', kittySchema);
 var silence = new Kitten({name: 'this is form mogodb by 3fuyu'});
+
+silence.save();
 
 router.get('/', function(req, res) {
     res.json({
