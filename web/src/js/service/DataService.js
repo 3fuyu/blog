@@ -11,7 +11,7 @@ require('babel-polyfill');
 
 var dataService = {};
 
-var baseUrl = '';
+var baseUrl = '/api/';
 
 function prepend(prefix, name, separator) {
     if (prefix) {
@@ -111,6 +111,31 @@ function post(url, params) {
 
     return processPromise(promise, url);
 }
+function get(url, params) {
+
+    var promise = new Promise(function (resolve, reject) {
+        request
+            .get(baseUrl + url)
+            .type('form')
+            .send(toFlattenMap(params))
+            .end(function (err, res) {
+                if (err || !res.ok) {
+                    reject('服务器错误');
+                } else {
+                    var data = JSON.stringify(res.body);
+                    if (data.errorCode === 401) {
+                        console.log('未登录');
+                        return false;
+                    } else {
+                        //data = fixBigNum(data, jqXHR);
+                        resolve(data);
+                    }
+                }
+            });
+    });
+
+    return processPromise(promise, url);
+}
 
 function processPromise(promise, url) {
 
@@ -145,7 +170,7 @@ dataService.postNew = function (params) {
 };
 
 dataService.queryArticalList = function (params) {
-    return post('artical/queryList', params);
+    return get('artical/queryList', params);
 };
 
 module.exports = dataService;

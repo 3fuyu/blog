@@ -1,9 +1,20 @@
-var express = require('express');
-var router = express.Router();
+"use strict";
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+var baseRoute = '/user';
 
-module.exports = router;
+var userApis = [{
+
+    // test
+    type: 'get',
+    url: baseRoute + '/getUserInfo',
+    success: function (req, res, next) {
+        res.send({
+            errorCode: 200,
+            errorDescription: 'success',
+            data: 'test getUserInfo'
+        });
+    }
+}];
+
+
+module.exports = userApis;

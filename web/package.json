@@ -12,7 +12,8 @@
   "dependencies": {
     "mongoose": "^4.5.8",
     "react": "^0.14.8",
-    "react-dom": "^0.14.8"
+    "react-dom": "^0.14.8",
+    "react-router": "^2.0.0"
   },
   "devDependencies": {
     "autosize": "^3.0.15",

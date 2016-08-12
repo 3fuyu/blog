@@ -1,31 +1,40 @@
 "use strict";
 
 var express = require('express');
-var router = express.Router();
 var postsModel = require('../models/posts');
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
+var baseRoute = '/artical';
 
-});
+var postApis = [{
 
-// 发表文章
-router.post('/postNew', function (req, res, next) {
-    console.log(req);
-    res.send({
-        errCode: 200,
-        errSuccess: 'success'
-    });
-});
+    // 发布文章
+    type: 'post',
+    url: baseRoute + '/postNew',
+    success: function (req, res, next) {
+        res.send({
+            errorCode: 200,
+            errorDescription: 'success'
+        });
+    }
+}, {
 
-// 查询文章
-router.post('/queryList', function (req, res, next) {
-    var data = postsModel.find({post_author:'对应作者ID'});
+    // 查询文章
+    type: 'get',
+    url: baseRoute + '/queryList',
+    success: function (req, res, next) {
+        postsModel
+            .find({post_author: '对应作者ID'})
+            .exec(function (err, data) {
+                var _data = data;
 
-    res.send({
-        errCode: 200,
-        errSuccess: 'success',
-        data: '123'
-    });
-});
-module.exports = router;
+                res.send({
+                    errorCode: 200,
+                    errorDescription: 'success',
+                    data: _data
+                });
+            });
+    }
+}];
+
+
+module.exports = postApis;
