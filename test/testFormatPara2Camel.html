@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button class="button" onclick="clickme()">BEGIN</button>
+</body>
+<script type="application/javascript" src="../node_modules/underscore/underscore.js"></script>
+<script>
+
+    function clickme() {
+        var testData = [{
+            "_id": "57aaec94930c7658dcb00b2e",
+            "post_author": "对应作者ID",
+            "post_date": "发布时间",
+            "post_content": "正文",
+            "post_title": "标题",
+            "post_excerpt": "摘录",
+            "post_status": "文章状态（publish/auto-draft/inherit等）",
+            "comment_status": "评论状态（open/closed）",
+            "post_password": "文章密码",
+            "post_name": "文章缩略名",
+            "post_modified": "修改时间",
+            "post_parent": "父文章，主要用于PAGE",
+            "menu_order": "排序ID",
+            "post_type": "文章类型（post文章/page页面等） attachment 表示媒体库 ",
+            "comment_count": "评论总数"
+        }, {
+            "_id": "57ab015211201fe93e2c9cb8",
+            "post_author": "对应作者ID",
+            "__v": 0
+        }, {
+            "_id": "57ab01c016d7d4f23e55cf4b",
+            "post_author": "对应作者ID",
+            "post_date": "发布时间",
+            "post_content": "正文",
+            "post_title": "标题",
+            "post_excerpt": "摘录",
+            "post_status": "文章状态（publish/auto-draft/inherit等）",
+            "comment_status": "评论状态（open/closed）",
+            "post_password": "文章密码",
+            "post_name": "文章缩略名",
+            "post_modified": "修改时间",
+            "post_parent": "父文章，主要用于PAGE",
+            "menu_order": "排序ID",
+            "post_type": "文章类型（post文章/page页面等） attachment 表示媒体库 ",
+            "comment_count": "评论总数",
+            "__v": 0
+        }];
+        console.log(formatPara2Camel(testData));
+    }
+
+    function isArray(data) {
+        if (data && (data instanceof Array) && (data.constructor === Array)) {
+            return true;
+        }
+    }
+
+    function isObject(data) {
+        if (data && (data instanceof Object) && (data.constructor === Object)) {
+            return true;
+        }
+    }
+
+    function formatPara2Camel(data) {
+        if (isArray(data) || isObject(data)) {
+            _.each(data, function (value, key) {
+                if (isArray(value) || isObject(value)) {
+                    formatPara2Camel(value);
+                } else {
+                    if (key.indexOf('_') > -1) {
+                        if (key.split('_')[0] == '') {
+                            var _key = key.split('_')[1];
+                            data[_key] = data[key];
+                            delete data[key];
+                        } else {
+                            var _key = key.replace(/_./g, function (a) {return a.split('_')[1].toUpperCase();});
+                            data[_key] = data[key];
+                            delete data[key];
+                        }
+
+                    }
+                }
+            });
+            return data;
+        } else {
+            return data;
+        }
+    }
+
+</script>
+</html>

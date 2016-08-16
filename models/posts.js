@@ -2,7 +2,7 @@
  * Created by 3fuyu on 16/8/11.
  */
 
-var mongoose = require('../data_base/mongoose');
+var mongoose = require('../db/mongoose');
 
 var postsSchema = mongoose.Schema({
     "post_author": {
