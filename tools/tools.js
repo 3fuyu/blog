@@ -59,9 +59,15 @@ function formatPara2Camel(data) {
 }
 
 Tools.para2camel = function (para) {
+    var data = [];
+
     formatPara2Camel(para);
     formatPara2CamelArray.pop();
-    return formatPara2CamelArray;
+
+    data = _.cloneDeep(formatPara2CamelArray);
+    formatPara2CamelArray = [];
+
+    return data;
 };
 
 module.exports = Tools;
