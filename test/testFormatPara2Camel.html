@@ -9,7 +9,6 @@
 </body>
 <script type="application/javascript" src="../node_modules/underscore/underscore.js"></script>
 <script>
-
     function clickme() {
         var testData = [{
             "_id": "57aaec94930c7658dcb00b2e",
@@ -64,15 +63,25 @@
         }
     }
 
+    function checkUnderline(key) {
+        for (var i = 0; i < key.split('_').length; i++) {
+            if (key.split('_')[i] !== '') {
+                return key.split('_')[i];
+            }
+        }
+    }
+
     function formatPara2Camel(data) {
         if (isArray(data) || isObject(data)) {
             _.each(data, function (value, key) {
                 if (isArray(value) || isObject(value)) {
                     formatPara2Camel(value);
                 } else {
+                    console.log('this is key' + key);
+                    console.log('this is value' + value);
                     if (key.indexOf('_') > -1) {
-                        if (key.split('_')[0] == '') {
-                            var _key = key.split('_')[1];
+                        if (key.split('_')[0] === '') {
+                            var _key = checkUnderline(key);
                             data[_key] = data[key];
                             delete data[key];
                         } else {
@@ -89,6 +98,7 @@
             return data;
         }
     }
+
 
 </script>
 </html>
