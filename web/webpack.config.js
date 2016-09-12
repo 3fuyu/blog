@@ -7,12 +7,14 @@
 var webpack = require('webpack');
 var path = require('path');
 var node_modules = path.resolve(__dirname, 'node_modules');
+// var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 var deps = [
     'react/dist/react.min.js',
 ];
 
 var config = {
-    entry: [ path.resolve(__dirname,'./src/js/app.js')],
+    entry: [path.resolve(__dirname, './src/js/app.js')],
     // entry: ['webpack/hot/dev-server', path.resolve(__dirname, './src/js/app.js')],
     //entry: [
     //    'webpack-dev-server/client?http://0.0.0.0:8080',//资源服务器地址
@@ -37,6 +39,15 @@ var config = {
             query: {
                 presets: ['react', 'es2015']
             }
+        }, {
+            test: /\.css$/,
+            loader: 'style!css'//添加对样式表的处理
+        }, {
+            test: /\.(css)$/,
+            loader: 'style-loader!css-loader'
+        }, {
+            test: /\.(less)$/, 
+            loader: 'style-loader!css-loader!less-loader'
         }]
     },
     //plugins: [

@@ -16,7 +16,17 @@ var Link = ReactRouter.Link;
 var IndexLink = ReactRouter.IndexLink;
 var hashHistory = ReactRouter.hashHistory;
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Login from './components/login.jsx';
+
+// let Login = require('./components/login.jsx');
+
 attachFastClick.attach(document.body);  // fastclick
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
 var Main = React.createClass({
     contextTypes: {
@@ -38,9 +48,16 @@ var Main = React.createClass({
     }
 });
 
+const App = () => (
+    <MuiThemeProvider>
+        <Router history={hashHistory}>
+            <Router path="/" components={Main}></Router>
+            <Router path="/login" components={Login}></Router>
+        </Router>
+    </MuiThemeProvider>
+);
+
 ReactDOM.render(
-    <Router history={hashHistory}>
-        <Router path="/" components={Main}></Router>
-    </Router>,
+    <App />,
     document.getElementById('app')
 );
