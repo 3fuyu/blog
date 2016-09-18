@@ -3,8 +3,14 @@
  */
 "use strict";
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import {render} from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import blog from './reducers/reducers';
+
+// var React = require('react');
+// var ReactDOM = require('react-dom');
 var DataService = require('./service/DataService.js');
 var CacheService = require('./service/CacheService.js');
 var ReactRouter = require('react-router');
@@ -18,9 +24,8 @@ var hashHistory = ReactRouter.hashHistory;
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Login from './components/login.jsx';
-
-// let Login = require('./components/login.jsx');
+import Login from './components/management/login.jsx';
+import Main from './components/management/main.jsx';
 
 attachFastClick.attach(document.body);  // fastclick
 
@@ -28,36 +33,22 @@ attachFastClick.attach(document.body);  // fastclick
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-var Main = React.createClass({
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
-    onSubmit: function () {
-        console.log('submit');
-        DataService.queryArticalList().then(function (data) {
-            console.log(data);
-        });
-    },
-    render: function () {
-        return (
-            <div>
-                <div>this is main page</div>
-                <button type="button" onClick={this.onSubmit}>登陆</button>
-            </div>
-        )
-    }
-});
+let store = createStore(blog);
 
 const App = () => (
+
     <MuiThemeProvider>
         <Router history={hashHistory}>
-            <Router path="/" components={Main}></Router>
-            <Router path="/login" components={Login}></Router>
+            <Router path="/" components={Login}></Router>
+            <Router path="/management/login" components={Login}></Router>
+            <Router path="/management/main" components={Main}></Router>
         </Router>
     </MuiThemeProvider>
 );
 
-ReactDOM.render(
-    <App />,
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('app')
 );

@@ -4,14 +4,15 @@
 "use strict";
 
 var request = require('superagent');
-var ZLT = require('./FuyuToolService.js');
+var FYT = require('./FYToolService.js');
 var StorageService = require('./StorageService.js');
 var _ = require('lodash');
 require('babel-polyfill');
 
 var dataService = {};
 
-var baseUrl = '120.25.92.21:8081/api/';
+// var baseUrl = '120.25.92.21:8081/api/';
+var baseUrl = 'http://localhost:8081/api/';
 
 function prepend(prefix, name, separator) {
     if (prefix) {
@@ -97,13 +98,15 @@ function post(url, params) {
                 if (err || !res.ok) {
                     reject('服务器错误');
                 } else {
-                    var data = JSON.stringify(res.body);
+                    var data = res.body;
                     if (data.errorCode === 401) {
                         console.log('未登录');
                         return false;
-                    } else {
-                        //data = fixBigNum(data, jqXHR);
+                    } else if (data.errorCode === 200) {
                         resolve(data);
+                    } else {
+                        // 走失败函数
+                        reject(data);
                     }
                 }
             });
@@ -122,13 +125,15 @@ function get(url, params) {
                 if (err || !res.ok) {
                     reject('服务器错误');
                 } else {
-                    var data = JSON.stringify(res.body);
+                    var data = res.body;
                     if (data.errorCode === 401) {
                         console.log('未登录');
                         return false;
-                    } else {
-                        //data = fixBigNum(data, jqXHR);
+                    } else if (data.errorCode === 200) {
                         resolve(data);
+                    } else {
+                        // 走失败函数
+                        reject(data);
                     }
                 }
             });
@@ -138,30 +143,14 @@ function get(url, params) {
 }
 
 function processPromise(promise, url) {
-
-    return promise.then(function (_data) {
-        var data = eval('(' + _data + ')');
+    var tempData = '';
+    return promise.then(function (data) {
         if (data.errorCode === 200) {
-            //return def.resolve(data.body);
             return data.response;
-        } else if (data.errorCode === 401) {
-            throw (data.errorDescription || '未知错误');
-        } else {
-            ZLT.tips(data.errorDescription || '未知错误');
-            throw (data.errorDescription || '未知错误');
         }
-    }, function (reason) {
-        if (reason.status === 401) {
-            window.location.href = "/zl-ec?sourceUrl=" + encodeURIComponent(window.location.href);
-
-            throw "未登录";
-        }
-
-        if (reason.data && reason.data.result === false && reason.data.body) {
-        
-        } else {
-        
-        }
+    }, function (data) {
+        throw (data);
+        return data;
     });
 }
 
@@ -171,6 +160,10 @@ dataService.postNew = function (params) {
 
 dataService.queryArticalList = function (params) {
     return get('artical/queryList', params);
+};
+
+dataService.login = function (params) {
+    return post('user/login', params);
 };
 
 module.exports = dataService;

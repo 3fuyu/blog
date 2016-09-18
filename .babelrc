@@ -1,0 +1,20 @@
+{
+  "env": {
+    "test": {
+      "sourceMaps": "both"
+    },
+    "docs-production": {
+      "plugins": [
+        ["transform-replace-object-assign", "simple-assign"],
+        "transform-react-remove-prop-typs",
+        "transform-react-constant-elements",
+        "transform-react-inline-elements"
+      ]
+    },
+    "release": {
+      "plugins": [
+        ["transform-react-remove-prop-types", {"mode": "wrap"}]
+      ],
+    }
+  }
+}

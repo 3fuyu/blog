@@ -3,11 +3,13 @@
  */
 "use strict";
 
-var React = require('react');
+import React from 'react';
+import Snackbar from 'material-ui/Snackbar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 var ReactDOM = require('react-dom');
 var _ = require('lodash');
 
-var FYT = {};
+var FY = {};
 
 
 /***** time *****/
@@ -74,29 +76,32 @@ var tipsConfig = {
     timeout: 1000
 };
 
-function tips(content, timeout) {
+function tips(content, timeout = 2000) {
     if (content) {
         tipsConfig.content = content;
     }
 
-    if (timeout) {
-        tipsConfig.timeout = timeout;
-    }
+    tipsConfig.timeout = timeout;
 
-    setTimeout(function () {
-        tipsConfig.content = '';
-        tipsConfig.render();
-    }, tipsConfig.timeout);
+    // setTimeout(function () {
+    //     tipsConfig.content = '';
+    //     tipsConfig.render();
+    // }, tipsConfig.timeout);
+
     tipsConfig.render();
 }
 
 tipsConfig.render = function () {
-    var className = tipsConfig.content === '' ? 'zl-hide' : '';
+    var open = tipsConfig.content === '' ? 'false' : 'true';
 
     ReactDOM.render(
-        <div id="zlToast" className={className}>
-            <div className="zl-toast"><p className="zl-toast-content">{tipsConfig.content}</p></div>
-        </div>,
+        <MuiThemeProvider>
+            <Snackbar
+                open={open}
+                message={tipsConfig.content}
+                autoHideDuration={tipsConfig.timeout}
+            />
+        </MuiThemeProvider>,
 
         document.getElementById('alert')
     );
@@ -239,10 +244,10 @@ string.isPhoneNum = function (str) {
     return str.match(/^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/) !== null || str.match(/^1\d{10}$/) !== null;
 }
 
-FYT.moment = moment;
-FYT.tips = tips;
-FYT.confirm = confirm;
-FYT.loading = loading;
-FYT.string = string;
+FY.moment = moment;
+FY.tips = tips;
+FY.confirm = confirm;
+FY.loading = loading;
+FY.string = string;
 
-module.exports = FYT;
+module.exports = FY;
