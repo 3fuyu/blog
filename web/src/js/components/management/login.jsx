@@ -63,7 +63,8 @@ class Login extends React.Component {
                 password: t.state.password
             }).then(function (data) {
                 FYT.tips('登录成功!');
-                t.context.router.push('/management/main');
+                var host = window.location.host;
+                window.location.href = 'http://' + host + '/management.html#/management/main';
             }, function (data) {
                 if (data.errorCode === 505) {
                     FYT.tips(data.errorDescription);

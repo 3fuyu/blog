@@ -13,7 +13,7 @@ class Main extends React.Component {
         super(props);
 
         this.state = {
-            leftOpen: false
+            leftOpen: true
         };
     }
 
