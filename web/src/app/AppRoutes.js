@@ -1,5 +1,6 @@
 import React from "react";
 import {Route, IndexRoute} from "react-router";
+import Master from '../app/js/components/management/Master';
 import Login from "../app/js/components/management/login";
 import Home from "../app/js/components/management/main";
 
@@ -16,7 +17,7 @@ import Home from "../app/js/components/management/main";
  * handler and its parent handler like so: Paper > Components > Master
  */
 const AppRoutes = (
-    <Route path="/">
+    <Route path="/" component={Master}>
         <IndexRoute component={Login}/>
         <Route path="management">
             <Route path="main" component={Home}/>
