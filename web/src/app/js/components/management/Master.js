@@ -165,6 +165,7 @@ class Master extends Component {
             styles.root.paddingLeft = 256;
             styles.footer.paddingLeft = 256;
         } else {
+            styles.appBar.display = 'none';
             navDrawerOpen = false;
             showMenuIconButton = false;
         }

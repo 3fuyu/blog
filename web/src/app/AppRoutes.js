@@ -3,6 +3,7 @@ import {Route, IndexRoute} from "react-router";
 import Master from '../app/js/components/management/Master';
 import Login from "../app/js/components/management/login";
 import Home from "../app/js/components/management/main";
+import NewArticle from "../app/js/components/management/newArticle";
 
 
 // Here we define all our material-ui ReactComponents.

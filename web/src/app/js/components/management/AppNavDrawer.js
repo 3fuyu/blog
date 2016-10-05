@@ -1,12 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import Drawer from '../../../../../node_modules/material-ui/Drawer';
-import {List, ListItem, MakeSelectable} from '../../../../../node_modules/material-ui/List';
-import Divider from '../../../../../node_modules/material-ui/Divider';
-import Subheader from '../../../../../node_modules/material-ui/Subheader';
-import DropDownMenu from '../../../../../node_modules/material-ui/DropDownMenu';
-import MenuItem from '../../../../../node_modules/material-ui/MenuItem';
-import {spacing, typography, zIndex} from '../../../../../node_modules/material-ui/styles';
-import {cyan500} from '../../../../../node_modules/material-ui/styles/colors';
+import React, {Component, PropTypes} from "react";
+import Drawer from "../../../../../node_modules/material-ui/Drawer";
+import {List, ListItem, MakeSelectable} from "../../../../../node_modules/material-ui/List";
+import {spacing, typography} from "../../../../../node_modules/material-ui/styles";
+import {cyan500} from "../../../../../node_modules/material-ui/styles/colors";
 
 const SelectableList = MakeSelectable(List);
 
@@ -52,7 +48,7 @@ class AppNavDrawer extends Component {
         const url = '/versions.json';
         const request = new XMLHttpRequest();
 
-        request.onreadystatechange = function() {
+        request.onreadystatechange = function () {
             if (request.readyState === 4 && request.status === 200) {
                 self.setState({
                     muiVersions: JSON.parse(request.responseText),
@@ -121,8 +117,13 @@ class AppNavDrawer extends Component {
                 <ListItem
                     primaryText="文章管理"
                     primaryTogglesNestedList={true}
-                    nestedItems={[]}
-                    href="#/management/main"
+                    nestedItems={[
+                        <ListItem primaryText="新建文章"
+                            value="/management/new-article"
+                            key="1"
+                            href="#/management/new-article"
+                        />
+                    ]}
                 />
                 <ListItem
                     primaryText="分类管理"
