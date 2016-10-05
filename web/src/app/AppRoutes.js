@@ -23,6 +23,7 @@ const AppRoutes = (
         <Route path="management">
             <Route path="main" component={Home}/>
             <Route path="login" component={Login}/>
+            <Route path="new-article" component={NewArticle}/>
         </Route>
     </Route>
 );

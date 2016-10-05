@@ -33,7 +33,7 @@ class Main extends React.Component {
     render() {
         return (
             <div>
-                test
+                妈妈好啊
             </div>
         );
     }
