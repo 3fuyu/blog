@@ -1,0 +1,46 @@
+#new-article {
+    .article-title {
+        z-index: 99;
+    }
+    .article-date {
+        color: #555;
+        font-size: 16px;
+        padding: 20px 0;
+        position: relative;
+        z-index: 99;
+    }
+    #article-editor {
+        background: #FBFBFB;
+        position: absolute;
+        right: 0;
+        top: 0;
+        left: 256px;
+        padding: 226px 74px;
+        z-index: 9;
+        height: 100%;
+        width: 1024px;
+        font-size: 13pt;
+        line-height: 1.8em;
+        resize: none;
+        outline: none;
+        display: block;
+        border: none;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        box-sizing: border-box;
+    }
+    #article-editor:focus {
+        outline: none;
+    }
+    .article-submit {
+        position: absolute;
+        bottom: 40px;
+        right: 40px;
+        z-index: 99;
+        span {
+            color: #FFF;
+            line-height: 56px;
+            height: 56px;
+        }
+    }
+}
