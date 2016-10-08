@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import $ from 'jquery';
 import {Router, useRouterHistory} from 'react-router';
 import AppRoutes from './AppRoutes';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -8,7 +9,7 @@ import MuiThemeProvider from '../../node_modules/material-ui/styles/MuiThemeProv
 // Helpers for debugging
 window.React = React;
 window.Perf = require('react-addons-perf');
-
+window.$ = $;
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
