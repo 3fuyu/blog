@@ -155,7 +155,7 @@ function processPromise(promise, url) {
 }
 
 dataService.postNew = function (params) {
-    return post('postNew', params);
+    return post('artical/postNew', params);
 };
 
 dataService.queryArticalList = function (params) {

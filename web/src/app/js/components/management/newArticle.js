@@ -9,9 +9,13 @@ import FloatingActionButton from '../../../../../node_modules/material-ui/Floati
 import ContentAdd from '../../../../../node_modules/material-ui/svg-icons/content/add';
 import moment from 'moment';
 import '../../../css/newArticle.less';
-import marked from 'marked';
+import DataService from '../../service/DataService';
 
 class NewArticle extends Component {
+    state = {
+        title: ''
+    };
+
     getDate() {
         let date = new Date();
 
@@ -37,7 +41,17 @@ class NewArticle extends Component {
     }
 
     submit () {
-        console.log(marked(this.refs.articleValue.value));
+        const t = this;
+        DataService.postNew({
+            title: t.state.title,
+            content: t.refs.articleContent.value
+        });
+    }
+
+    titleChange (e) {
+        this.setState({
+            title: e.target.value
+        });
     }
 
     render() {
@@ -50,11 +64,13 @@ class NewArticle extends Component {
                     className="article-title"
                     hintText="Title"
                     fullWidth={true}
+                    value={this.state.title}
+                    onChange={(event) => this.titleChange(event)}
                 />
 
                 <div className="article-date">Date: &nbsp;&nbsp;&nbsp;&nbsp;{date}</div>
 
-                <textarea name="newArticle" id="article-editor" ref="articleValue"></textarea>
+                <textarea name="newArticle" id="article-editor" ref="articleContent"></textarea>
                 
                 <FloatingActionButton className="article-submit" onClick={() => this.submit()}>
                     <ContentAdd />

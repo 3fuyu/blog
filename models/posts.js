@@ -3,8 +3,13 @@
  */
 
 var mongoose = require('../db/mongoose');
-
-var postsSchema = mongoose.Schema({
+var Schema = mongoose.Schema;
+var id = mongoose.Schema.Types.ObjectId;
+var postsSchema = new Schema({
+    "_id": {
+        type: 'Number',
+        required: [true, '请输入id']
+    },
     "post_author": {
         type: 'String',
         required: [true, '请输入作者名称']
@@ -50,7 +55,7 @@ var postsSchema = mongoose.Schema({
     "comment_count": {
         type: 'String',
     }
-});
+}, { _id: false });
 
 var postsModel = mongoose.model('posts', postsSchema);
 
