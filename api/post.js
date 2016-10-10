@@ -15,26 +15,31 @@ var postApis = [{
     success: function (req, res, next) {
 
         // let getNewID = function(callback){
-        //     let ret = postsModel.findAndModify({"_id":''}, [['name','asc']], {$inc:{'id':1}},{new:true,upsert:true},callback);
+        postsModel.find({}, ['first', 'last'], function (err, docs) {
+            if (err) {
+                console.log(err);
+            }
+            console.log(docs)
+        });      //     docs 此时只包含文档的部分键值
+
         //     return ret.seq;
         // };
         // console.log(getNewID());
 
-        var id = mongoose.Types.ObjectId();
-        let postEntity = new postsModel({
-            post_author: '3fuyu',
-            post_content: req.body.content,
-            post_title: req.body.title,
-            _id: '15'
-        });
-
-        postEntity.save(function(err, tree){
-            if(err){
-                console.log('Somthing wrong: ' + err);
-            }else{
-                console.log('Add a new node', tree);
-            }
-        });
+        // let postEntity = new postsModel({
+        //     post_author: '3fuyu',
+        //     post_content: req.body.content,
+        //     post_title: req.body.title,
+        //     _id: '15'
+        // });
+        //
+        // postEntity.save(function (err, tree) {
+        //     if (err) {
+        //         console.log('Somthing wrong: ' + err);
+        //     } else {
+        //         console.log('Add a new node', tree);
+        //     }
+        // });
 
         res.send({
             errorCode: 200,

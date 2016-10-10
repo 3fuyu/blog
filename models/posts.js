@@ -4,7 +4,6 @@
 
 var mongoose = require('../db/mongoose');
 var Schema = mongoose.Schema;
-var id = mongoose.Schema.Types.ObjectId;
 var postsSchema = new Schema({
     "_id": {
         type: 'Number',
