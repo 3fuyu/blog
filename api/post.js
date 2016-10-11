@@ -2,6 +2,7 @@
 
 var express = require('express');
 var postsModel = require('../models/posts');
+var keyMapsModel = require('../models/key_maps');
 var Tools = require('../tools/tools');
 var mongoose = require('mongoose');
 
@@ -13,37 +14,56 @@ var postApis = [{
     type: 'post',
     url: baseRoute + '/postNew',
     success: function (req, res, next) {
+        let max_id = 1;
 
-        // let getNewID = function(callback){
-        postsModel.find({}, ['first', 'last'], function (err, docs) {
+        keyMapsModel.find({post_map_key: true}, function (err, docs) {
             if (err) {
-                console.log(err);
+                console.error(err);
+            } else {
+                if (docs.length === 0) {
+                    let postMapObj = JSON.stringify({max_id: 1});
+
+                    let keyMapsEntity = new keyMapsModel({
+                        post_map_key: true,
+                        post_map_value: postMapObj
+                    });
+
+                    keyMapsEntity.save(function (err, docs) {
+                        if (err) console.error(err);
+                    });
+                } else {
+                    max_id = parseInt(JSON.parse(docs[0].post_map_value).max_id) + 1;
+                }
+
+                // 存数据库
+                let postEntity = new postsModel({
+                    post_author: '3fuyu',
+                    post_content: req.body.content,
+                    post_title: req.body.title,
+                    _id: max_id
+                });
+
+                postEntity.save(function (err, tree) {
+                    if (err) {
+                        console.error('Somthing wrong: ' + err);
+                    } else {
+
+                        var conditions = {post_map_key: true};
+                        var update = {$set: {post_map_value: JSON.stringify({max_id: max_id})}};
+                        var options = {upsert: true};
+                        keyMapsModel.update(conditions, update, options, function (err, suc) {
+                            if (err) console.error(err);
+
+                            if (suc) console.log(suc);
+                        });
+                    }
+                });
+
+                res.send({
+                    errorCode: 200,
+                    errorDescription: 'success'
+                });
             }
-            console.log(docs)
-        });      //     docs 此时只包含文档的部分键值
-
-        //     return ret.seq;
-        // };
-        // console.log(getNewID());
-
-        // let postEntity = new postsModel({
-        //     post_author: '3fuyu',
-        //     post_content: req.body.content,
-        //     post_title: req.body.title,
-        //     _id: '15'
-        // });
-        //
-        // postEntity.save(function (err, tree) {
-        //     if (err) {
-        //         console.log('Somthing wrong: ' + err);
-        //     } else {
-        //         console.log('Add a new node', tree);
-        //     }
-        // });
-
-        res.send({
-            errorCode: 200,
-            errorDescription: 'success'
         });
     }
 }, {
