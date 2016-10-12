@@ -30,7 +30,7 @@ class NewArticle extends Component {
         target.addEventListener('scroll', function () {
             let scrollTop = this.scrollTop;
 
-            if (scrollTop < 30) {
+            if (scrollTop < 20) {
                 $(parentTitle).fadeIn(100);
                 $(parentDate).fadeIn(100);
             } else {

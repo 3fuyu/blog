@@ -4,6 +4,7 @@ import Master from '../app/js/components/management/Master';
 import Login from "../app/js/components/management/login";
 import Home from "../app/js/components/management/main";
 import NewArticle from "../app/js/components/management/newArticle";
+import ArticleList from "../app/js/components/management/ArticleList";
 
 
 // Here we define all our material-ui ReactComponents.
@@ -20,11 +21,12 @@ import NewArticle from "../app/js/components/management/newArticle";
 const AppRoutes = (
     <Route path="/" component={Master}>
         <IndexRoute component={Login}/>
-        <Redirect from="management" to="/management/login" />
+        <Redirect from="management" to="/management/article-list" />
         <Route path="management">
             <Route path="main" component={Home}/>
             <Route path="login" component={Login}/>
             <Route path="new-article" component={NewArticle}/>
+            <Route path="article-list" component={ArticleList}/>
         </Route>
     </Route>
 );

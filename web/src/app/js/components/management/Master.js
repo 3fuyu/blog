@@ -188,7 +188,7 @@ class Master extends Component {
                 />
                 {title !== '' ?
                     <div style={prepareStyles(styles.root)} className="test-content1">
-                        <div style={prepareStyles(styles.content)} className="test-content2">
+                        <div className="test-content2">
                             {React.cloneElement(children, {
                                 onChangeMuiTheme: this.handleChangeMuiTheme,
                             })}

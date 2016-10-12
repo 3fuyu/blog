@@ -94,6 +94,11 @@ class AppNavDrawer extends Component {
                             value="/management/new-article"
                             key="1"
                             href="#/management/new-article"
+                        />,
+                        <ListItem primaryText="文章列表"
+                            value="/management/article-list"
+                            key="1"
+                            href="#/management/article-list"
                         />
                     ]}
                     />
