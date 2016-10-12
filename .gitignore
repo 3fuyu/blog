@@ -5,3 +5,4 @@ out
 gen
 node_modules
 express_test/myapp/node_modules
+.npm-debug.log
