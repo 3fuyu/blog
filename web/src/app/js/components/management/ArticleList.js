@@ -11,7 +11,9 @@ import {
     TableRow,
     TableRowColumn
 } from "../../../../../node_modules/material-ui/Table";
+import "../../../css/main.less";
 import '../../../css/articleList.less';
+
 import DataService from '../../service/DataService';
 import moment from 'moment';
 

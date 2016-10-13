@@ -77,7 +77,7 @@ class Login extends React.Component {
             }).then(function (data) {
                 FYT.tips('登录成功!');
                 var host = window.location.host;
-                window.location.href = 'http://' + host + '/management.html#/management/main';
+                window.location.href = 'http://' + host + '/index.html#/management/article-list';
             }, function (data) {
                 if (data.errorCode === 505) {
                     FYT.tips(data.errorDescription);
