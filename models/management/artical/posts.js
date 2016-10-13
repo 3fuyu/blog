@@ -2,7 +2,7 @@
  * Created by 3fuyu on 16/8/11.
  */
 
-var mongoose = require('../db/mongoose');
+var mongoose = require('../../../db/mongoose');
 var Schema = mongoose.Schema;
 var postsSchema = new Schema({
     "_id": {
@@ -14,7 +14,7 @@ var postsSchema = new Schema({
         required: [true, '请输入作者名称']
     },
     "post_date": {
-        type: 'String'
+        type: 'Number'
     },
     "post_content": {
         type: 'String',

@@ -7,8 +7,8 @@ var express = require('express');
 var router = express.Router();
 var _ = require('lodash');
 
-var post = require('../api/post');
-var user = require('../api/user');
+var post = require('../api/management/article/post');
+var user = require('../api/management/user/user');
 
 // 合并api
 var apis = _.concat(post, user);

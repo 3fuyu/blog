@@ -1,10 +1,9 @@
 "use strict";
 
 var express = require('express');
-var postsModel = require('../models/posts');
-var keyMapsModel = require('../models/key_maps');
-var Tools = require('../tools/tools');
-var mongoose = require('mongoose');
+var postsModel = require('../../../models/management/artical/posts');
+var keyMapsModel = require('../../../models/key_maps');
+var Tools = require('../../../tools/tools');
 
 var baseRoute = '/artical';
 
@@ -40,6 +39,7 @@ var postApis = [{
                     post_author: '3fuyu',
                     post_content: req.body.content,
                     post_title: req.body.title,
+                    post_date: +new Date(),
                     _id: max_id
                 });
 
@@ -60,8 +60,8 @@ var postApis = [{
                 });
 
                 res.send({
-                    errorCode: 200,
-                    errorDescription: 'success'
+                    code: 200,
+                    description: 'success'
                 });
             }
         });
@@ -73,11 +73,12 @@ var postApis = [{
     url: baseRoute + '/queryList',
     success: function (req, res, next) {
         postsModel
-        .find({post_author: '对应作者ID'})
+        .find({})
+        .sort({'post_date': 'desc'})
         .exec(function (err, data) {
             res.send({
-                errorCode: 200,
-                errorDescription: 'success',
+                code: 200,
+                description: 'success',
                 data: Tools.para2camel(data)
             });
         });

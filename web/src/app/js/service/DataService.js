@@ -99,10 +99,10 @@ function post(url, params) {
                     reject('服务器错误');
                 } else {
                     var data = res.body;
-                    if (data.errorCode === 401) {
+                    if (data.code === 401) {
                         console.log('未登录');
                         return false;
-                    } else if (data.errorCode === 200) {
+                    } else if (data.code === 200) {
                         resolve(data);
                     } else {
                         // 走失败函数
@@ -126,10 +126,10 @@ function get(url, params) {
                     reject('服务器错误');
                 } else {
                     var data = res.body;
-                    if (data.errorCode === 401) {
+                    if (data.code === 401) {
                         console.log('未登录');
                         return false;
-                    } else if (data.errorCode === 200) {
+                    } else if (data.code === 200) {
                         resolve(data);
                     } else {
                         // 走失败函数
@@ -145,8 +145,8 @@ function get(url, params) {
 function processPromise(promise, url) {
     var tempData = '';
     return promise.then(function (data) {
-        if (data.errorCode === 200) {
-            return data.response;
+        if (data.code === 200) {
+            return data.data;
         }
     }, function (data) {
         throw (data);

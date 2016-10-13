@@ -12,6 +12,8 @@ import {
     TableRowColumn
 } from "../../../../../node_modules/material-ui/Table";
 import '../../../css/articleList.less';
+import DataService from '../../service/DataService';
+import moment from 'moment';
 
 const tableData = [{
         name: 'John Smith',
@@ -51,7 +53,17 @@ class ArticleList extends Component {
             enableSelectAll: true,
             deselectOnClickaway: true,
             showCheckboxes: true,
+            tableData: []
         };
+    }
+    componentWillMount() {
+        let t = this;
+
+        DataService.queryArticalList().then(function (data) {
+            t.setState({
+                tableData: data
+            });
+        });
     }
 
     render() {
@@ -76,11 +88,11 @@ class ArticleList extends Component {
                         showRowHover={this.state.showRowHover}
                         stripedRows={this.state.stripedRows}
                     >
-                        {tableData.map( (row, index) => (
+                        {this.state.tableData.map( (row, index) => (
                             <TableRow key={index} selected={row.selected}>
-                                <TableRowColumn>{index}</TableRowColumn>
-                                <TableRowColumn>{row.name}</TableRowColumn>
-                                <TableRowColumn>{row.status}</TableRowColumn>
+                                <TableRowColumn>{row.id}</TableRowColumn>
+                                <TableRowColumn>{row.postTitle}</TableRowColumn>
+                                <TableRowColumn>{moment(row.postDate).format('YYYY-MM-DD hh:mm')}</TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>

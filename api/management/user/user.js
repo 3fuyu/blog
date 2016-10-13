@@ -1,8 +1,8 @@
 "use strict";
 
 var baseRoute = '/user';
-var usersModel = require('../models/users');
-var Tools = require('../tools/tools');
+var usersModel = require('../../../models/management/user/users');
+var Tools = require('../../../tools/tools');
 
 var userApis = [{
 
@@ -11,8 +11,8 @@ var userApis = [{
     url: baseRoute + '/getUserInfo',
     success: function (req, res, next) {
         res.send({
-            errorCode: 200,
-            errorDescription: 'success',
+            code: 200,
+            description: 'success',
             data: 'test getUserInfo'
         });
     }
@@ -28,13 +28,13 @@ var userApis = [{
 
                 if (req.body.name === _data[0].userLogin && req.body.password === _data[0].userPass) {
                     res.send({
-                        errorCode: 200,
-                        errorDescription: 'success'
+                        code: 200,
+                        description: 'success'
                     });
                 } else {
                     res.send({
-                        errorCode: 505,
-                        errorDescription: 'name or password wrong'
+                        code: 505,
+                        description: 'name or password wrong'
                     });
                 }
             });

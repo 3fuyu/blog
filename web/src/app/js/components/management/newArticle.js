@@ -10,10 +10,16 @@ import ContentAdd from '../../../../../node_modules/material-ui/svg-icons/conten
 import moment from 'moment';
 import '../../../css/newArticle.less';
 import DataService from '../../service/DataService';
+import Util from '../../service/FYToolService';
 
 class NewArticle extends Component {
     state = {
         title: ''
+    };
+
+    static contextTypes = {
+        muiTheme: PropTypes.object.isRequired,
+        router: PropTypes.object.isRequired,
     };
 
     getDate() {
@@ -45,6 +51,9 @@ class NewArticle extends Component {
         DataService.postNew({
             title: t.state.title,
             content: t.refs.articleContent.value
+        }).then(function (data) {
+            Util.tips('发布成功');
+            t.context.router.push('/management/article-list');
         });
     }
 

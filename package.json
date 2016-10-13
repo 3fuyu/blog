@@ -11,19 +11,6 @@
     "react-tap-event-plugin": "^1.0.0"
   },
   "dependencies": {
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-plugin-transform-react-inline-elements": "^6.8.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.2.9",
-    "babel-plugin-transform-replace-object-assign": "^0.2.1",
-    "babel-preset-stage-1": "^6.13.0",
-    "mongoose": "^4.5.8",
-    "react": "^15.3.1",
-    "react-component": "0.0.0",
-    "react-dom": "^15.3.1",
-    "react-redux": "^4.4.5",
-    "react-router": "^2.0.0",
-
-
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -48,6 +35,7 @@
     "less-loader": "^2.2.3",
     "lodash": "^3.6.0",
     "material-ui": "^0.15.4",
+    "moment": "^2.15.1",
     "path": "^0.12.7",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -64,16 +52,5 @@
     "superagent": "^1.8.0",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.16.1"
-  },
-  "dependencies": {
-    "body-parser": "~1.15.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "express": "~4.13.4",
-    "jade": "~1.11.0",
-    "lodash": "^4.14.2",
-    "mongoose": "^4.5.8",
-    "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
   }
 }

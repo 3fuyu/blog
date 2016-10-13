@@ -2,7 +2,7 @@
  * Created by 3fuyu on 16/8/11.
  */
 
-var mongoose = require('../db/mongoose');
+var mongoose = require('../../../db/mongoose');
 
 var usersSchema = mongoose.Schema({
     "ID" : {
