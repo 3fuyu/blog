@@ -10,8 +10,8 @@ class Home extends Component {
     render () {
         return (
             <div id="home">
-                <div className="head">
-                    <span className="menu-logo"><img src="images/logo_big.jpg" alt="" className="logo"/></span>
+                <div className="head-move">
+                    <span className="menu-logo" ><img src="images/logo_test.png" alt="" className="logo"/></span>
                     <ul className="menu-list">
                         <li className="menu-item">HOME</li>
                         <li className="menu-item">WEB</li>
@@ -19,6 +19,9 @@ class Home extends Component {
                         <li className="menu-item">PYTON</li>
                         <li className="menu-item">JAVA</li>
                     </ul>
+                </div>
+                <div className="banner">
+                    <img src="images/banner_small.jpg" alt=""/>
                 </div>
                 <div className="content">
                     <div className="article-list">
