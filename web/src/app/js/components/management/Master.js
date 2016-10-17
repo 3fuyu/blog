@@ -171,7 +171,7 @@ class Master extends Component {
         }
 
         return (
-            <div className="test-master">
+            <div>
                 <Title render="3fuyu's blog"/>
                 <AppBar
                     onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
@@ -187,7 +187,7 @@ class Master extends Component {
                     showMenuIconButton={showMenuIconButton}
                 />
                 {title !== '' ?
-                    <div style={prepareStyles(styles.root)} className="test-content1">
+                    <div style={prepareStyles(styles.root)} >
                         <div className="test-content2">
                             {React.cloneElement(children, {
                                 onChangeMuiTheme: this.handleChangeMuiTheme,

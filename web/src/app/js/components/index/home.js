@@ -2,11 +2,21 @@
  * Created by 3fuyu on 2016/10/13.
  */
 
-import {Component} from "react";
+import {Component} from 'react';
 import "../../../css/base.less";
 import "../../../css/home.less";
+import DataService from '../../service/DataService';
 
 class Home extends Component {
+
+    state = {
+        articleList: []
+    };
+
+    componentWillMount() {
+        this.getData();
+    }
+
     componentDidMount() {
         this.navAnimation();
     }
@@ -88,11 +98,21 @@ class Home extends Component {
         }
     }
 
+    getData () {
+        let t = this;
+
+        DataService.queryArticalList().then(function (data) {
+            t.setState({
+                articleList: data
+            });
+        });
+    }
+
     render() {
         return (
             <div id="home">
                 <div className="head">
-                    <span className="menu-logo"><img src="images/logo_test.png" alt="" className="logo"/></span>
+                    <span className="menu-logo"><img src="images/logo.png" alt="" className="logo"/></span>
                     <ul className="menu-list">
                         <li className="menu-item">HOME</li>
                         <li className="menu-item">WEB</li>
@@ -104,136 +124,42 @@ class Home extends Component {
                 <div className="banner">
                     <img src="images/banner_small.jpg" alt=""/>
                 </div>
+                <div className="category">
+                    <ul className="category-list">
+                        <li className="category-item">分类目录</li>
+                        <li className="category-item">javascript</li>
+                        <li className="category-item">java</li>
+                        <li className="category-item">python</li>
+                        <li className="category-item">mongodb</li>
+                        <li className="category-item">nodejs</li>
+                    </ul>
+                </div>
                 <div className="content">
                     <div className="article-list">
-                        <div className="article-item">
-                            <div className="item-banner">
-                                <img src="images/blackbord.png" alt=""/>
-                            </div>
-                            <div className="item-title">
-                                <span>让一切可见–视觉设计师如何运用“体验地图”工具</span>
-                            </div>
-                            <div className="item-footer">
-                                <div className="author">作者： 3fuyu</div>
-                                <div className="count">
-                                    <ul className="count-list">
-                                        <li className="count-item count-one">295</li>
-                                        <li className="count-item count-two">30</li>
-                                        <li className="count-item count-three">2</li>
-                                    </ul>
+                        {this.state.articleList.map( (value, key) => (
+                            <div className="article-item" key={key}>
+                                <div className="item-banner">
+                                    <img src="images/blackbord.png" alt=""/>
+                                </div>
+                                <div className="item-title">
+                                    <span>{value.postTitle}</span>
+                                </div>
+                                <div className="item-footer">
+                                    <div className="author">作者： {value.postAuthor}</div>
+                                    <div className="count">
+                                        <ul className="count-list">
+                                            <li className="count-item count-one">295</li>
+                                            <li className="count-item count-two">30</li>
+                                            <li className="count-item count-three">2</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="article-item">
-                            <div className="item-banner">
-                                <img src="images/blackbord.png" alt=""/>
-                            </div>
-                            <div className="item-title">
-                                <span>让一切可见–视觉设计师如何运用“体验地图”工具</span>
-                            </div>
-                            <div className="item-footer">
-                                <div className="author">作者： 3fuyu</div>
-                                <div className="count">
-                                    <ul className="count-list">
-                                        <li className="count-item count-one">295</li>
-                                        <li className="count-item count-two">30</li>
-                                        <li className="count-item count-three">2</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="article-item">
-                            <div className="item-banner">
-                                <img src="images/blackbord.png" alt=""/>
-                            </div>
-                            <div className="item-title">
-                                <span>让一切可见–视觉设计师如何运用“体验地图”工具</span>
-                            </div>
-                            <div className="item-footer">
-                                <div className="author">作者： 3fuyu</div>
-                                <div className="count">
-                                    <ul className="count-list">
-                                        <li className="count-item count-one">295</li>
-                                        <li className="count-item count-two">30</li>
-                                        <li className="count-item count-three">2</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="article-item">
-                            <div className="item-banner">
-                                <img src="images/blackbord.png" alt=""/>
-                            </div>
-                            <div className="item-title">
-                                <span>让一切可见–视觉设计师如何运用“体验地图”工具</span>
-                            </div>
-                            <div className="item-footer">
-                                <div className="author">作者： 3fuyu</div>
-                                <div className="count">
-                                    <ul className="count-list">
-                                        <li className="count-item count-one">295</li>
-                                        <li className="count-item count-two">30</li>
-                                        <li className="count-item count-three">2</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="article-item">
-                            <div className="item-banner">
-                                <img src="images/blackbord.png" alt=""/>
-                            </div>
-                            <div className="item-title">
-                                <span>让一切可见–视觉设计师如何运用“体验地图”工具</span>
-                            </div>
-                            <div className="item-footer">
-                                <div className="author">作者： 3fuyu</div>
-                                <div className="count">
-                                    <ul className="count-list">
-                                        <li className="count-item count-one">295</li>
-                                        <li className="count-item count-two">30</li>
-                                        <li className="count-item count-three">2</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="article-item">
-                            <div className="item-banner">
-                                <img src="images/blackbord.png" alt=""/>
-                            </div>
-                            <div className="item-title">
-                                <span>让一切可见–视觉设计师如何运用“体验地图”工具</span>
-                            </div>
-                            <div className="item-footer">
-                                <div className="author">作者： 3fuyu</div>
-                                <div className="count">
-                                    <ul className="count-list">
-                                        <li className="count-item count-one">295</li>
-                                        <li className="count-item count-two">30</li>
-                                        <li className="count-item count-three">2</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="article-item">
-                            <div className="item-banner">
-                                <img src="images/blackbord.png" alt=""/>
-                            </div>
-                            <div className="item-title">
-                                <span>让一切可见–视觉设计师如何运用“体验地图”工具</span>
-                            </div>
-                            <div className="item-footer">
-                                <div className="author">作者： 3fuyu</div>
-                                <div className="count">
-                                    <ul className="count-list">
-                                        <li className="count-item count-one">295</li>
-                                        <li className="count-item count-two">30</li>
-                                        <li className="count-item count-three">2</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
+                        ))}
                     </div>
+                </div>
+                <div className="footer">
+                    <div>made by 3fuyu</div>
                 </div>
             </div>
         );
