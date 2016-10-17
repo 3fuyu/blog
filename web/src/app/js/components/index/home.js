@@ -16,8 +16,8 @@ class Home extends Component {
             console.log('滚动已移除');
         });
 
-        if (document.addEventListener) {
-            window.addEventListener.removeEventListener('DOMMouseScroll', function () {
+        if (document.removeEventListener) {
+            window.removeEventListener('DOMMouseScroll', function () {
                 console.log('监听上下滚动已移除');
             }, false);
         }
