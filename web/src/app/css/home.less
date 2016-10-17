@@ -1,12 +1,16 @@
 #home {
     background-color: #f9f9f9;
-    .head-move {
+    .head {
         position: fixed;
+        top: 0;
+        z-index: 999;
         width: 100%;
         display: flex;
         align-items: center;
         height: 90px;
         background: none;
+        -webkit-transition: all .4s;
+        transition: all .4s;
         .menu-logo {
             display: flex;
             width: 100px;
@@ -33,12 +37,18 @@
             }
         }
     }
-    .head {
+    .head-move {
+        position: fixed;
+        top: 0;
+        width: 100%;
         display: flex;
         align-items: center;
         height: 90px;
         background-color: #fff;
-        box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;;
+        box-shadow: rgba(0, 0, 0, 0.156863) 0 2px 10px, rgba(0, 0, 0, 0.156863) 0 2px 2px;
+        -webkit-transition: all .6s;
+        transition: all .6s;
+        opacity: .98;
         .menu-logo {
             display: flex;
             width: 100px;
@@ -64,6 +74,9 @@
                 background-color: rgba(0, 0, 0, 0.0980392);
             }
         }
+    }
+    .head-hide {
+        margin-top: -90px;
     }
     .banner {
         img {
