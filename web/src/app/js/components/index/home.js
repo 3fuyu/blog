@@ -2,10 +2,11 @@
  * Created by 3fuyu on 2016/10/13.
  */
 
-import {Component} from 'react';
+import {Component} from "react";
 import "../../../css/base.less";
 import "../../../css/home.less";
-import DataService from '../../service/DataService';
+import moment from "moment";
+import DataService from "../../service/DataService";
 
 class Home extends Component {
 
@@ -98,7 +99,7 @@ class Home extends Component {
         }
     }
 
-    getData () {
+    getData() {
         let t = this;
 
         DataService.queryArticalList().then(function (data) {
@@ -106,6 +107,21 @@ class Home extends Component {
                 articleList: data
             });
         });
+    }
+
+    categoryBackUp() {
+        return (
+            <div className="category">
+                <ul className="category-list">
+                    <li className="category-item">分类目录</li>
+                    <li className="category-item">javascript</li>
+                    <li className="category-item">java</li>
+                    <li className="category-item">python</li>
+                    <li className="category-item">mongodb</li>
+                    <li className="category-item">nodejs</li>
+                </ul>
+            </div>
+        )
     }
 
     render() {
@@ -117,40 +133,39 @@ class Home extends Component {
                         <li className="menu-item">HOME</li>
                         <li className="menu-item">WEB</li>
                         <li className="menu-item">UBUNTU</li>
-                        <li className="menu-item">PYTON</li>
+                        <li className="menu-item">PYTHON</li>
                         <li className="menu-item">JAVA</li>
                     </ul>
                 </div>
                 <div className="banner">
                     <img src="images/banner_small.jpg" alt=""/>
                 </div>
-                <div className="category">
-                    <ul className="category-list">
-                        <li className="category-item">分类目录</li>
-                        <li className="category-item">javascript</li>
-                        <li className="category-item">java</li>
-                        <li className="category-item">python</li>
-                        <li className="category-item">mongodb</li>
-                        <li className="category-item">nodejs</li>
-                    </ul>
-                </div>
+
                 <div className="content">
                     <div className="article-list">
-                        {this.state.articleList.map( (value, key) => (
+                        {this.state.articleList.map((value, key) => (
                             <div className="article-item" key={key}>
-                                <div className="item-banner">
-                                    <img src="images/blackbord.png" alt=""/>
-                                </div>
                                 <div className="item-title">
                                     <span>{value.postTitle}</span>
                                 </div>
+                                <div className="item-content">
+                                    <div>{value.postContent.substring(0, 300)}
+                                        <span className="item-content-more">
+                                            <i className="iconfont icon-pullright"></i>
+                                        </span>
+                                    </div>
+                                </div>
                                 <div className="item-footer">
-                                    <div className="author">作者： {value.postAuthor}</div>
+                                    <div className="author">
+                                        <img src="images/logo_small.jpg" alt=""/>
+                                        <div className="author-name">{value.postAuthor}</div>
+                                        <div className="article-time">{moment(value.postDate).format('YY-MM-DD')}</div>
+                                    </div>
                                     <div className="count">
                                         <ul className="count-list">
-                                            <li className="count-item count-one">295</li>
-                                            <li className="count-item count-two">30</li>
-                                            <li className="count-item count-three">2</li>
+                                            <li className="count-item count-one">234</li>
+                                            <li className="count-item count-two">44</li>
+                                            <li className="count-item count-three">22</li>
                                         </ul>
                                     </div>
                                 </div>
