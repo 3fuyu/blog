@@ -10,10 +10,13 @@ var server = require('http').createServer(function (req, res) {
     var host = req.headers.host;
     switch (host) {
         case 'www.3fuyu.com':
-            proxy.web(req, res, {target: 'http://3fuyu.com:8081'});
+            proxy.web(req, res, {target: 'http://3fuyu.com:8080'});
             break;
         case '3fuyu.com':
-            proxy.web(req, res, {target: 'http://3fuyu.com:8081'});
+            proxy.web(req, res, {target: 'http://3fuyu.com:8080'});
+            break;
+        case '120.25.92.21':
+            proxy.web(req, res, {target: '120.25.92.21:8080'});
             break;
         default:
             res.writeHead(200, {
