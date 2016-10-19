@@ -134,7 +134,7 @@ class Home extends Component {
             month = date.getMonth() + 1,
             day = date.getDate(),
             id = value.id,
-            hash = 'article/' + year + '/' + month + '/' + day + '/' + id;
+            hash = 'article/' + year + '/' + month + '/' + day + '/' + id; //详情页路由规则， 年/月/日/id
 
         this.context.router.push(hash);
     }
