@@ -1,10 +1,11 @@
-import React from "react";
-import {Route, Redirect, IndexRoute} from "react-router";
+import React from 'react';
+import {Route, Redirect, IndexRoute} from 'react-router';
 import Master from '../app/js/components/management/Master';
-import Login from "../app/js/components/management/login";
-import Home from "../app/js/components/index/home";
-import NewArticle from "../app/js/components/management/newArticle";
-import ArticleList from "../app/js/components/management/ArticleList";
+import Login from '../app/js/components/management/Login';
+import Home from '../app/js/components/index/Home';
+import ArticleDetail from '../app/js/components/index/ArticleDetail';
+import NewArticle from '../app/js/components/management/NewArticle';
+import ArticleList from '../app/js/components/management/ArticleList';
 
 
 // Here we define all our material-ui ReactComponents.
@@ -27,6 +28,7 @@ const AppRoutes = (
             <Route path="new-article" component={NewArticle}/>
             <Route path="article-list" component={ArticleList}/>
         </Route>
+        <Route path="article/:year/:month/:day/:id" component={ArticleDetail}></Route>
     </Route>
 );
 

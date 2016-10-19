@@ -2,7 +2,7 @@
  * Created by 3fuyu on 2016/10/13.
  */
 
-import {Component} from "react";
+import {Component, PropTypes} from "react";
 import "../../../css/base.less";
 import "../../../css/home.less";
 import moment from "moment";
@@ -12,6 +12,10 @@ class Home extends Component {
 
     state = {
         articleList: []
+    };
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired,
     };
 
     componentWillMount() {
@@ -124,6 +128,17 @@ class Home extends Component {
         )
     }
 
+    goDetail(value) {
+        let date = new Date(value.postDate),
+            year = date.getFullYear(),
+            month = date.getMonth() + 1,
+            day = date.getDate(),
+            id = value.id,
+            hash = 'article/' + year + '/' + month + '/' + day + '/' + id;
+
+        this.context.router.push(hash);
+    }
+
     render() {
         return (
             <div id="home">
@@ -144,7 +159,7 @@ class Home extends Component {
                 <div className="content">
                     <div className="article-list">
                         {this.state.articleList.map((value, key) => (
-                            <div className="article-item" key={key}>
+                            <div className="article-item" key={key} onClick={() => this.goDetail(value)}>
                                 <div className="item-title">
                                     <span>{value.postTitle}</span>
                                 </div>
@@ -163,9 +178,9 @@ class Home extends Component {
                                     </div>
                                     <div className="count">
                                         <ul className="count-list">
-                                            <li className="count-item count-one">234</li>
-                                            <li className="count-item count-two">44</li>
-                                            <li className="count-item count-three">22</li>
+                                            <li className="count-item count-one"></li>
+                                            <li className="count-item count-two"></li>
+                                            <li className="count-item count-three"></li>
                                         </ul>
                                     </div>
                                 </div>
