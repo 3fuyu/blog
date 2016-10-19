@@ -11,8 +11,8 @@ require('babel-polyfill');
 
 var dataService = {};
 
-// var baseUrl = '120.25.92.21:8081/api/';
-var baseUrl = 'http://localhost:8081/api/';
+var host = window.location.host;
+var baseUrl = 'http://' + host + '/api/';
 
 function prepend(prefix, name, separator) {
     if (prefix) {
