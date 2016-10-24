@@ -3,11 +3,34 @@
  */
 
 import {Component} from 'react';
+import DataServicce from '../../service/DataService';
+import Login from '../management/Login';
 
 class ArticleDetail extends Component {
+
+    state = {
+        articleObj: {}
+    };
+
+    componentWillMount () {
+        let t = this,
+            id = this.props.params.id;
+
+        DataServicce.getArticalDetail({
+            id: id
+        }).then(function (data) {
+
+            console.log(data);
+        });
+    }
+
     render () {
         return (
-            <div>test</div>
+            <div>
+                <div>test</div>
+                <Login params = {this.props.params}/>
+            </div>
+
         );
     }
 }
