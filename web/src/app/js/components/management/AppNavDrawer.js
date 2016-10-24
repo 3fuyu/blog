@@ -44,21 +44,7 @@ class AppNavDrawer extends Component {
     };
 
     componentDidMount() {
-        // const self = this;
-        // const url = '/versions.json';
-        // const request = new XMLHttpRequest();
-        //
-        // request.onreadystatechange = function () {
-        //     if (request.readyState === 4 && request.status === 200) {
-        //         self.setState({
-        //             muiVersions: JSON.parse(request.responseText),
-        //             version: JSON.parse(request.responseText)[0],
-        //         });
-        //     }
-        // };
-        //
-        // request.open('GET', url, true);
-        // request.send();
+
     }
 
     render() {

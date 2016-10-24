@@ -118,8 +118,18 @@ function post(url, params) {
 function get(url, params) {
 
     var promise = new Promise(function (resolve, reject) {
+        console.log(params);
+        let para = '';
+        if (params) {
+            para = '?';
+            _.each(params, function (value, key) {
+                para += key + '=' + value + '&';
+            });
+        }
+        para = para.slice(0, para.length - 1);
+
         request
-            .get(baseUrl + url)
+            .get(baseUrl + url + para)
             .type('form')
             .send(toFlattenMap(params))
             .end(function (err, res) {
@@ -155,16 +165,25 @@ function processPromise(promise, url) {
     });
 }
 
-dataService.postNew = function (params) {
-    return post('artical/postNew', params);
+// 后台管理
+dataService.adminPostNew = function (params) {
+    return post('admin/artical/postNew', params);
 };
 
-dataService.queryArticalList = function (params) {
-    return get('artical/queryList', params);
+dataService.adminQueryArticalList = function (params) {
+    return get('admin/artical/queryList', params);
 };
 
 dataService.login = function (params) {
-    return post('user/login', params);
+    return post('admin/user/login', params);
+};
+
+// 前端用户
+dataService.queryArticalList = function (params) {
+    return get('artical/queryList', params);
+};
+dataService.getArticalDetail = function (params) {
+    return get('artical/getDetail', params);
 };
 
 module.exports = dataService;

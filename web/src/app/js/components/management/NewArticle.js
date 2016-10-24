@@ -48,7 +48,7 @@ class NewArticle extends Component {
 
     submit () {
         const t = this;
-        DataService.postNew({
+        DataService.adminPostNew({
             title: t.state.title,
             content: t.refs.articleContent.value
         }).then(function (data) {
