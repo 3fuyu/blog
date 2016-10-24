@@ -1,8 +1,8 @@
 "use strict";
 
-var baseRoute = '/user';
-var usersModel = require('../../../models/management/user/users');
-var Tools = require('../../../tools/tools');
+var baseRoute = 'admin/user';
+var usersModel = require('../../models/management/user/users');
+var Tools = require('../../tools/tools');
 
 var userApis = [{
 

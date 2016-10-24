@@ -1,11 +1,11 @@
 "use strict";
 
 var express = require('express');
-var postsModel = require('../../../models/management/artical/posts');
-var keyMapsModel = require('../../../models/key_maps');
-var Tools = require('../../../tools/tools');
+var postsModel = require('../../models/management/artical/posts');
+var keyMapsModel = require('../../models/key_maps');
+var Tools = require('../../tools/tools');
 
-var baseRoute = '/artical';
+var baseRoute = 'admin/artical';
 
 var postApis = [{
 
