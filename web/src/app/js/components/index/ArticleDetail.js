@@ -35,7 +35,7 @@ class ArticleDetail extends Component {
                     <div className="article-title">{this.state.articleObj.postTitle}</div>
 
                     <div className="article-date">
-                        {moment(this.state.articleObj.postDate).format('YYYY-MM-DD')}
+                        {moment(this.state.articleObj.postDate).format('MMMM Do YYYY')}
                     </div>
 
                     <div dangerouslySetInnerHTML={{__html: this.state.articleObj.postMdContent}}

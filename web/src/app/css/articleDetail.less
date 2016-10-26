@@ -1,24 +1,47 @@
 #article-detail {
     display: flex;
-    justify-content: space-between;
 
     .article-main {
-        flex-grow: 2;
-        margin: 150px 50px 150px 150px;
+        flex: 1;
+        margin: 150px 50px 50px 150px;
         .article-title {
             font-size: 50px;
+            line-height: 50px;
             margin-bottom: 10px;
         }
         .article-date {
+            font-size: 14px;
             margin-bottom: 40px;
             color: #9EABB3;
         }
         .article-content {
+            overflow: auto;
+            ul {
+                margin: 30px 0 30px 62px;
+                li {
+
+                }
+                li::before {
+                    content: "";
+                    display: block;
+                    position: relative;
+                    top: 18px;
+                    left: -20px;
+                    width: 6px;
+                    height: 6px;
+                    background: #767688;
+                    -moz-border-radius: 50px;
+                    -webkit-border-radius: 50px;
+                    border-radius: 50px;
+                }
+
+            }
+
             line-height: 2;
         }
     }
     .article-sidebar {
-        width: 400px;
+        width: 300px;
         background-color: yellow;
     }
 }
