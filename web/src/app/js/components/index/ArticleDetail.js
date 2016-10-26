@@ -4,7 +4,10 @@
 
 import {Component} from 'react';
 import DataServicce from '../../service/DataService';
-import Login from '../management/Login';
+import moment from 'moment';
+
+import '../../../css/articleDetail.less';
+
 
 class ArticleDetail extends Component {
 
@@ -12,23 +15,36 @@ class ArticleDetail extends Component {
         articleObj: {}
     };
 
-    componentWillMount () {
+    componentWillMount() {
         let t = this,
             id = this.props.params.id;
 
-        DataServicce.getArticalDetail({
+        DataServicce.getArticleDetail({
             id: id
         }).then(function (data) {
-
-            console.log(data);
+            t.setState({
+                articleObj: data
+            });
         });
     }
 
-    render () {
+    render() {
         return (
-            <div>
-                <div>test</div>
-                <Login params = {this.props.params}/>
+            <div id="article-detail">
+                <div className="article-main">
+                    <div className="article-title">{this.state.articleObj.postTitle}</div>
+
+                    <div className="article-date">
+                        {moment(this.state.articleObj.postDate).format('YYYY-MM-DD')}
+                    </div>
+
+                    <div dangerouslySetInnerHTML={{__html: this.state.articleObj.postMdContent}}
+                         className="article-content"></div>
+                </div>
+                <div className="article-sidebar">
+
+                </div>
+
             </div>
 
         );

@@ -1,10 +1,10 @@
 "use strict";
 
 var express = require('express');
-var postsModel = require('../../models/management/artical/posts');
+var postsModel = require('../../models/management/article/posts');
 var Tools = require('../../tools/tools');
 
-var baseRoute = '/artical';
+var baseRoute = '/article';
 
 var postApis = [{
 
@@ -12,7 +12,6 @@ var postApis = [{
     type: 'get',
     url: baseRoute + '/getDetail',
     success: function (req, res, next) {
-        console.log(req);
         postsModel
         .find({'_id': req.query.id})
         .sort({'post_date': 'desc'})
@@ -20,7 +19,7 @@ var postApis = [{
             res.send({
                 code: 200,
                 description: 'success',
-                data: Tools.para2camel(data)
+                data: Tools.para2camel(data)[0]
             });
         });
     }

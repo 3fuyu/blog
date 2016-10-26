@@ -106,7 +106,7 @@ class Home extends Component {
     getData() {
         let t = this;
 
-        DataService.queryArticalList().then(function (data) {
+        DataService.queryArticleList().then(function (data) {
             t.setState({
                 articleList: data
             });

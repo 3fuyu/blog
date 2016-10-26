@@ -61,7 +61,7 @@ class ArticleList extends Component {
     componentWillMount() {
         let t = this;
 
-        DataService.adminQueryArticalList().then(function (data) {
+        DataService.adminQueryArticleList().then(function (data) {
             t.setState({
                 tableData: data
             });

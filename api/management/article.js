@@ -1,13 +1,14 @@
 "use strict";
 
-var express = require('express');
-var postsModel = require('../../models/management/artical/posts');
-var keyMapsModel = require('../../models/key_maps');
-var Tools = require('../../tools/tools');
+let express = require('express');
+let postsModel = require('../../models/management/article/posts');
+let keyMapsModel = require('../../models/key_maps');
+let Tools = require('../../tools/tools');
+let MD = require('marked');
 
-var baseRoute = 'admin/artical';
+let baseRoute = '/admin/article';
 
-var postApis = [{
+let postApis = [{
 
     // 发布文章
     type: 'post',
@@ -38,6 +39,7 @@ var postApis = [{
                 let postEntity = new postsModel({
                     post_author: '3fuyu',
                     post_content: req.body.content,
+                    post_md_content: MD(req.body.content),
                     post_title: req.body.title,
                     post_date: +new Date(),
                     _id: max_id

@@ -167,11 +167,11 @@ function processPromise(promise, url) {
 
 // 后台管理
 dataService.adminPostNew = function (params) {
-    return post('admin/artical/postNew', params);
+    return post('admin/article/postNew', params);
 };
 
-dataService.adminQueryArticalList = function (params) {
-    return get('admin/artical/queryList', params);
+dataService.adminQueryArticleList = function (params) {
+    return get('admin/article/queryList', params);
 };
 
 dataService.login = function (params) {
@@ -179,11 +179,11 @@ dataService.login = function (params) {
 };
 
 // 前端用户
-dataService.queryArticalList = function (params) {
-    return get('artical/queryList', params);
+dataService.queryArticleList = function (params) {
+    return get('article/queryList', params);
 };
-dataService.getArticalDetail = function (params) {
-    return get('artical/getDetail', params);
+dataService.getArticleDetail = function (params) {
+    return get('article/getDetail', params);
 };
 
 module.exports = dataService;

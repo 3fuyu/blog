@@ -20,6 +20,10 @@ var postsSchema = new Schema({
         type: 'String',
         required: [true, '请输入内容']
     },
+    "post_md_content": {
+        type: 'String',
+        required: [true, '请输入内容']
+    },
     "post_title": {
         type: 'String',
         required: [true, '请输入标题']
