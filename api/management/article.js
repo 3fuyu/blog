@@ -5,6 +5,7 @@ let postsModel = require('../../models/management/article/posts');
 let keyMapsModel = require('../../models/key_maps');
 let Tools = require('../../tools/tools');
 let MD = require('marked');
+let hljs = require('../../node_modules/highlight/highlight');
 
 let baseRoute = '/admin/article';
 
@@ -15,6 +16,22 @@ let postApis = [{
     url: baseRoute + '/postNew',
     success: function (req, res, next) {
         let max_id = 1;
+        MD.setOptions({
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: true, // if false -> allow plain old HTML ;)
+            smartLists: true,
+            smartypants: false,
+            highlight: function (code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    return hljs.highlight(lang, code, true).value;
+                } else {
+                    return hljs.highlightAuto(code).value;
+                }
+            }
+        });
 
         keyMapsModel.find({post_map_key: true}, function (err, docs) {
             if (err) {
