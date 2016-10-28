@@ -28,6 +28,7 @@ let postApis = [{
                 if (lang && hljs.getLanguage(lang)) {
                     return hljs.highlight(lang, code, true).value;
                 } else {
+                console.log(hljs.highlightAuto(code).value);
                     return hljs.highlightAuto(code).value;
                 }
             }
