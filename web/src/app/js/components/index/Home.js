@@ -161,7 +161,7 @@ class Home extends Component {
                         {this.state.articleList.map((value, key) => (
                             <div className="article-item" key={key} onClick={() => this.goDetail(value)}>
                                 <div className="item-title">
-                                    <span>{value.postTitle}</span>
+                                    <h2>{value.postTitle}</h2>
                                 </div>
                                 <div className="item-content">
                                     <div>{value.postContent.substring(0, 300)}
@@ -174,7 +174,7 @@ class Home extends Component {
                                     <div className="author">
                                         <img src="images/logo_small.jpg" alt=""/>
                                         <div className="author-name">{value.postAuthor}</div>
-                                        <div className="article-time">{moment(value.postDate).format('YY-MM-DD')}</div>
+                                        <div className="article-time">{moment(value.postDate).format('MMMM Do YYYY')}</div>
                                     </div>
                                     <div className="count">
                                         <ul className="count-list">
