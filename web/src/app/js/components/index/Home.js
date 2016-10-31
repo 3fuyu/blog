@@ -7,6 +7,7 @@ import "../../../css/base.less";
 import "../../../css/home.less";
 import moment from "moment";
 import DataService from "../../service/DataService";
+import IconButton from "../../../../../node_modules/material-ui/IconButton";
 
 class Home extends Component {
 
@@ -20,6 +21,8 @@ class Home extends Component {
 
     componentWillMount() {
         this.getData();
+        // 先隐藏页面
+        $('body').css({display: 'none'});
     }
 
     componentDidMount() {
@@ -110,6 +113,9 @@ class Home extends Component {
             t.setState({
                 articleList: data
             });
+
+            // 列表加载完后显示页面
+            $('body').css({display: 'block'});
         });
     }
 
@@ -172,9 +178,10 @@ class Home extends Component {
                                 </div>
                                 <div className="item-footer">
                                     <div className="author">
-                                        <img src="images/logo_small.jpg" alt=""/>
+                                        <img src="images/3fuyu_small.jpg" alt=""/>
                                         <div className="author-name">{value.postAuthor}</div>
-                                        <div className="article-time">{moment(value.postDate).format('MMMM Do YYYY')}</div>
+                                        <div className="article-time">{moment(value.postDate)
+                                        .format('MMMM Do YYYY')}</div>
                                     </div>
                                     <div className="count">
                                         <ul className="count-list">
@@ -189,7 +196,20 @@ class Home extends Component {
                     </div>
                 </div>
                 <div className="footer">
-                    <div>made by 3fuyu</div>
+                    <div className="footer-content">
+                        <div>Remembering that you are going to die</div>
+                        <div>Stay Hungry Stay Foolish</div>
+                        <div className="footer-content-github">
+                            <IconButton
+                                iconClassName="muidocs-icon-custom-github"
+                                href="https://github.com/3fuyu"
+                            />
+                        </div>
+                        <div className="ICP">
+                            <img src="images/3fuyu_small.jpg" alt=""/>
+                            <span>Copyright © 2014 - {new Date().getFullYear()} ICP 16097049. All Rights Reserved. Powered By 3Fuyu.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

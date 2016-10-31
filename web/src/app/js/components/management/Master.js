@@ -180,7 +180,7 @@ class Master extends Component {
                     iconElementRight={
                         <IconButton
                           iconClassName="muidocs-icon-custom-github"
-                          href="https://github.com/callemall/material-ui"
+                          href="https://github.com/3fuyu"
                         />
                     }
                     style={styles.appBar}
