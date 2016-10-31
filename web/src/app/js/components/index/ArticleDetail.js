@@ -7,7 +7,7 @@ import DataServicce from '../../service/DataService';
 import moment from 'moment';
 
 import '../../../css/articleDetail.less';
-
+import '../../../../../node_modules/highlight.js/styles/github-gist.css';
 
 class ArticleDetail extends Component {
 
@@ -32,7 +32,7 @@ class ArticleDetail extends Component {
         return (
             <div id="article-detail">
                 <div className="article-main">
-                    <div className="article-title">{this.state.articleObj.postTitle}</div>
+                    <h1 className="article-title">{this.state.articleObj.postTitle}</h1>
 
                     <div className="article-date">
                         {moment(this.state.articleObj.postDate).format('MMMM Do YYYY')}

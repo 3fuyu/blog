@@ -5,7 +5,7 @@ let postsModel = require('../../models/management/article/posts');
 let keyMapsModel = require('../../models/key_maps');
 let Tools = require('../../tools/tools');
 let MD = require('marked');
-let hljs = require('../../node_modules/highlight/highlight');
+let hljs = require('highlight.js');
 
 let baseRoute = '/admin/article';
 
