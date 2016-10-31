@@ -13,7 +13,7 @@ var dataService = {};
 
 var host = window.location.host;
 var baseUrl = 'http://' + host + '/api/';
-var baseUrl = 'http://localhost:8080/api/';
+// var baseUrl = 'http://localhost:8080/api/';
 
 function prepend(prefix, name, separator) {
     if (prefix) {
