@@ -21,8 +21,6 @@ class Home extends Component {
 
     componentWillMount() {
         this.getData();
-        // 先隐藏页面
-        $('body').css({display: 'none'});
     }
 
     componentDidMount() {
@@ -113,9 +111,6 @@ class Home extends Component {
             t.setState({
                 articleList: data
             });
-
-            // 列表加载完后显示页面
-            $('body').css({display: 'block'});
         });
     }
 
