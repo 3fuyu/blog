@@ -149,7 +149,7 @@ class Home extends Component {
         return (
             <div id="home">
                 <div className="head">
-                    <span className="menu-logo"><img src="images/logo.png" alt="" className="logo"/></span>
+                    <span className="menu-logo"><img src="images/3fuyu.png" alt="" className="logo"/></span>
                     <ul className="menu-list">
                         <li className="menu-item">HOME</li>
                         <li className="menu-item">WEB</li>
