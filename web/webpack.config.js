@@ -44,6 +44,12 @@ const config = {
         new CopyWebpackPlugin([
             {from: 'src/www/index.html'},
         ]),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+        }),
+        new webpack.optimize.OccurenceOrderPlugin()
     ],
     module: {
         // Allow loading of non-es
