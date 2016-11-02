@@ -12,7 +12,12 @@ import IconButton from "../../../../../node_modules/material-ui/IconButton";
 class Home extends Component {
 
     state = {
-        articleList: []
+        articleList: [],
+        styles: {
+            footerStyle: {
+                display: 'none'
+            }
+        }
     };
 
     static contextTypes = {
@@ -107,11 +112,21 @@ class Home extends Component {
     getData() {
         let t = this;
 
-        DataService.queryArticleList().then(function (data) {
-            t.setState({
-                articleList: data
+        if (!t.listData) {
+            DataService.queryArticleList().then(function (data) {
+                t.listData = data;
+
+                t.setState({
+                    articleList: data,
+                    styles: {
+                        footerStyle: {
+                            display: 'block'
+                        }
+                    }
+                });
+
             });
-        });
+        }
     }
 
     categoryBackUp() {
@@ -190,7 +205,7 @@ class Home extends Component {
                         ))}
                     </div>
                 </div>
-                <div className="footer">
+                <div className="footer" style={this.state.styles.footerStyle}>
                     <div className="footer-content">
                         <div>Remembering that you are going to die</div>
                         <div>Stay Hungry Stay Foolish</div>
