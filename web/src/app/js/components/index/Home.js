@@ -2,12 +2,13 @@
  * Created by 3fuyu on 2016/10/13.
  */
 
-import {Component, PropTypes} from "react";
-import "../../../css/base.less";
-import "../../../css/home.less";
-import moment from "moment";
-import DataService from "../../service/DataService";
-import IconButton from "../../../../../node_modules/material-ui/IconButton";
+import {Component, PropTypes} from 'react';
+import '../../../css/base.less';
+import '../../../css/home.less';
+import moment from 'moment';
+import Loading from '../lib/Loading';
+import DataService from '../../service/DataService';
+import IconButton from '../../../../../node_modules/material-ui/IconButton';
 
 class Home extends Component {
 
@@ -156,6 +157,14 @@ class Home extends Component {
     }
 
     render() {
+        let contentStyle = {
+            display: this.listData ? 'flex' : 'none'
+        };
+
+        let loadingStyle = {
+            display: this.listData ? 'none' : 'flex'
+        };
+
         return (
             <div id="home">
                 <div className="head">
@@ -172,7 +181,9 @@ class Home extends Component {
                     <img src="images/banner_small.jpg" alt=""/>
                 </div>
 
-                <div className="content">
+                <Loading style={loadingStyle}/>
+
+                <div className="content" style={contentStyle}>
                     <div className="article-list">
                         {this.state.articleList.map((value, key) => (
                             <div className="article-item" key={key} onClick={() => this.goDetail(value)}>
@@ -191,7 +202,7 @@ class Home extends Component {
                                         <img src="images/3fuyu_small.jpg" alt=""/>
                                         <div className="author-name">{value.postAuthor}</div>
                                         <div className="article-time">{moment(value.postDate)
-                                        .format('MMMM Do YYYY')}</div>
+                                        .format("MMMM Do YYYY")}</div>
                                     </div>
                                     <div className="count">
                                         <ul className="count-list">
