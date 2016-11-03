@@ -3,10 +3,11 @@
  */
 "use strict";
 
-import React from 'react';
-import Snackbar from '../../../../node_modules/material-ui/Snackbar';
-import MuiThemeProvider from '../../../../node_modules/material-ui/styles/MuiThemeProvider';
-import {render} from 'react-dom';
+import React from "react";
+import {render} from "react-dom";
+import Snackbar from "../../../../node_modules/material-ui/Snackbar";
+import MuiThemeProvider from "../../../../node_modules/material-ui/styles/MuiThemeProvider";
+import Loading from "../components/lib/Loading";
 var _ = require('lodash');
 
 var FY = {};
@@ -157,7 +158,10 @@ confirmConfig.render = function () {
                     className="zl-dialog-title">{confirmConfig.title}</strong>
                 </div>
                 <div className="zl-dialog-bd"
-                     style={{display: confirmConfig.content ? 'block' : 'none', marginTop: confirmConfig.title ? '0' : '15px'}}>{confirmConfig.content}</div>
+                     style={{
+                         display: confirmConfig.content ? 'block' : 'none',
+                         marginTop: confirmConfig.title ? '0' : '15px'
+                     }}>{confirmConfig.content}</div>
                 <div className="zl-dialog-ft zl-box zl-box-horizontal zl-border zl-border-top">
                     <a href="javascript:void(0)" className="zl-btn-dialog" onClick={confirmConfig.cancel}>取消</a>
                     <a href="javascript:void(0)" className="zl-btn-dialog" onClick={confirmConfig.confirm}>确定</a>
@@ -244,10 +248,46 @@ string.isPhoneNum = function (str) {
     return str.match(/^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/) !== null || str.match(/^1\d{10}$/) !== null;
 }
 
+/***** new loading *****/
+let loadingContainer = '';
+let loadingTime = 0;
+let originContainer = '';
+
+let startLoading = function (container) {
+    $(container).after('<div class="loading"></div>');
+
+    loadingContainer = $(container).next('.loading')[0];
+    loadingTime = +new Date();
+    originContainer = $(container);
+
+    originContainer.hide();
+
+    render(<MuiThemeProvider>
+            <Loading/>
+        </MuiThemeProvider>,
+        loadingContainer);
+}
+
+let endLoading = function () {
+    loadingTime = +new Date() - loadingTime;
+
+    if (loadingTime < 1000) {
+        setTimeout(function () {
+            originContainer.show();
+            loadingContainer.remove();
+        }, 1000 - loadingTime);
+    } else {
+        originContainer.show();
+        loadingContainer.remove();
+    }
+}
+
 FY.moment = moment;
 FY.tips = tips;
 FY.confirm = confirm;
 FY.loading = loading;
 FY.string = string;
+FY.startLoading = startLoading;
+FY.endLoading = endLoading;
 
 module.exports = FY;

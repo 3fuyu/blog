@@ -23,7 +23,7 @@ class Loading extends Component {
         }
 
         return (
-            <div style={style}>
+            <div style={style} id="loading">
                 <div>
                     <CircularProgress />
                 </div>

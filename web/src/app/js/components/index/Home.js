@@ -2,6 +2,7 @@
  * Created by 3fuyu on 2016/10/13.
  */
 
+import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import '../../../css/base.less';
 import '../../../css/home.less';
@@ -9,6 +10,8 @@ import moment from 'moment';
 import Loading from '../lib/Loading';
 import DataService from '../../service/DataService';
 import IconButton from '../../../../../node_modules/material-ui/IconButton';
+
+import FYT from '../../service/FYToolService';
 
 class Home extends Component {
 
@@ -26,10 +29,10 @@ class Home extends Component {
     };
 
     componentWillMount() {
-        this.getData();
     }
 
     componentDidMount() {
+        this.getData();
         this.navAnimation();
     }
 
@@ -114,8 +117,10 @@ class Home extends Component {
         let t = this;
 
         if (!t.listData) {
+            FYT.startLoading(ReactDOM.findDOMNode(document.getElementsByClassName('content')[0]));
             DataService.queryArticleList().then(function (data) {
                 t.listData = data;
+                FYT.endLoading();
 
                 t.setState({
                     articleList: data,
@@ -157,13 +162,13 @@ class Home extends Component {
     }
 
     render() {
-        let contentStyle = {
-            display: this.listData ? 'flex' : 'none'
-        };
-
-        let loadingStyle = {
-            display: this.listData ? 'none' : 'flex'
-        };
+        // let contentStyle = {
+        //     display: this.listData ? 'flex' : 'none'
+        // };
+        //
+        // let loadingStyle = {
+        //     display: this.listData ? 'none' : 'flex'
+        // };
 
         return (
             <div id="home">
@@ -181,9 +186,7 @@ class Home extends Component {
                     <img src="images/banner_small.jpg" alt=""/>
                 </div>
 
-                <Loading style={loadingStyle}/>
-
-                <div className="content" style={contentStyle}>
+                <div className="content">
                     <div className="article-list">
                         {this.state.articleList.map((value, key) => (
                             <div className="article-item" key={key} onClick={() => this.goDetail(value)}>
