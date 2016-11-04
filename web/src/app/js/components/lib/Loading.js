@@ -12,7 +12,7 @@ class Loading extends Component {
             justifyContent: 'center',
             flexDirection: 'column',
             alignItems: 'center',
-            margin: '100px auto 800px'
+            margin: '200px auto 800px'
         }, this.props.style);
 
         let contentStyle = {
