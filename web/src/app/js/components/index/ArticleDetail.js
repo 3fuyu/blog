@@ -2,17 +2,17 @@
  * Created by 3fuyu on 2016/10/19.
  */
 
-import {Component} from 'react';
-import DataServicce from '../../service/DataService';
-import moment from 'moment';
-
-import '../../../css/articleDetail.less';
-import '../../../../../node_modules/highlight.js/styles/github-gist.css';
+import {Component} from "react";
+import DataServicce from "../../service/DataService";
+import moment from "moment";
+import "../../../css/articleDetail.less";
+import "../../../../../node_modules/highlight.js/styles/github-gist.css";
 
 class ArticleDetail extends Component {
 
     state = {
-        articleObj: {}
+        articleObj: {},
+        categorys: ['java', 'javascript', 'python', 'ruby', 'c', 'c++', 'c#', 'ObjectC', 'go']
     };
 
     componentWillMount() {
@@ -42,7 +42,16 @@ class ArticleDetail extends Component {
                          className="article-content"></div>
                 </div>
                 <div className="article-sidebar">
-
+                    <div className="article-sidebar-category">
+                        分类标签
+                    </div>
+                    <div className="article-sidebar-category-list">
+                        {this.state.categorys.map(function (value, key) {
+                            return (
+                                <div key={key} className="category-item">{value}</div>
+                            );
+                        })}
+                    </div>
                 </div>
 
             </div>
