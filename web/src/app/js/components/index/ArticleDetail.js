@@ -42,13 +42,13 @@ class ArticleDetail extends Component {
                          className="article-content"></div>
                 </div>
                 <div className="article-sidebar">
-                    <div className="article-sidebar-category">
-                        分类标签
+                    <div className="article-sidebar-tag">
+                        标签
                     </div>
-                    <div className="article-sidebar-category-list">
+                    <div className="article-sidebar-tag-list">
                         {this.state.categorys.map(function (value, key) {
                             return (
-                                <div key={key} className="category-item">{value}</div>
+                                <div key={key} className="tag-item">{value}</div>
                             );
                         })}
                     </div>
