@@ -2,16 +2,14 @@
  * Created by 3fuyu on 2016/10/13.
  */
 
-import ReactDOM from 'react-dom';
-import {Component, PropTypes} from 'react';
-import '../../../css/base.less';
-import '../../../css/home.less';
-import moment from 'moment';
-import Loading from '../lib/Loading';
-import DataService from '../../service/DataService';
-import IconButton from '../../../../../node_modules/material-ui/IconButton';
-
-import FYT from '../../service/FYToolService';
+import ReactDOM from "react-dom";
+import {Component, PropTypes} from "react";
+import "../../../css/base.less";
+import "../../../css/home.less";
+import moment from "moment";
+import DataService from "../../service/DataService";
+import IconButton from "../../../../../node_modules/material-ui/IconButton";
+import FYT from "../../service/FYToolService";
 
 class Home extends Component {
 
@@ -119,7 +117,7 @@ class Home extends Component {
         if (!t.listData) {
             FYT.startLoading(ReactDOM.findDOMNode(document.getElementsByClassName('content')[0]));
             DataService.queryArticleList().then(function (data) {
-                t.listData = data;
+                t.listData = t.processData(data);
                 FYT.endLoading();
 
                 t.setState({
@@ -133,6 +131,9 @@ class Home extends Component {
 
             });
         }
+    }
+
+    processData(data) {// TODO 截取字符
     }
 
     categoryBackUp() {
@@ -162,13 +163,6 @@ class Home extends Component {
     }
 
     render() {
-        // let contentStyle = {
-        //     display: this.listData ? 'flex' : 'none'
-        // };
-        //
-        // let loadingStyle = {
-        //     display: this.listData ? 'none' : 'flex'
-        // };
 
         return (
             <div id="home">
@@ -194,11 +188,11 @@ class Home extends Component {
                                     <h2>{value.postTitle}</h2>
                                 </div>
                                 <div className="item-content">
-                                    <div>{value.postContent.substring(0, 300)}
-                                        <span className="item-content-more">
-                                            <i className="iconfont icon-pullright"></i>
-                                        </span>
-                                    </div>
+                                    <div dangerouslySetInnerHTML={{__html: value.postMdContent}}
+                                         className="article-content"></div>
+                                    <span className="item-content-more">
+                                        <i className="iconfont icon-pullright"></i>
+                                    </span>
                                 </div>
                                 <div className="item-footer">
                                     <div className="author">
