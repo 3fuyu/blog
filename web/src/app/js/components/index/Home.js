@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import {Component, PropTypes} from "react";
 import "../../../css/base.less";
 import "../../../css/home.less";
+import "../../../css/markdown.less";
 import moment from "moment";
 import DataService from "../../service/DataService";
 import IconButton from "../../../../../node_modules/material-ui/IconButton";
@@ -117,7 +118,6 @@ class Home extends Component {
         if (!t.listData) {
             FYT.startLoading(ReactDOM.findDOMNode(document.getElementsByClassName('content')[0]));
             DataService.queryArticleList().then(function (data) {
-                t.listData = t.processData(data);
                 FYT.endLoading();
 
                 t.setState({
@@ -131,9 +131,6 @@ class Home extends Component {
 
             });
         }
-    }
-
-    processData(data) {// TODO 截取字符
     }
 
     categoryBackUp() {
@@ -188,8 +185,10 @@ class Home extends Component {
                                     <h2>{value.postTitle}</h2>
                                 </div>
                                 <div className="item-content">
-                                    <div dangerouslySetInnerHTML={{__html: value.postMdContent}}
-                                         className="article-content"></div>
+                                    <div dangerouslySetInnerHTML={{__html: value.postMdContent
+                                        ? value.postMdContent.substring(0, 500) : value.postContent}}
+                                         className="article-content">
+                                    </div>
                                     <span className="item-content-more">
                                         <i className="iconfont icon-pullright"></i>
                                     </span>
