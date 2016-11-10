@@ -128,7 +128,6 @@ class Home extends Component {
                         }
                     }
                 });
-
             });
         }
     }
@@ -156,7 +155,7 @@ class Home extends Component {
             id = value.id,
             hash = 'article/' + year + '/' + month + '/' + day + '/' + id; //详情页路由规则， 年/月/日/id
 
-        this.context.router.push(hash);
+        window.open('http://' + window.location.host + this.context.router.createHref(hash));
     }
 
     render() {
@@ -185,11 +184,14 @@ class Home extends Component {
                                     <h2>{value.postTitle}</h2>
                                 </div>
                                 <div className="item-content">
-                                    <div dangerouslySetInnerHTML={{__html: value.postMdContent
-                                        ? value.postMdContent.substring(0, 500) : value.postContent}}
+                                    <div dangerouslySetInnerHTML={{
+                                        __html: value.postMdContent
+                                            ? value.postMdContent.substring(0, 500) : value.postContent
+                                    }}
                                          className="article-content">
                                     </div>
                                     <span className="item-content-more">
+                                        read more
                                         <i className="iconfont icon-pullright"></i>
                                     </span>
                                 </div>
