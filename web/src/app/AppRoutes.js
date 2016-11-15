@@ -6,6 +6,7 @@ import Home from '../app/js/components/index/Home';
 import ArticleDetail from '../app/js/components/index/ArticleDetail';
 import NewArticle from '../app/js/components/management/NewArticle';
 import ArticleList from '../app/js/components/management/ArticleList';
+import ArticleCategory from '../app/js/components/management/ArticleCategory';
 
 
 // Here we define all our material-ui ReactComponents.
@@ -27,6 +28,7 @@ const AppRoutes = (
             <Route path="login" component={Login}/>
             <Route path="new-article" component={NewArticle}/>
             <Route path="article-list" component={ArticleList}/>
+            <Route path="article-category" component={ArticleCategory}/>
         </Route>
         <Route path="article/:year/:month/:day/:id" component={ArticleDetail}></Route>
     </Route>

@@ -90,10 +90,10 @@ class AppNavDrawer extends Component {
                     />
                     <ListItem
                         primaryText="分类管理"
-                        value="/management/login"
+                        value="/management/article-category"
                         primaryTogglesNestedList={true}
                         nestedItems={[]}
-                        href="#/management/login"
+                        href="#/management/article-category"
                     />
                     <ListItem
                         primaryText="评论管理"
