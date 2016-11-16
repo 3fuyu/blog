@@ -282,11 +282,52 @@ let endLoading = function () {
     }
 }
 
+
+/**
+ * HSL颜色值转换为RGB.
+ * 换算公式改编自 http://en.wikipedia.org/wiki/HSL_color_space.
+ * h, s, 和 l 设定在 [0, 1] 之间
+ * 返回的 r, g, 和 b 在 [0, 255]之间
+ *
+ * @param   Number  h       色相
+ * @param   Number  s       饱和度
+ * @param   Number  l       亮度
+ * @return  Array           RGB色值数值
+ */
+let hexToRgb = function (_sColor, opacity){
+    var sColor = _sColor.toLowerCase();
+    var opacity = opacity || 1;
+
+    if (sColor.indexOf('#') <= -1) {
+        sColor += '#' + sColor
+    }
+    var hexReg = /^\#([0-9a-f]{3}|[0-9a-f]{6})$/gi;
+
+    if (sColor && (hexReg.test(sColor))) {
+        if (sColor.length === 4) {
+            var sColorNew = '#';
+            for (var i = 1; i < 4; i += 1) {
+                sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
+            }
+            sColor = sColorNew
+        }
+        //处理六位的颜色值
+        var sColorChange = [];
+        for (var i = 1; i < 7; i += 2) {
+            sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)))
+        }
+        return 'rgba(' + sColorChange.join(', ') + ',' + opacity + ')';
+    } else {
+        return sColor;
+    }
+};
+
 FY.moment = moment;
 FY.tips = tips;
 FY.confirm = confirm;
 FY.loading = loading;
 FY.string = string;
+FY.hexToRgb = hexToRgb;
 FY.startLoading = startLoading;
 FY.endLoading = endLoading;
 
