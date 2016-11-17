@@ -7,7 +7,8 @@ import Avatar from "../../../../../node_modules/material-ui/Avatar";
 import Chip from "../../../../../node_modules/material-ui/Chip";
 import TextField from "../../../../../node_modules/material-ui/TextField";
 import "../../../css/articleCategory.less";
-import FYT from '../../service/FYToolService';
+import FYT from "../../service/FYToolService";
+import md5 from "md5";
 
 const styles = {
     chip: {
@@ -33,6 +34,8 @@ class ArticleCategory extends Component {
             content: 'ubuntu'
         }, {
             content: 'ruby'
+        }, {
+            content: 'test'
         }],
     };
 
@@ -63,13 +66,17 @@ class ArticleCategory extends Component {
                                       className="category-label-repeat"
                                       style={styles.chip}
                                       key={key}
-                                      backgroundColor={FYT.hexToRgb(styles.labelColors[value.content.substring(0, 1)
-                                      .toLocaleUpperCase().charCodeAt() % 8], 0.5)}
+                                      backgroundColor={FYT.hexToRgb(styles
+                                          .labelColors['abcdefghijklmnopqrstuvwxyz0123456789'
+                                      .indexOf(md5(value.content)
+                                      .charAt(0).toLowerCase()) % styles.labelColors.length], 0.8)}
                                       onRequestDelete={t.handleRequestDelete}>
                                     <Avatar
                                         style={{
-                                            backgroundColor: styles.labelColors[value.content.substring(0, 1)
-                                            .toLocaleUpperCase().charCodeAt() % 8]
+                                            backgroundColor: styles
+                                                .labelColors['abcdefghijklmnopqrstuvwxyz0123456789'
+                                            .indexOf(md5(value.content)
+                                            .charAt(0).toLowerCase()) % styles.labelColors.length]
                                         }}
                                         size={32}>{value.content.substring(0, 1).toLocaleUpperCase()}
                                     </Avatar>
