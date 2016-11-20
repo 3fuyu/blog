@@ -5,11 +5,17 @@
 var mongoose = require('../db/mongoose');
 
 var mapsSchema = mongoose.Schema({
-    "post_map_key" : {
-        type: "Boolean"
+    'post_map_key' : {
+        type: 'Boolean'
     },
     "post_map_value" : {
-        type: "String"
+        type: 'String'
+    },
+    'terms_map_key': {
+        type: 'Boolean'
+    },
+    'terms_map_value': {
+        type: 'String'
     }
 });
 
