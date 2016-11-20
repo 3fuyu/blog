@@ -9,6 +9,7 @@ import TextField from "../../../../../node_modules/material-ui/TextField";
 import "../../../css/articleCategory.less";
 import FYT from "../../service/FYToolService";
 import md5 from "md5";
+import DataService from "../../service/DataService";
 
 const styles = {
     chip: {
@@ -24,20 +25,23 @@ const styles = {
 
 class ArticleCategory extends Component {
     state = {
-        data: [{
-            content: 'java'
-        }, {
-            content: 'python'
-        }, {
-            content: 'javascript'
-        }, {
-            content: 'ubuntu'
-        }, {
-            content: 'ruby'
-        }, {
-            content: 'test'
-        }],
+        data: [],
+        nameErr: ''
     };
+
+    componentWillMount() {
+        this.getTermsList();
+    }
+
+    getTermsList() {
+        let t = this;
+
+        DataService.adminQueryTermsList({}).then(function (data) {
+            t.setState({
+                data: data
+            });
+        });
+    }
 
     handleRequestDelete() {
         console.log('delete');
@@ -47,6 +51,36 @@ class ArticleCategory extends Component {
         console.log('tap');
     }
 
+    submitCategory(_event) {
+        let t = this;
+        let event = _.cloneDeep(_event);
+
+        if (event.charCode === 13) {
+            let value = event.target.value;
+
+            if (value) {
+                this.setState({
+                    nameErr: ''
+                });
+
+                DataService.adminTermsNew({
+                    name: value
+                }).then(function (data) {
+                    FYT.tips('新建成功');
+
+                    event.target.value = '';
+                    $(event).blur();
+
+                    t.getTermsList();
+                });
+            } else {
+                this.setState({
+                    nameErr: '分类不能为空'
+                });
+            }
+        }
+    }
+
     render() {
         var t = this;
         return (
@@ -54,6 +88,8 @@ class ArticleCategory extends Component {
                 <div className="article-category-title">
                     <TextField
                         hintText="新增分类，enter确定"
+                        onKeyPress={(event) => this.submitCategory(event)}
+                        errorText={this.state.nameErr}
                     />
                 </div>
                 <div className="article-category-list">
@@ -68,19 +104,19 @@ class ArticleCategory extends Component {
                                       key={key}
                                       backgroundColor={FYT.hexToRgb(styles
                                           .labelColors['abcdefghijklmnopqrstuvwxyz0123456789'
-                                      .indexOf(md5(value.content)
+                                      .indexOf(md5(value.name)
                                       .charAt(0).toLowerCase()) % styles.labelColors.length], 0.8)}
                                       onRequestDelete={t.handleRequestDelete}>
                                     <Avatar
                                         style={{
+                                            fontSize: '12px',
                                             backgroundColor: styles
                                                 .labelColors['abcdefghijklmnopqrstuvwxyz0123456789'
-                                            .indexOf(md5(value.content)
+                                            .indexOf(md5(value.name)
                                             .charAt(0).toLowerCase()) % styles.labelColors.length]
-                                        }}
-                                        size={32}>{value.content.substring(0, 1).toLocaleUpperCase()}
+                                        }}>{value.name.substring(0, 1).toLocaleUpperCase()}
                                     </Avatar>
-                                    {value.content}
+                                    {value.name}
                                 </Chip>
                             );
                         })}

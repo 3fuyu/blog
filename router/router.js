@@ -8,18 +8,19 @@ var router = express.Router();
 var _ = require('lodash');
 
 var adminArticle = require('../api/management/article'),
-	user = require('../api/management/user'),
-	article = require('../api/user/article');
+    user = require('../api/management/user'),
+    article = require('../api/user/article'),
+    terms = require('../api/management/terms');
 
 // 合并api
-var apis = _.concat(adminArticle, article, user);
+var apis = _.concat(adminArticle, article, user, terms);
 
 apis.forEach(function (value, key) {
     if (value.type === 'get') {
-		router.get(value.url, value.success);
-	} else if (value.type === 'post') {
-		router.post(value.url, value.success);
-	}
+        router.get(value.url, value.success);
+    } else if (value.type === 'post') {
+        router.post(value.url, value.success);
+    }
 });
 
 module.exports = router;

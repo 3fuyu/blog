@@ -14,7 +14,7 @@ let termsSchema = new Schema({
         required: [true, '请输入分类名称']
     },
     "slug": {  // 缩略名
-        type: 'Number'
+        type: 'String'
     },
     "term_group": {  // 相似的 terms 集合在一起
         type: 'String'
