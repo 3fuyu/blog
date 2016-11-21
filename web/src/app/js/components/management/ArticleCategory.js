@@ -43,10 +43,18 @@ class ArticleCategory extends Component {
         });
     }
 
-    handleRequestDelete() {
+    handleRequestDelete(value) {
+        let t = this,
+            id = value.target.parentElement.parentElement.getAttribute('data-id');
 
-        // DataService
-        console.log('delete');
+        DataService.adminDelTerm({
+            id: id
+        }).then(function (data) {
+            FYT.tips('删除成功');
+            t.getTermsList();
+        });
+
+        console.log(value);
     }
 
     handleTouchTap() {
@@ -104,11 +112,12 @@ class ArticleCategory extends Component {
                                       className="category-label-repeat"
                                       style={styles.chip}
                                       key={key}
+                                      data-id={value.id}
                                       backgroundColor={FYT.hexToRgb(styles
                                           .labelColors['abcdefghijklmnopqrstuvwxyz0123456789'
                                       .indexOf(md5(value.name)
                                       .charAt(0).toLowerCase()) % styles.labelColors.length], 0.8)}
-                                      onRequestDelete={t.handleRequestDelete}>
+                                      onRequestDelete={(value) => t.handleRequestDelete(value)}>
                                     <Avatar
                                         style={{
                                             fontSize: '12px',

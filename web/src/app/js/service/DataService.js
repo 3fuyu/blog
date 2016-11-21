@@ -186,6 +186,10 @@ dataService.adminQueryTermsList = function (params) {
     return get('admin/terms/queryList', params);
 };
 
+dataService.adminDelTerm = function (params) {
+    return post('admin/terms/del', params);
+};
+
 // 前端用户
 dataService.queryArticleList = function (params) {
     return get('article/queryList', params);
