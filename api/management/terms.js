@@ -84,6 +84,24 @@ let termsApis = [{
             });
         });
     }
+}, {
+    // 删除分类
+    type: 'post',
+    url: baseRoute + '/del',
+    success: function (req, res, next) {
+        var conditions = {'_id': req.body.id};
+        termsModel.remove(conditions, function (error) {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log('delete ok!');
+                res.send({
+                    code: 200,
+                    description: 'success'
+                });
+            }
+        });
+    }
 }];
 
 module.exports = termsApis;
