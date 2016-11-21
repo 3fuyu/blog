@@ -44,6 +44,8 @@ class ArticleCategory extends Component {
     }
 
     handleRequestDelete() {
+
+        // DataService
         console.log('delete');
     }
 
