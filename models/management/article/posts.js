@@ -16,6 +16,14 @@ var postsSchema = new Schema({
     "post_date": {
         type: 'Number'
     },
+    "post_category_id": {
+        type: 'String',
+        required: [true, '请输入分类id']
+    },
+    "post_category_name": {
+        type: 'String',
+        required: [true, '请输入分类名称']
+    },
     "post_content": {
         type: 'String',
         required: [true, '请输入内容']

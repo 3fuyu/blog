@@ -59,6 +59,8 @@ let postApis = [{
                     post_content: req.body.content,
                     post_md_content: MD(req.body.content),
                     post_title: req.body.title,
+                    post_category_id: req.body.categoryId,
+                    post_category_name: req.body.categoryName,
                     post_date: +new Date(),
                     _id: max_id
                 });

@@ -2,16 +2,23 @@
  * Created by 3fuyu on 16/10/5.
  */
 
-import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
-import TextField from '../../../../../node_modules/material-ui/TextField';
-import FloatingActionButton from '../../../../../node_modules/material-ui/FloatingActionButton';
-import ContentAdd from '../../../../../node_modules/material-ui/svg-icons/content/add';
-import AutoComplete from '../../../../../node_modules/material-ui/AutoComplete';
-import moment from 'moment';
-import '../../../css/newArticle.less';
-import DataService from '../../service/DataService';
-import Util from '../../service/FYToolService';
+import React, {Component, PropTypes} from "react";
+import ReactDOM from "react-dom";
+import TextField from "../../../../../node_modules/material-ui/TextField";
+import FloatingActionButton from "../../../../../node_modules/material-ui/FloatingActionButton";
+import ContentAdd from "../../../../../node_modules/material-ui/svg-icons/content/add";
+import AutoComplete from "../../../../../node_modules/material-ui/AutoComplete";
+import moment from "moment";
+import "../../../css/newArticle.less";
+import DataService from "../../service/DataService";
+import Util from "../../service/FYToolService";
+
+const dataSourceConfig = {
+    text: 'name',
+    value: 'id'
+};
+
+let categoryObj = {};
 
 class NewArticle extends Component {
     state = {
@@ -50,35 +57,48 @@ class NewArticle extends Component {
             }
         });
 
-
     }
 
-    submit () {
+    componentWillMount() {
+        this.getCategoryList();
+    }
+
+    getCategoryList() {
+        var t = this;
+
+        DataService.adminQueryTermsList({}).then(function (data) {
+            t.setState({
+                dataSource: data
+            });
+        });
+    }
+
+    submit() {
         const t = this;
         DataService.adminPostNew({
             title: t.state.title,
-            content: t.refs.articleContent.value
+            content: t.refs.articleContent.value,
+            categoryId: categoryObj.id,
+            categoryName: categoryObj.name
         }).then(function (data) {
             Util.tips('发布成功');
             t.context.router.push('/management/article-list');
         });
     }
 
-    titleChange (e) {
+    titleChange(e) {
         this.setState({
             title: e.target.value
         });
     }
 
-    handleUpdateInput (value) {
-        this.setState({
-            dataSource: [
-                value,
-                value + value,
-                value + value + value,
-            ],
-        });
-    };
+    handleUpdateInput(value) {
+        // console.log(value);
+    }
+
+    selectedCategory(value) {
+        categoryObj = value;
+    }
 
     render() {
         var t = this,
@@ -99,12 +119,16 @@ class NewArticle extends Component {
                 <AutoComplete
                     className="article-category"
                     hintText="选择分类"
+                    openOnFocus={true}
+                    filter={AutoComplete.fuzzyFilter}
                     dataSource={this.state.dataSource}
+                    dataSourceConfig={dataSourceConfig}
+                    onNewRequest={(value) => this.selectedCategory(value)}
                     onUpdateInput={(value) => this.handleUpdateInput(value)}
                 />
 
                 <textarea name="newArticle" id="article-editor" ref="articleContent"></textarea>
-                
+
                 <FloatingActionButton className="article-submit" onClick={() => this.submit()}>
                     <ContentAdd />
                 </FloatingActionButton>
