@@ -26,7 +26,8 @@ const styles = {
 class ArticleCategory extends Component {
     state = {
         data: [],
-        nameErr: ''
+        nameErr: '',
+        inputValue: ''
     };
 
     componentWillMount() {
@@ -45,7 +46,7 @@ class ArticleCategory extends Component {
 
     handleRequestDelete(value) {
         let t = this,
-            id = value.target.parentElement.parentElement.getAttribute('data-id');
+            id = $(value.target).closest('.category-label-repeat').attr('data-id');
 
         DataService.adminDelTerm({
             id: id
@@ -53,8 +54,6 @@ class ArticleCategory extends Component {
             FYT.tips('删除成功');
             t.getTermsList();
         });
-
-        console.log(value);
     }
 
     handleTouchTap() {
@@ -77,9 +76,8 @@ class ArticleCategory extends Component {
                     name: value
                 }).then(function (data) {
                     FYT.tips('新建成功');
-
-                    event.target.value = '';
-                    $(event).blur();
+                    $(event.target).val('');
+                    $(event.target).blur();
 
                     t.getTermsList();
                 });
@@ -92,7 +90,8 @@ class ArticleCategory extends Component {
     }
 
     render() {
-        var t = this;
+        let t = this;
+
         return (
             <div id="article-category">
                 <div className="article-category-title">
