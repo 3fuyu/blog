@@ -118,7 +118,7 @@ class NewArticle extends Component {
 
                 <AutoComplete
                     className="article-category"
-                    hintText="选择分类"
+                    hintText="Category"
                     openOnFocus={true}
                     filter={AutoComplete.fuzzyFilter}
                     dataSource={this.state.dataSource}
