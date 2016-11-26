@@ -82,6 +82,7 @@ class ArticleList extends Component {
                             <TableHeaderColumn>ID</TableHeaderColumn>
                             <TableHeaderColumn>文章标题</TableHeaderColumn>
                             <TableHeaderColumn>时间</TableHeaderColumn>
+                            <TableHeaderColumn>分类</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody
@@ -95,6 +96,7 @@ class ArticleList extends Component {
                                 <TableRowColumn>{row.id}</TableRowColumn>
                                 <TableRowColumn>{row.postTitle}</TableRowColumn>
                                 <TableRowColumn>{moment(row.postDate).format('YYYY-MM-DD hh:mm')}</TableRowColumn>
+                                <TableRowColumn>{row.postCategoryName}</TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>
