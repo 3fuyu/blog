@@ -44,7 +44,7 @@ class ArticleDetail extends Component {
     render() {
         return (
             <div id="article-detail">
-                <div>
+                <div className="article-detail-content">
                     <div className="article-main">
                         <h1 className="article-title">{this.state.articleObj.postTitle}</h1>
 
