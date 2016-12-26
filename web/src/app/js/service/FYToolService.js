@@ -84,11 +84,6 @@ function tips(content, timeout = 2000) {
 
     tipsConfig.timeout = timeout;
 
-    // setTimeout(function () {
-    //     tipsConfig.content = '';
-    //     tipsConfig.render();
-    // }, tipsConfig.timeout);
-
     tipsConfig.render();
 }
 

@@ -2,7 +2,7 @@
  * Created by 3fuyu on 16/10/11.
  */
 
-import {Component} from "react";
+import {Component} from 'react';
 import {
     Table,
     TableBody,
@@ -10,36 +10,13 @@ import {
     TableHeaderColumn,
     TableRow,
     TableRowColumn
-} from "../../../../../node_modules/material-ui/Table";
-import "../../../css/main.less";
+} from '../../../../../node_modules/material-ui/Table';
+import FlatButton from '../../../../../node_modules/material-ui/FlatButton';
+import '../../../css/main.less';
 import '../../../css/articleList.less';
-
 import DataService from '../../service/DataService';
 import moment from 'moment';
-
-const tableData = [{
-        name: 'John Smith',
-        status: 'Employed',
-    }, {
-        name: 'Randal White',
-        status: 'Unemployed',
-    }, {
-        name: 'Stephanie Sanders',
-        status: 'Employed',
-    }, {
-        name: 'Steve Brown',
-        status: 'Employed',
-    }, {
-        name: 'Joyce Whitten',
-        status: 'Employed',
-    }, {
-        name: 'Samuel Roberts',
-        status: 'Employed',
-    }, {
-        name: 'Adam Moore',
-        status: 'Employed',
-    }
-];
+import Tools from '../../service/FYToolService';
 
 class ArticleList extends Component {
     constructor(props) {
@@ -58,12 +35,32 @@ class ArticleList extends Component {
             tableData: []
         };
     }
+
     componentWillMount() {
+        this.renderList();
+    }
+
+    renderList() {
         let t = this;
 
         DataService.adminQueryArticleList().then(function (data) {
             t.setState({
                 tableData: data
+            });
+        });
+    }
+
+    delArticle(row) {
+        let t = this;
+
+        if (!row.id) return;
+
+        Tools.confirm('删除确认', '确认删除该文章吗？', function () {
+            DataService.adminDelArticle({
+                id: row.id
+            }).then(function (data) {
+                Tools.tips('删除成功');
+                t.renderList();
             });
         });
     }
@@ -83,6 +80,7 @@ class ArticleList extends Component {
                             <TableHeaderColumn>文章标题</TableHeaderColumn>
                             <TableHeaderColumn>时间</TableHeaderColumn>
                             <TableHeaderColumn>分类</TableHeaderColumn>
+                            <TableHeaderColumn className="option">操作</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody
@@ -91,12 +89,16 @@ class ArticleList extends Component {
                         showRowHover={this.state.showRowHover}
                         stripedRows={this.state.stripedRows}
                     >
-                        {this.state.tableData.map( (row, index) => (
+                        {this.state.tableData.map((row, index) => (
                             <TableRow key={index} selected={row.selected}>
                                 <TableRowColumn>{row.id}</TableRowColumn>
                                 <TableRowColumn>{row.postTitle}</TableRowColumn>
                                 <TableRowColumn>{moment(row.postDate).format('YYYY-MM-DD hh:mm')}</TableRowColumn>
                                 <TableRowColumn>{row.postCategoryName}</TableRowColumn>
+                                <TableRowColumn>
+                                    <FlatButton label="del" secondary={true} onClick={()=>this.delArticle(row)}/>
+                                    <FlatButton label="edit" primary={true}/>
+                                </TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>
