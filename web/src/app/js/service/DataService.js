@@ -12,8 +12,8 @@ require('babel-polyfill');
 var dataService = {};
 
 var host = window.location.host;
-var baseUrl = 'http://' + host + '/api/';
-// var baseUrl = 'http://localhost:8080/api/';
+// var baseUrl = 'http://' + host + '/api/';
+var baseUrl = 'http://localhost:8080/api/';
 
 function prepend(prefix, name, separator) {
     if (prefix) {
@@ -174,6 +174,10 @@ dataService.adminQueryArticleList = function (params) {
     return get('admin/article/queryList', params);
 };
 
+dataService.adminDelArticle = function (params) {
+    return post('admin/article/del', params);
+};
+
 dataService.login = function (params) {
     return post('admin/user/login', params);
 };
@@ -189,6 +193,7 @@ dataService.adminQueryTermsList = function (params) {
 dataService.adminDelTerm = function (params) {
     return post('admin/terms/del', params);
 };
+
 
 // 前端用户
 dataService.queryArticleList = function (params) {
