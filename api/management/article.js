@@ -113,11 +113,9 @@ let postApis = [{
     success: function (req, res, next) {
         postsModel
         .remove({
-            id: req.body.id
+            _id: req.body.id
         })
         .exec(function (err, data) {
-            console.log(err);
-            console.log(data);
             res.send({
                 code: 200,
                 description: 'success'
