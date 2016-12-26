@@ -126,6 +126,7 @@ function confirm(title, content, submit) {
     confirmConfig.render();
 }
 
+// TODO 重写confirm
 confirmConfig.confirm = function () {
     confirmConfig.content = '';
     confirmConfig.title = '';
