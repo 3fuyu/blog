@@ -105,6 +105,25 @@ let postApis = [{
             });
         });
     }
+}, {
+
+    // 删除文章
+    type: 'post',
+    url: baseRoute + '/del',
+    success: function (req, res, next) {
+        postsModel
+        .remove({
+            id: req.body.id
+        })
+        .exec(function (err, data) {
+            console.log(err);
+            console.log(data);
+            res.send({
+                code: 200,
+                description: 'success'
+            });
+        });
+    }
 }];
 
 
