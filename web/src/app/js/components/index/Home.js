@@ -104,7 +104,7 @@ class Home extends Component {
             }
         }
 
-        // /*注册鼠标事件*/
+        /*注册鼠标事件*/
         if (isFirfox) {
             window.addEventListener('DOMMouseScroll', scrollFunc, false);
         } else {
@@ -155,7 +155,9 @@ class Home extends Component {
             id = value.id,
             hash = 'article/' + year + '/' + month + '/' + day + '/' + id; //详情页路由规则， 年/月/日/id
 
-        window.open('http://' + window.location.host + this.context.router.createHref(hash));
+
+        this.context.router.push(hash);
+        // window.open('http://' + window.location.host + this.context.router.createHref(hash));
     }
 
     render() {

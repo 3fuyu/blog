@@ -16,7 +16,7 @@ var app = express();
 var baseUrl = '/api';
 
 // 设置session
-app.use(cookieParser());
+app.use(cookieParser('3fuyu test cookie'));
 app.use(session({
     secret: '123456',
     name: '3fuyu',

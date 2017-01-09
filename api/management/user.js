@@ -27,6 +27,11 @@ var userApis = [{
                 var _data = Tools.para2camel(data);
 
                 if (req.body.name === _data[0].userLogin && req.body.password === _data[0].userPass) {
+
+                    req.session.user_id = '1';
+                    req.session.user = '3fuyu';
+                    res.redirect("/admin/index");
+
                     res.send({
                         code: 200,
                         description: 'success'

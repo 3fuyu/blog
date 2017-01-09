@@ -17,18 +17,18 @@ var apis = _.concat(adminArticle, article, user, terms);
 
 apis.forEach(function (value, key) {
     if (value.type === 'get') {
-        router.get(value.url, function (req, res) {
+        router.get(value.url, authorize, function (req, res, next) {
             // if (req.session.lastPage) {
-                console.log('Last page was: ' + req.session.lastPage + '.');
+            console.log('Last page was: ' + req.session.lastPage + '.');
             // }
             req.session.lastPage = value.url;
 
             value.success(req, res);
         });
     } else if (value.type === 'post') {
-        router.post(value.url, function (req, res) {
+        router.post(value.url, authorize, function (req, res, next) {
             // if (req.session.lastPage) {
-                console.log('Last page was: ' + req.session.lastPage + '.');
+            console.log('Last page was: ' + req.session.lastPage + '.');
             // }
             req.session.lastPage = value.url;
 
@@ -36,5 +36,13 @@ apis.forEach(function (value, key) {
         });
     }
 });
+
+function authorize(req, res, next) {
+    if (!req.session.user_id) {
+        res.redirect('/admin/login');
+    } else {
+        next();
+    }
+}
 
 module.exports = router;
