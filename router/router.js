@@ -30,6 +30,7 @@ apis.forEach(function (value, key) {
             // if (req.session.lastPage) {
             console.log('Last page was: ' + req.session.lastPage + '.');
             // }
+            console.log('after redirect');
             req.session.lastPage = value.url;
 
             value.success(req, res);
@@ -38,8 +39,10 @@ apis.forEach(function (value, key) {
 });
 
 function authorize(req, res, next) {
+    console.log('come in');
+    console.log(req.session);
     if (!req.session.user_id) {
-        res.redirect('/admin/login');
+        res.redirect('http://127.0.0.1:3000/management/admin/login');
     } else {
         next();
     }
