@@ -21,7 +21,7 @@ app.use(session({
     secret: '123456',
     name: '3fuyu',
     cookie: {
-        maxAge: 60000
+        maxAge: 60000000
     },
     resave: false,
     saveUninitialized: true
