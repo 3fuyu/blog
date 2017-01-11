@@ -101,12 +101,17 @@ function post(url, params) {
                 } else {
                     var data = res.body;
                     if (data.code === 401) {
-                        console.log('未登录');
+                        // FYT.tips('用户未登录');
+
+                        setTimeout(function () {
+                            window.location.href = '#/login';
+                        }, 2000);
                         return false;
                     } else if (data.code === 200) {
                         resolve(data);
                     } else {
                         // 走失败函数
+                        // FYT.tips(data.description);
                         reject(data);
                     }
                 }
@@ -138,7 +143,11 @@ function get(url, params) {
                 } else {
                     var data = res.body;
                     if (data.code === 401) {
-                        console.log('未登录');
+                        // FYT.tips('用户未登录');
+
+                        setTimeout(function () {
+                            window.location.href = '#/login';
+                        }, 2000);
                         return false;
                     } else if (data.code === 200) {
                         resolve(data);

@@ -8,20 +8,20 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var proxy = require('./proxy');
 var session = require ('express-session');
-
 var router = require('./router/router');
-
+var baseUrl = '/api';
 var app = express();
 
-var baseUrl = '/api';
+// app.use(cookieParser('3fuyu test cookie'));
 
 // 设置session
-app.use(cookieParser('3fuyu test cookie'));
 app.use(session({
     secret: '123456',
     name: '3fuyu',
     cookie: {
-        maxAge: 60000000
+        maxAge: 600000000,
+        domain: 'localhost',
+        path: '/'
     },
     resave: false,
     saveUninitialized: true
@@ -48,9 +48,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
+app.use(baseUrl, router);
 app.use(express.static(path.join(__dirname, 'web/build')));
 
-app.use(baseUrl, router);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -75,14 +75,13 @@ class Login extends React.Component {
                 name: t.state.name,
                 password: t.state.password
             }).then(function (data) {
-                FYT.tips('登录成功!');
-                var host = window.location.host;
-                window.location.href = 'http://' + host + '/index.html#/management/article-list';
+                // FYT.tips('登录成功!');
+                // window.location.href = '#/management/article-list';
             }, function (data) {
-                if (data.errorCode === 505) {
-                    FYT.tips(data.errorDescription);
+                if (data.errorCode === 401) {
+                    // FYT.tips(data.errorDescription);
                 } else {
-                    throw (data.errorDescription);
+                    // throw (data.errorDescription);
                 }
             });
         }

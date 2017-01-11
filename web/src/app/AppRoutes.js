@@ -24,8 +24,10 @@ const AppRoutes = (
     <Route path="/" component={Master}>
         <IndexRoute component={Home}/>
         <Redirect from="management" to="/management/article-list" />
+
+        <Route path="login" component={Login}/>
+
         <Route path="management">
-            <Route path="login" component={Login}/>
             <Route path="new-article" component={NewArticle}/>
             <Route path="article-list" component={ArticleList}/>
             <Route path="article-category" component={ArticleCategory}/>

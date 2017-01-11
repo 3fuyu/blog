@@ -30,7 +30,7 @@ var userApis = [{
 
                     req.session.user_id = '1';
                     req.session.user = '3fuyu';
-                    res.redirect("/admin/index");
+                    // res.redirect("/admin/index");
 
                     res.send({
                         code: 200,
@@ -38,7 +38,7 @@ var userApis = [{
                     });
                 } else {
                     res.send({
-                        code: 505,
+                        code: 500,
                         description: 'name or password wrong'
                     });
                 }
