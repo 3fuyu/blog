@@ -17,7 +17,7 @@ app.use(session({
     secret: '123456',
     name: '3fuyu',
     cookie: {
-        maxAge: 0.5 * 60 * 60 * 1000 + 86400, // 0.5h
+        maxAge: 3 * 60 * 60 * 1000 + 8 * 3600 * 1000, // 0.5h
         path: '/'
     },
     resave: false,
