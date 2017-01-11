@@ -30,7 +30,6 @@ var userApis = [{
 
                     req.session.user_id = '1';
                     req.session.user = '3fuyu';
-                    // res.redirect("/admin/index");
 
                     res.send({
                         code: 200,
