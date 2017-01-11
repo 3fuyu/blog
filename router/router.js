@@ -40,7 +40,7 @@ apis.forEach(function (value, key) {
 
 function authorize(req, res, next) {
     if (req.route.path !== '/admin/user/login' && req.route.path.indexOf('/admin/') > -1) {
-        console.log(req.session);
+        console.error(req.session);
         if (!req.session.user_id) {
             res.send({
                 code: 401,
