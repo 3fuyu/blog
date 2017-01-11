@@ -12,14 +12,12 @@ var router = require('./router/router');
 var baseUrl = '/api';
 var app = express();
 
-// app.use(cookieParser('3fuyu test cookie'));
-
 // 设置session
 app.use(session({
     secret: '123456',
     name: '3fuyu',
     cookie: {
-        maxAge: 600000000,
+        maxAge: 0.5 * 60 * 60 * 1000, // 0.5h
         path: '/'
     },
     resave: false,
