@@ -101,7 +101,7 @@ function post(url, params) {
                 } else {
                     var data = res.body;
                     if (data.code === 401) {
-                        // FYT.tips('用户未登录');
+                        FYT.tips('用户未登录');
 
                         setTimeout(function () {
                             window.location.href = '#/login';
@@ -111,7 +111,7 @@ function post(url, params) {
                         resolve(data);
                     } else {
                         // 走失败函数
-                        // FYT.tips(data.description);
+                        FYT.tips(data.description);
                         reject(data);
                     }
                 }
@@ -143,7 +143,7 @@ function get(url, params) {
                 } else {
                     var data = res.body;
                     if (data.code === 401) {
-                        // FYT.tips('用户未登录');
+                        FYT.tips('用户未登录');
 
                         setTimeout(function () {
                             window.location.href = '#/login';

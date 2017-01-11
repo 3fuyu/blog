@@ -39,34 +39,19 @@ apis.forEach(function (value, key) {
 });
 
 function authorize(req, res, next) {
-    console.log(req.cookies);
-    if (req.cookies.isVisit) {
-        console.log(req.cookies);
-        res.send({
-            code: 500,
-            description: '再次欢迎访问'
-        });
+    if (req.route.path !== '/admin/user/login' && req.route.path.indexOf('/admin/') > -1) {
+        console.log(req.session);
+        if (!req.session.user_id) {
+            res.send({
+                code: 401,
+                description: '用户未登录'
+            });
+        } else {
+            next();
+        }
     } else {
-        // res.setHeader("Set-Cookie", ['a=000', 't=1111', 'w=2222']);
-        res.cookie('isVisit', 1, {maxAge: 600 * 1000, path: '/'});
-        res.send({
-            code: 500,
-            description: '欢迎首次访'
-        });
+        next();
     }
-    // if (req.route.path !== '/admin/user/login') {
-    //     console.log(req.session);
-    //     if (!req.session.user_id) {
-    //         res.send({
-    //             code: 401,
-    //             description: '用户未登录'
-    //         });
-    //     } else {
-    //         next();
-    //     }
-    // } else {
-    //     next();
-    // }
 }
 
 module.exports = router;
