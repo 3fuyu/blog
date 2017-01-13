@@ -187,8 +187,16 @@ dataService.adminDelArticle = function (params) {
     return post('admin/article/del', params);
 };
 
+dataService.getUserInfo = function (params) {
+    return get('admin/user/getUserInfo', params);
+};
+
 dataService.login = function (params) {
     return post('admin/user/login', params);
+};
+
+dataService.logout = function (params) {
+    return post('admin/user/logout', params);
 };
 
 dataService.adminTermsNew = function (params) {

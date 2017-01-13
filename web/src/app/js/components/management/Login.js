@@ -21,19 +21,7 @@ class Login extends React.Component {
         nameErr: '',
         passwordErr: ''
     };
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.state = {
-    //         name: '',
-    //         password: '',
-    //         loginStyle: {
-    //             color: '#bbb'
-    //         },
-    //         nameErr: '',
-    //         passwordErr: ''
-    //     };
-    // }
+
     handleChange(event) {
         let t = this;
 
@@ -102,6 +90,7 @@ class Login extends React.Component {
                     <TextField
                         id="login-name"
                         hintText=""
+                        style={{width: '100%'}}
                         floatingLabelText="name"
                         errorText={this.state.nameErr}
                         value={this.state.name}
@@ -114,6 +103,7 @@ class Login extends React.Component {
                     <TextField
                         id="login-password"
                         hintText=""
+                        style={{width: '100%'}}
                         errorText={this.state.passwordErr}
                         floatingLabelText="password"
                         type="password"

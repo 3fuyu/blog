@@ -1,8 +1,9 @@
-import React, {Component, PropTypes} from "react";
-import Drawer from "../../../../../node_modules/material-ui/Drawer";
-import {List, ListItem, MakeSelectable} from "../../../../../node_modules/material-ui/List";
-import {spacing, typography, zIndex} from "../../../../../node_modules/material-ui/styles";
-import {cyan500} from "../../../../../node_modules/material-ui/styles/colors";
+import React, {Component, PropTypes} from 'react';
+import Drawer from '../../../../../node_modules/material-ui/Drawer';
+import {List, ListItem, MakeSelectable} from '../../../../../node_modules/material-ui/List';
+import {spacing, typography, zIndex} from '../../../../../node_modules/material-ui/styles';
+import {cyan500} from '../../../../../node_modules/material-ui/styles/colors';
+import DataService from '../../service/DataService';
 
 const SelectableList = MakeSelectable(List);
 
@@ -40,11 +41,20 @@ class AppNavDrawer extends Component {
 
     state = {
         muiVersions: [],
-        leftOpen: true
+        leftOpen: true,
+        login: '登出'
     };
 
     componentDidMount() {
+        DataService.getUserInfo({}).then(function (data) {
+            console.log(data);
+        });
+    }
 
+    onLogout() {
+        DataService.logout({}).then(function (data) {
+            window.location.href = '#/login';
+        });
     }
 
     render() {
@@ -67,6 +77,9 @@ class AppNavDrawer extends Component {
             >
                 <div className="menu-title">
                     3fuyu 管理后台
+                    <span style={{fontSize: '14px', marginLeft: '14px', cursor: 'pointer'}} onClick={this.onLogout}>
+                        {this.state.login}
+                    </span>
                 </div>
                 <SelectableList
                     value={location.pathname}
