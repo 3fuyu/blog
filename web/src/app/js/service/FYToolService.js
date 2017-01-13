@@ -7,6 +7,8 @@ import React from "react";
 import {render} from "react-dom";
 import Snackbar from "../../../../node_modules/material-ui/Snackbar";
 import MuiThemeProvider from "../../../../node_modules/material-ui/styles/MuiThemeProvider";
+import Dialog from "../../../../node_modules/material-ui/Dialog";
+import FlatButton from "../../../../node_modules/material-ui/FlatButton";
 import Loading from "../components/lib/Loading";
 var _ = require('lodash');
 
@@ -107,61 +109,71 @@ tipsConfig.render = function () {
 /***** confirm *****/
 var confirmConfig = {
     content: '',
-    title: ''
+    title: '',
+    open: true
 };
 
 function confirm(title, content, submit) {
+    confirmConfig.open = true;
+
     if (title) {
-        confirmConfig.title = title;
+        confirmConfig.title = title || '';
     }
 
     if (content) {
-        confirmConfig.content = content;
+        confirmConfig.content = content || '';
     }
 
     if (submit) {
-        confirmConfig.submit = submit;
+        confirmConfig.submit = submit || function () {
+
+        };
     }
 
     confirmConfig.render();
 }
 
-// TODO 重写confirm
-confirmConfig.confirm = function () {
-    confirmConfig.content = '';
-    confirmConfig.title = '';
-
+function handleSubmit() {
+    confirmConfig.open = false;
     confirmConfig.render();
-
     confirmConfig.submit && confirmConfig.submit();
-};
+}
 
-confirmConfig.cancel = function () {
-    confirmConfig.content = '';
-    confirmConfig.title = '';
-
+function handleCancel() {
+    confirmConfig.open = false;
     confirmConfig.render();
-};
+}
 
 confirmConfig.render = function () {
     var className = confirmConfig.title || confirmConfig.content ? '' : 'zl-hide';
+    var actions = [
+        <FlatButton
+            label="Cancel"
+            primary={false}
+            onTouchTap={handleCancel}
+        />,
+        <FlatButton
+            label="Submit"
+            primary={true}
+            onTouchTap={handleSubmit}
+        />
+    ];
 
     render(
         <div id="dialog1" className={className}>
             <div className="zl-mask-fixed"></div>
             <div className="zl-dialog">
-                <div className="zl-dialog-hd" style={{display: confirmConfig.title ? 'block' : 'none'}}><strong
-                    className="zl-dialog-title">{confirmConfig.title}</strong>
-                </div>
-                <div className="zl-dialog-bd"
-                     style={{
-                         display: confirmConfig.content ? 'block' : 'none',
-                         marginTop: confirmConfig.title ? '0' : '15px'
-                     }}>{confirmConfig.content}</div>
-                <div className="zl-dialog-ft zl-box zl-box-horizontal zl-border zl-border-top">
-                    <a href="javascript:void(0)" className="zl-btn-dialog" onClick={confirmConfig.cancel}>取消</a>
-                    <a href="javascript:void(0)" className="zl-btn-dialog" onClick={confirmConfig.confirm}>确定</a>
-                </div>
+                <MuiThemeProvider>
+                    <Dialog
+                        title={confirmConfig.title}
+                        contentStyle={{width: '30%'}}
+                        actions={actions}
+                        modal={false}
+                        open={confirmConfig.open}
+                    >
+                        {confirmConfig.content}
+                    </Dialog>
+                </MuiThemeProvider>
             </div>
         </div>,
         document.getElementById('dialog')
@@ -290,7 +302,7 @@ let endLoading = function () {
  * @param   Number  l       亮度
  * @return  Array           RGB色值数值
  */
-let hexToRgb = function (_sColor, opacity){
+let hexToRgb = function (_sColor, opacity) {
     var sColor = _sColor.toLowerCase();
     var opacity = opacity || 1;
 
