@@ -46,9 +46,9 @@ class AppNavDrawer extends Component {
     };
 
     componentDidMount() {
-        DataService.getUserInfo({}).then(function (data) {
-            console.log(data);
-        });
+        // DataService.getUserInfo({}).then(function (data) {
+        //     console.log(data);
+        // });
     }
 
     onLogout() {
