@@ -79,7 +79,7 @@ class ArticleList extends Component {
                             <TableHeaderColumn>ID</TableHeaderColumn>
                             <TableHeaderColumn>文章标题</TableHeaderColumn>
                             <TableHeaderColumn>时间</TableHeaderColumn>
-                            <TableHeaderColumn>分类</TableHeaderColumn>
+                            <TableHeaderColumn style={{width: '80px'}}>分类</TableHeaderColumn>
                             <TableHeaderColumn className="option">操作</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
