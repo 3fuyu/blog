@@ -8,6 +8,7 @@ import TextField from "../../../../../node_modules/material-ui/TextField";
 import FloatingActionButton from "../../../../../node_modules/material-ui/FloatingActionButton";
 import ContentAdd from "../../../../../node_modules/material-ui/svg-icons/content/add";
 import AutoComplete from "../../../../../node_modules/material-ui/AutoComplete";
+import DatePicker from "../../../../../node_modules/material-ui/DatePicker";
 import moment from "moment";
 import "../../../css/newArticle.less";
 import DataService from "../../service/DataService";
@@ -23,6 +24,7 @@ let categoryObj = {};
 class NewArticle extends Component {
     state = {
         title: '',
+        date: new Date(),
         dataSource: []
     };
 
@@ -79,7 +81,8 @@ class NewArticle extends Component {
             title: t.state.title,
             content: t.refs.articleContent.value,
             categoryId: categoryObj.id,
-            categoryName: categoryObj.name
+            categoryName: categoryObj.name,
+            date: +new Date(t.state.date)
         }).then(function (data) {
             Util.tips('发布成功');
             t.context.router.push('/management/article-list');
@@ -89,6 +92,12 @@ class NewArticle extends Component {
     titleChange(e) {
         this.setState({
             title: e.target.value
+        });
+    }
+
+    dateChange(event, date) {
+        this.setState({
+            date: date
         });
     }
 
@@ -114,6 +123,12 @@ class NewArticle extends Component {
                     onChange={(event) => this.titleChange(event)}
                 />
 
+                <DatePicker
+                    hintText="Date Input"
+                    style={{zIndex: '99',position:'relative'}}
+                    value={this.state.date}
+                    onChange={(event, date) => this.dateChange(event, date)}
+                />
                 <div className="article-date">Date: &nbsp;&nbsp;&nbsp;&nbsp;{date}</div>
 
                 <AutoComplete
