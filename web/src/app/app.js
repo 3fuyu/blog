@@ -21,8 +21,7 @@ injectTapEventPlugin();
 
 const App = () => (
     <MuiThemeProvider>
-        <Router history={useRouterHistory(createHashHistory)({queryKey: false})}
-                onUpdate={() => window.scrollTo(0, 0)}>
+        <Router history={useRouterHistory(createHashHistory)({queryKey: false})}>
             {AppRoutes}
         </Router>
     </MuiThemeProvider>
