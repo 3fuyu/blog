@@ -181,13 +181,13 @@ class Home extends Component {
                 <div className="head">
                     <span className="menu-logo"><img src="images/3fuyu.png" alt="" className="logo"/></span>
                     <ul className="menu-list">
-                        /*
+                        {/*
                         <li className="menu-item">HOME</li>
                         <li className="menu-item">WEB</li>
                         <li className="menu-item">UBUNTU</li>
                         <li className="menu-item">PYTHON</li>
                         <li className="menu-item">JAVA</li>
-                        */
+                        */}
                     </ul>
                 </div>
                 <div className="banner">
