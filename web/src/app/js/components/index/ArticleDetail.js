@@ -30,6 +30,8 @@ class ArticleDetail extends Component {
         let t = this,
             id = this.props.params.id;
 
+        window.scrollTo(0, 0);
+
         DataServicce.getArticleDetail({
             id: id
         }).then(function (data) {

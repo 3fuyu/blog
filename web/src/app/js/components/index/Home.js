@@ -12,10 +12,12 @@ import DataService from "../../service/DataService";
 import IconButton from "../../../../../node_modules/material-ui/IconButton";
 import FYT from "../../service/FYToolService";
 
+let listData,
+    scrollTop = 0;
 class Home extends Component {
 
     state = {
-        articleList: [],
+        articleList: listData || [],
         styles: {
             footerStyle: {
                 display: 'none'
@@ -115,11 +117,12 @@ class Home extends Component {
     getData() {
         let t = this;
 
-        if (!t.listData) {
+        if (!listData) {
             FYT.startLoading(ReactDOM.findDOMNode(document.getElementsByClassName('content')[0]));
             DataService.queryArticleList().then(function (data) {
                 FYT.endLoading();
 
+                listData = data;
                 t.setState({
                     articleList: data,
                     styles: {
@@ -128,6 +131,15 @@ class Home extends Component {
                         }
                     }
                 });
+            });
+        } else {
+            window.scrollTo(0, scrollTop);
+            t.setState({
+                styles: {
+                    footerStyle: {
+                        display: 'block'
+                    }
+                }
             });
         }
     }
@@ -146,7 +158,9 @@ class Home extends Component {
             </div>
         )
     }
-
+    cacheScroll() {
+        scrollTop = document.body.scrollTop;
+    }
     goDetail(value) {
         let date = new Date(value.postDate),
             year = date.getFullYear(),
@@ -155,11 +169,11 @@ class Home extends Component {
             id = value.id,
             hash = 'article/' + year + '/' + month + '/' + day + '/' + id; //详情页路由规则， 年/月/日/id
 
+        this.cacheScroll();
 
         this.context.router.push(hash);
         // window.open('http://' + window.location.host + this.context.router.createHref(hash));
     }
-
     render() {
 
         return (
