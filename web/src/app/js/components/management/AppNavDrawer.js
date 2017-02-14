@@ -114,6 +114,13 @@ class AppNavDrawer extends Component {
                         primaryTogglesNestedList={true}
                         nestedItems={[]}
                     />
+                    <ListItem
+                        primaryText="资源库"
+                        value="/management/media"
+                        primaryTogglesNestedList={true}
+                        href="#/management/media"
+                        nestedItems={[]}
+                    />
                 </SelectableList>
             </Drawer>
         );
