@@ -3,12 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="description" content="基于HTML5的多图Ajax上传 » 张鑫旭-鑫空间-鑫生活"/>
-    <meta name="description" content="张鑫旭web前端学习实例页面 基于HTML5的多图Ajax上传"/>
-    <meta name="keywords" content="web前端, HTML5, ajax, javascript, 图片上传"/>
-    <meta name="author" content="张鑫旭, zhangxixnu"/>
-    <title>基于HTML5的多图Ajax上传 » 张鑫旭-鑫空间-鑫生活</title>
-    <link rel="stylesheet" href="../css/demo.css" type="text/css"/>
     <style>
         .upload_box {
             width: 800px;
@@ -98,24 +92,15 @@
 </head>
 
 <body>
-<div id="header">
-    <a href="/" class="logo" title="回到鑫空间-鑫生活首页">
-        <img src="http://www.zhangxinxu.com/php/image/zxx_home_logo.png" border="0"/>
-    </a>
-</div>
 <div id="main">
-    <h1>基于HTML5的多图Ajax上传实例页面</h1>
     <div id="body" class="light">
         <div id="content" class="show">
-            <h3>展示</h3>
-            <div class="article_new"><a href="http://www.zhangxinxu.com/wordpress/?p=1923">回到相关文章 »</a></div>
             <div class="demo">
                 <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
                     <div class="upload_box">
                         <div class="upload_main">
                             <div class="upload_choose">
                                 <input id="fileImage" type="file" size="30" name="fileselect[]" multiple/>
-                                <span id="fileDragArea" class="upload_drag_area">或者将图片拖到此处</span>
                             </div>
                             <div id="preview" class="upload_preview"></div>
                         </div>
@@ -129,11 +114,7 @@
         </div>
     </div>
 </div>
-<div id="footer">
-    Designed &amp; Powerd by <a href="http://www.zhangxinxu.com/">zhangxinxu</a><br/>
-    Copyright© 张鑫旭-鑫空间-鑫生活<br>
-    <a href="http://www.miibeian.gov.cn/" target="_blank">鄂ICP备09015569号</a>
-</div>
+
 <script src="http://libs.baidu.com/jquery/1.4.4/jquery.js"></script>
 <script src="./upload.js"></script>
 <script>
@@ -225,27 +206,5 @@
     FILE.init();
 </script>
 
-<!-- 下面的是广告部分，酱油厂的 -->
-<div id="ad">
-    <script type="text/javascript">    google_ad_client = "pub-0090627341039040";
-    google_ad_slot = "2041257798";
-    google_ad_width = 468;
-    google_ad_height = 60;</script>
-    <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-11205167-1']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
-</div>
 </body>
 </html>
