@@ -2,8 +2,9 @@
  * Created by 3fuyu on 2017/2/14.
  */
 
-import React, {PropTypes, Component} from "react";
-import RaisedButton from "../../../../../node_modules/material-ui/RaisedButton";
+import React, {PropTypes, Component} from 'react';
+import RaisedButton from '../../../../../node_modules/material-ui/RaisedButton';
+import upload from '../lib/upload'
 
 const styles = {
     button: {
@@ -23,6 +24,85 @@ const styles = {
 
 class Media extends Component {
 
+    componentWillMount() {
+        var params = {
+            filter: this.filter,
+            onSelect: this.onSelect,
+            onProcess: this.onProgress,
+            onSuccess: this.onSuccess,
+            onFailure: this.onFailure
+        }
+
+        upload = $.extend(upload, params);
+        upload.init();
+    }
+
+    filter(files) {
+        var arrFiles = [];
+        for (var i = 0, file; file = files[i]; i++) {
+            if (file.type.indexOf("image") == 0) {
+                if (file.size >= 512000) {
+                    alert('您这张"' + file.name + '"图片大小过大，应小于500k');
+                } else {
+                    arrFiles.push(file);
+                }
+            } else {
+                alert('文件"' + file.name + '"不是图片。');
+            }
+        }
+        return arrFiles;
+    }
+
+    onSelect(files) {
+        var html = '', i = 0;
+        $("#preview").html('<div class="upload_loading"></div>');
+        var funAppendImage = function () {
+            file = files[i];
+            if (file) {
+                var reader = new FileReader()
+                reader.onload = function (e) {
+                    html = html + '<div id="uploadList_' + i + '" class="upload_append_list"><p><strong>' + file.name + '</strong>' +
+                        '<a href="javascript:" class="upload_delete" title="删除" data-index="' + i + '">删除</a><br />' +
+                        '<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></p>' +
+                        '<span id="uploadProgress_' + i + '" class="upload_progress"></span>' +
+                        '</div>';
+
+                    i++;
+                    funAppendImage();
+                }
+                reader.readAsDataURL(file);
+            } else {
+                $("#preview").html(html);
+                if (html) {
+                    //删除方法
+                    $(".upload_delete").click(function () {
+                        FILE.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
+                        return false;
+                    });
+                    //提交按钮显示
+                    $("#fileSubmit").show();
+                } else {
+                    //提交按钮隐藏
+                    $("#fileSubmit").hide();
+                }
+            }
+        };
+        funAppendImage();
+    }
+
+    onProgress(file, loaded, total) {
+        var eleProgress = $("#uploadProgress_" + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
+        eleProgress.show().html(percent);
+    }
+
+    onSuccess(file, response) {
+        $("#uploadInf").append("<p>上传成功，图片地址是：" + response + "</p>");
+    }
+
+    onFailure(file) {
+        $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");
+        $("#uploadImage_" + file.index).css("opacity", 0.2);
+    }
 
     render() {
         return (
