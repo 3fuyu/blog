@@ -4,7 +4,7 @@
 
 import React, {PropTypes, Component} from 'react';
 import RaisedButton from '../../../../../node_modules/material-ui/RaisedButton';
-import upload from '../lib/upload'
+import UP from '../lib/upload'
 
 const styles = {
     button: {
@@ -33,14 +33,15 @@ class Media extends Component {
             onFailure: this.onFailure
         }
 
-        upload = $.extend(upload, params);
+        var upload = _.extend(UP, params);
+
         upload.init();
     }
 
     filter(files) {
         var arrFiles = [];
         for (var i = 0, file; file = files[i]; i++) {
-            if (file.type.indexOf("image") == 0) {
+            if (file.type.indexOf("image") === 0) {
                 if (file.size >= 512000) {
                     alert('您这张"' + file.name + '"图片大小过大，应小于500k');
                 } else {
