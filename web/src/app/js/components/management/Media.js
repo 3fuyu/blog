@@ -85,7 +85,7 @@ class Media extends Component {
     }
 
     onSuccess(file, response) {
-        $("#uploadInf").append("<p>上传成功，图片地址是：" + response + "</p>");
+        console.log('上传成功');
     }
 
     onFailure(file) {
