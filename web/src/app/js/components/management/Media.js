@@ -113,8 +113,9 @@ class Media extends Component {
                     labelPosition="before"
                     style={styles.button}
                     containerElement="label"
+                    className="upload_choose"
                 >
-                    <input type="file" style={styles.exampleImageInput}/>
+                    <input type="file" id="fileImage" style={styles.exampleImageInput}/>
                 </RaisedButton>
             </div>
         );
