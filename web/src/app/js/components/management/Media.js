@@ -73,19 +73,7 @@ class Media extends Component {
                 }
                 reader.readAsDataURL(file);
             } else {
-                $("#preview").html(html);
-                if (html) {
-                    //删除方法
-                    $(".upload_delete").click(function () {
-                        FILE.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
-                        return false;
-                    });
-                    //提交按钮显示
-                    $("#fileSubmit").show();
-                } else {
-                    //提交按钮隐藏
-                    $("#fileSubmit").hide();
-                }
+                console.log('选择成功');
             }
         };
         funAppendImage();
