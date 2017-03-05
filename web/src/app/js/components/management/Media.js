@@ -23,7 +23,6 @@ const styles = {
 };
 
 class Media extends Component {
-
     componentWillMount() {
         var params = {
             filter: this.filter,
