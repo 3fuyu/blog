@@ -23,10 +23,15 @@ const styles = {
 };
 
 class Media extends Component {
+    state = {
+        preSrc: ''
+    };
+
     componentDidMount() {
         var params = {
+            fileInput: $("#fileImage").get(0),
             filter: this.filter,
-            onSelect: this.onSelect,
+            onSelect: this.onSelect.bind(this),
             onProcess: this.onProgress,
             onSuccess: this.onSuccess,
             onFailure: this.onFailure
@@ -54,14 +59,18 @@ class Media extends Component {
     }
 
     onSelect(files) {
-        var html = '', i = 0;
+        var html = '', i = 0, t = this;
         var funAppendImage = function () {
-            file = files[i];
+            var file = files[i];
             if (file) {
                 var reader = new FileReader()
                 reader.onload = function (e) {
                     console.log(e);
-                    funAppendImage();
+                    // funAppendImage();
+
+                    t.setState({
+                        preSrc: e.target.result
+                    });
                 }
                 reader.readAsDataURL(file);
             } else {
@@ -88,7 +97,9 @@ class Media extends Component {
     render() {
         return (
             <div>
-                <div id="preview" className="upload_preview"></div>
+                <div id="preview" className="upload_preview">
+                    <img src={this.state.preSrc} alt=""/>
+                </div>
 
                 <RaisedButton
                     label="Choose an Image"
