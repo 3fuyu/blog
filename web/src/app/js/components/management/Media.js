@@ -23,7 +23,7 @@ const styles = {
 };
 
 class Media extends Component {
-    componentWillMount() {
+    componentDidMount() {
         var params = {
             filter: this.filter,
             onSelect: this.onSelect,
@@ -55,19 +55,12 @@ class Media extends Component {
 
     onSelect(files) {
         var html = '', i = 0;
-        $("#preview").html('<div class="upload_loading"></div>');
         var funAppendImage = function () {
             file = files[i];
             if (file) {
                 var reader = new FileReader()
                 reader.onload = function (e) {
-                    html = html + '<div id="uploadList_' + i + '" class="upload_append_list"><p><strong>' + file.name + '</strong>' +
-                        '<a href="javascript:" class="upload_delete" title="删除" data-index="' + i + '">删除</a><br />' +
-                        '<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></p>' +
-                        '<span id="uploadProgress_' + i + '" class="upload_progress"></span>' +
-                        '</div>';
-
-                    i++;
+                    console.log(e);
                     funAppendImage();
                 }
                 reader.readAsDataURL(file);
@@ -95,6 +88,8 @@ class Media extends Component {
     render() {
         return (
             <div>
+                <div id="preview" className="upload_preview"></div>
+
                 <RaisedButton
                     label="Choose an Image"
                     labelPosition="before"
