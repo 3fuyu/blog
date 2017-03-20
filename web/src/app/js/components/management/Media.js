@@ -66,7 +66,6 @@ class Media extends Component {
                 var reader = new FileReader()
                 reader.onload = function (e) {
                     console.log(e);
-                    // funAppendImage();
 
                     t.setState({
                         preSrc: e.target.result
@@ -98,7 +97,7 @@ class Media extends Component {
         return (
             <div>
                 <div id="preview" className="upload_preview">
-                    <img src={this.state.preSrc} alt=""/>
+                    <img src={this.state.preSrc} alt="" />
                 </div>
 
                 <RaisedButton
