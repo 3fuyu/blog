@@ -2,9 +2,9 @@
  * Created by 3fuyu on 2017/2/14.
  */
 
-import React, {PropTypes, Component} from 'react';
-import RaisedButton from '../../../../../node_modules/material-ui/RaisedButton';
-import UP from '../lib/upload'
+import React, {PropTypes, Component} from "react";
+import RaisedButton from "../../../../../node_modules/material-ui/RaisedButton";
+import UP from "../lib/upload";
 
 const styles = {
     button: {
@@ -24,7 +24,7 @@ const styles = {
 
 class Media extends Component {
     state = {
-        preSrc: ''
+        src: []
     };
 
     componentDidMount() {
@@ -59,7 +59,7 @@ class Media extends Component {
     }
 
     onSelect(files) {
-        var html = '', i = 0, t = this;
+        var html = '', i = files.length - 1, t = this;
         var funAppendImage = function () {
             var file = files[i];
             if (file) {
@@ -68,7 +68,7 @@ class Media extends Component {
                     console.log(e);
 
                     t.setState({
-                        preSrc: e.target.result
+                        src: e.target.result
                     });
                 }
                 reader.readAsDataURL(file);
@@ -97,7 +97,7 @@ class Media extends Component {
         return (
             <div>
                 <div id="preview" className="upload_preview">
-                    <img src={this.state.preSrc} alt="" />
+                    <img src={this.state.src} alt=""/>
                 </div>
 
                 <RaisedButton
