@@ -20,11 +20,17 @@ const styles = {
         width: '100%',
         opacity: 0,
     },
+    img: {
+        margin: 15,
+        width: 100,
+        height: 100,
+        borderRadius: 10
+    }
 };
 
 class Media extends Component {
     state = {
-        src: []
+        imgs: []
     };
 
     componentDidMount() {
@@ -67,14 +73,18 @@ class Media extends Component {
                 reader.onload = function (e) {
                     console.log(e);
 
+                    files[i].src = e.target.result;
+
                     t.setState({
-                        src: e.target.result
+                        imgs: files
                     });
                 }
                 reader.readAsDataURL(file);
             } else {
                 console.log('选择成功');
             }
+
+
         };
         funAppendImage();
     }
@@ -96,12 +106,8 @@ class Media extends Component {
     render() {
         return (
             <div>
-                <div id="preview" className="upload_preview">
-                    <img src={this.state.src} alt=""/>
-                </div>
-
                 <RaisedButton
-                    label="Choose an Image"
+                    label="Choose Image"
                     labelPosition="before"
                     style={styles.button}
                     containerElement="label"
@@ -109,6 +115,16 @@ class Media extends Component {
                 >
                     <input type="file" id="fileImage" style={styles.exampleImageInput}/>
                 </RaisedButton>
+                <div id="preview" className="upload_preview">
+                    <div className="imgs">
+                        {this.state.imgs.map(function (value, index) {
+                            return (
+                                <img src={value.src} alt="" key={index} style={styles.img}/>
+                            );
+                        })}
+                    </div>
+                </div>
+
             </div>
         );
     }
