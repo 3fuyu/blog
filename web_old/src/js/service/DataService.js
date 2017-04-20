@@ -158,10 +158,6 @@ dataService.postNew = function (params) {
     return post('postNew', params);
 };
 
-dataService.uploadImg = function (params) {
-    return post('upload/image', params);
-};
-
 dataService.queryArticalList = function (params) {
     return get('artical/queryList', params);
 };

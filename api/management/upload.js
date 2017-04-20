@@ -9,7 +9,7 @@ let formidable = require('formidable');
 let keyMaps = require('../../models/key_maps');
 let fs = require('fs');
 
-let baseRoute = '/management/upload'
+let baseRoute = '/admin/upload'
 
 let uploadApis = [{
     type: 'post',
@@ -70,3 +70,5 @@ let uploadApis = [{
         });
     }
 }];
+
+module.exports = uploadApis;

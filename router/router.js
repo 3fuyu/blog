@@ -10,10 +10,11 @@ var _ = require('lodash');
 var adminArticle = require('../api/management/article'),
     user = require('../api/management/user'),
     article = require('../api/user/article'),
-    terms = require('../api/management/terms');
+    terms = require('../api/management/terms'),
+    upload = require('../api/management/upload');
 
 // 合并api
-var apis = _.concat(adminArticle, article, user, terms);
+var apis = _.concat(adminArticle, article, user, terms, upload);
 
 apis.forEach(function (value, key) {
     if (value.type === 'get') {

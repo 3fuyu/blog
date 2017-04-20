@@ -5,7 +5,7 @@
 import React, {PropTypes, Component} from "react";
 import RaisedButton from "../../../../../node_modules/material-ui/RaisedButton";
 import UP from "../lib/upload";
-import DataService from "../service/DataService";
+import DataService from "../../service/DataService";
 
 const styles = {
     button: {
@@ -155,8 +155,10 @@ class Media extends Component {
     }
 
     submitMedia() {
-        DataService.uploadImg({
-
+        DataService.adminUploadImg({
+            files: this.state.imgs
+        }).then(function (data) {
+            console.log(data);
         });
         console.log('submit');
     }

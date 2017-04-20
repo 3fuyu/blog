@@ -211,6 +211,10 @@ dataService.adminDelTerm = function (params) {
     return post('admin/terms/del', params);
 };
 
+dataService.adminUploadImg = function (params) {
+    return post('admin/upload/image', params);
+};
+
 
 // 前端用户
 dataService.queryArticleList = function (params) {
