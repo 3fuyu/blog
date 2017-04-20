@@ -5,6 +5,7 @@
 import React, {PropTypes, Component} from "react";
 import RaisedButton from "../../../../../node_modules/material-ui/RaisedButton";
 import UP from "../lib/upload";
+import DataService from "../service/DataService";
 
 const styles = {
     button: {
@@ -20,17 +21,45 @@ const styles = {
         width: '100%',
         opacity: 0,
     },
+    img_container: {
+        position: "relative",
+        width: 130,
+        height: 130
+    },
+    imgs: {
+        display: "flex"
+    },
     img: {
         margin: 15,
         width: 100,
         height: 100,
         borderRadius: 10
+    },
+    img_close: {
+        position: 'absolute',
+        display: "flex",
+        alignItems: "cengter",
+        justifyContent: "center",
+        top: 15,
+        right: 15,
+        width: 20,
+        height: 20,
+        borderRadius: "50%",
+        fontSize: 12,
+        color: "#fff",
+        backgroundColor: "rgba(0, 0, 0, 0.34)"
+    },
+    upload_btn: {
+        margin: 12
     }
 };
 
+let imgsArr = [];
+
 class Media extends Component {
     state = {
-        imgs: []
+        imgs: [],
+        isShow: false
     };
 
     componentDidMount() {
@@ -61,12 +90,16 @@ class Media extends Component {
                 alert('文件"' + file.name + '"不是图片。');
             }
         }
-        return arrFiles;
+
+        imgsArr = arrFiles;
+        return imgsArr;
     }
 
     onSelect(files) {
         var html = '', t = this;
         var funAppendImage = function () {
+
+            imgsArr = files;
 
             files.forEach(function (value, key) {
                 if (value) {
@@ -79,6 +112,12 @@ class Media extends Component {
                         t.setState({
                             imgs: files
                         });
+
+                        if (files && files.length > 0) {
+                            t.setState({
+                                isShow: true
+                            })
+                        }
                     }
                     reader.readAsDataURL(value);
                 } else {
@@ -99,11 +138,32 @@ class Media extends Component {
     }
 
     onFailure(file) {
-        $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");
-        $("#uploadImage_" + file.index).css("opacity", 0.2);
+    }
+
+    deleteImg(index) {
+        imgsArr.splice(index, 1);
+        this.setState({
+            imgs: imgsArr
+        });
+
+        if (imgsArr.length === 0) {
+            this.setState({
+                isShow: false
+            });
+        }
+        console.log('delete');
+    }
+
+    submitMedia() {
+        DataService.uploadImg({
+
+        });
+        console.log('submit');
     }
 
     render() {
+        var _this = this;
+
         return (
             <div>
                 <RaisedButton
@@ -116,15 +176,22 @@ class Media extends Component {
                     <input type="file" id="fileImage" style={styles.exampleImageInput} multiple/>
                 </RaisedButton>
                 <div id="preview" className="upload_preview">
-                    <div className="imgs">
+                    <div className="imgs" style={styles.imgs}>
                         {this.state.imgs.map(function (value, index) {
                             return (
-                                <img src={value.src} alt="" key={index} style={styles.img}/>
+                                <div key={index} style={styles.img_container}>
+                                    <img src={value.src} alt="" style={styles.img}/>
+                                    <div style={styles.img_close} onClick={() => _this.deleteImg(index)}>
+                                        <i className="icon iconfont icon-close"
+                                           style={{fontSize: '12px', position: 'relative', top: '-1px'}}></i>
+                                    </div>
+                                </div>
                             );
                         })}
                     </div>
                 </div>
-
+                <RaisedButton className={this.state.isShow ? 'show' : 'hide'} label="上传" primary={true}
+                              style={styles.upload_btn} onClick={() => this.submitMedia()}/>
             </div>
         );
     }
