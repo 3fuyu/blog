@@ -65,26 +65,26 @@ class Media extends Component {
     }
 
     onSelect(files) {
-        var html = '', i = files.length - 1, t = this;
+        var html = '', t = this;
         var funAppendImage = function () {
-            var file = files[i];
-            if (file) {
-                var reader = new FileReader()
-                reader.onload = function (e) {
-                    console.log(e);
 
-                    files[i].src = e.target.result;
+            files.forEach(function (value, key) {
+                if (value) {
+                    var reader = new FileReader()
+                    reader.onload = function (e) {
+                        console.log(e);
 
-                    t.setState({
-                        imgs: files
-                    });
+                        files[key].src = e.target.result;
+
+                        t.setState({
+                            imgs: files
+                        });
+                    }
+                    reader.readAsDataURL(value);
+                } else {
+                    console.log("选择成功");
                 }
-                reader.readAsDataURL(file);
-            } else {
-                console.log('选择成功');
-            }
-
-
+            });
         };
         funAppendImage();
     }
@@ -113,7 +113,7 @@ class Media extends Component {
                     containerElement="label"
                     className="upload_choose"
                 >
-                    <input type="file" id="fileImage" style={styles.exampleImageInput}/>
+                    <input type="file" id="fileImage" style={styles.exampleImageInput} multiple/>
                 </RaisedButton>
                 <div id="preview" className="upload_preview">
                     <div className="imgs">
