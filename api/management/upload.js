@@ -15,6 +15,7 @@ let uploadApis = [{
     type: 'post',
     url: baseRoute + '/image',
     success: function (req, res) {
+        console.log(req.body);
         let cacheFolder = 'public/images/uploadcache/';
         let currentUser = req.session.user;
         let userDirPath = cacheFolder + currentUser.id;

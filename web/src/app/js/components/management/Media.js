@@ -156,7 +156,7 @@ class Media extends Component {
 
     submitMedia() {
         DataService.adminUploadImg({
-            files: this.state.imgs
+            files: JSON.stringify(this.state.imgs)
         }).then(function (data) {
             console.log(data);
         });
