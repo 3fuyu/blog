@@ -94,6 +94,7 @@ function post(url, params) {
         request
             .post(baseUrl + url)
             .type('form')
+            // .set('Content-Type', 'application/json')
             .send(toFlattenMap(params))
             .end(function (err, res) {
                 if (err || !res.ok) {
