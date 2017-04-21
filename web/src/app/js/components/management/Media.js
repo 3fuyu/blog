@@ -155,12 +155,28 @@ class Media extends Component {
     }
 
     submitMedia() {
-        DataService.adminUploadImg({
-            files: JSON.stringify(this.state.imgs)
-        }).then(function (data) {
-            console.log(data);
+
+        var form = new FormData($('#uploadForm')[0]);
+
+        console.log(form);
+        $.ajax({
+            url: 'http://localhost:8080/api/admin/upload/image',
+            type: 'post',
+            data: form,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log('success');
+            },
+            error: function (data) {
+                console.log('error');
+            }
         });
-        console.log('submit');
+        // DataService.adminUploadImg(form).then(function (data) {
+        //     console.log(data);
+        // });
+        // console.log('submit');
     }
 
     render() {
@@ -168,32 +184,34 @@ class Media extends Component {
 
         return (
             <div>
-                <RaisedButton
-                    label="Choose Image"
-                    labelPosition="before"
-                    style={styles.button}
-                    containerElement="label"
-                    className="upload_choose"
-                >
-                    <input type="file" id="fileImage" style={styles.exampleImageInput} multiple/>
-                </RaisedButton>
-                <div id="preview" className="upload_preview">
-                    <div className="imgs" style={styles.imgs}>
-                        {this.state.imgs.map(function (value, index) {
-                            return (
-                                <div key={index} style={styles.img_container}>
-                                    <img src={value.src} alt="" style={styles.img}/>
-                                    <div style={styles.img_close} onClick={() => _this.deleteImg(index)}>
-                                        <i className="icon iconfont icon-close"
-                                           style={{fontSize: '12px', position: 'relative', top: '-1px'}}></i>
+                <form id="uploadForm" action="">
+                    <RaisedButton
+                        label="Choose Image"
+                        labelPosition="before"
+                        style={styles.button}
+                        containerElement="label"
+                        className="upload_choose"
+                    >
+                        <input type="file" id="fileImage" name="img" style={styles.exampleImageInput} multiple/>
+                    </RaisedButton>
+                    <div id="preview" className="upload_preview">
+                        <div className="imgs" style={styles.imgs}>
+                            {this.state.imgs.map(function (value, index) {
+                                return (
+                                    <div key={index} style={styles.img_container}>
+                                        <img src={value.src} alt="" style={styles.img}/>
+                                        <div style={styles.img_close} onClick={() => _this.deleteImg(index)}>
+                                            <i className="icon iconfont icon-close"
+                                               style={{fontSize: '12px', position: 'relative', top: '-1px'}}></i>
+                                        </div>
                                     </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>
                     </div>
-                </div>
-                <RaisedButton className={this.state.isShow ? 'show' : 'hide'} label="上传" primary={true}
-                              style={styles.upload_btn} onClick={() => this.submitMedia()}/>
+                    <RaisedButton className={this.state.isShow ? 'show' : 'hide'} label="上传" primary={true}
+                                  style={styles.upload_btn} onClick={() => this.submitMedia()}/>
+                </form>
             </div>
         );
     }
