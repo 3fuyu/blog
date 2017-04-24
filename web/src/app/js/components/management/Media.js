@@ -157,7 +157,12 @@ class Media extends Component {
     }
 
     deleteImg(index) {
-        imgsArr.splice(index, 1);
+        if (index === 'all') {
+            imgsArr.splice(0, imgsArr.length);
+        } else {
+            imgsArr.splice(index, 1);
+        }
+
         this.setState({
             imgs: imgsArr
         });
@@ -167,6 +172,7 @@ class Media extends Component {
                 isShow: false
             });
         }
+
         console.log('delete');
     }
 
@@ -185,9 +191,7 @@ class Media extends Component {
             success: function (data) {
                 console.log('success');
                 t.getImgList();
-                t.setState({
-                    imgs: []
-                });
+                t.deleteImg('all');
                 FYT.tips('上传成功');
             },
             error: function (data) {
