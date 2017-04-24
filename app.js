@@ -46,7 +46,7 @@ app.use(cookieParser());
 
 app.use(baseUrl, router);
 app.use(express.static(path.join(__dirname, 'web/build')));
-
+app.use('/static', express.static(path.join(__dirname, 'static')));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

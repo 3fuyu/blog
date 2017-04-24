@@ -6,6 +6,7 @@ import React, {PropTypes, Component} from "react";
 import RaisedButton from "../../../../../node_modules/material-ui/RaisedButton";
 import UP from "../lib/upload";
 import DataService from "../../service/DataService";
+import FYT from "../../service/FYToolService";
 
 const styles = {
     button: {
@@ -59,8 +60,23 @@ let imgsArr = [];
 class Media extends Component {
     state = {
         imgs: [],
-        isShow: false
+        isShow: false,
+        imgsList: []
     };
+
+    componentWillMount() {
+        this.getImgList();
+    }
+
+    getImgList() {
+        var t = this;
+
+        DataService.adminQueryImgList().then(function (data) {
+            t.setState({
+                imgsList: data
+            });
+        });
+    }
 
     componentDidMount() {
         var params = {
@@ -155,8 +171,8 @@ class Media extends Component {
     }
 
     submitMedia() {
-
-        var form = new FormData($('#uploadForm')[0]);
+        let form = new FormData($('#uploadForm')[0]),
+            t = this;
 
         console.log(form);
         $.ajax({
@@ -168,15 +184,28 @@ class Media extends Component {
             contentType: false,
             success: function (data) {
                 console.log('success');
+                t.getImgList();
+                t.setState({
+                    imgs: []
+                });
+                FYT.tips('上传成功');
             },
             error: function (data) {
                 console.log('error');
             }
         });
-        // DataService.adminUploadImg(form).then(function (data) {
-        //     console.log(data);
-        // });
-        // console.log('submit');
+    }
+
+    deleteImgList(id) {
+        var t = this;
+
+        DataService.adminDelImg({
+            id: id
+        }).then(function (data) {
+            console.log(data);
+            t.getImgList();
+            FYT.tips('删除成功');
+        });
     }
 
     render() {
@@ -184,6 +213,19 @@ class Media extends Component {
 
         return (
             <div>
+                <div className="imgs" style={styles.imgs}>
+                    {this.state.imgsList.map(function (value, index) {
+                        return (
+                            <div key={index} style={styles.img_container}>
+                                <img src={value.url} alt="" style={styles.img}/>
+                                <div style={styles.img_close} onClick={() => _this.deleteImgList(value.id)}>
+                                    <i className="icon iconfont icon-close"
+                                       style={{fontSize: '12px', position: 'relative', top: '-1px'}}></i>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
                 <form id="uploadForm" action="">
                     <RaisedButton
                         label="Choose Image"

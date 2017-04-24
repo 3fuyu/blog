@@ -23,7 +23,9 @@ let uploadApis = [{
             max_id = 1;
 
         form.parse(req, function (err, fields, files) {
-            let url = '/static/imgs/' + (+new Date()) + '_' + files.img.name;
+            console.log(files);
+            let name = +new Date() + '.' + files.img.type.split('/')[1];
+            let url = '/static/imgs/' + name;
 
             keyMapsModel.find({imgs_map_key: true}, function (err, docs) {
                 if (err) {
@@ -68,7 +70,7 @@ let uploadApis = [{
                                 res.write('received upload: \n\n');
                                 // res.end(util.inspect({fields: fields, files: files}));
                                 res.end(util.inspect({code: 200, description: 'success', data: {url: url}}));
-                                fs.renameSync(files.img.path, './web/static/imgs/' + files.img.name);
+                                fs.renameSync(files.img.path, './static/imgs/' + name);
                             });
                         }
                     });

@@ -216,6 +216,14 @@ dataService.adminUploadImg = function (params) {
     return post('admin/upload/image', params);
 };
 
+dataService.adminQueryImgList = function (params) {
+    return get('admin/upload/queryList', params);
+};
+
+dataService.adminDelImg = function (params) {
+    return post('admin/upload/del', params);
+};
+
 
 // 前端用户
 dataService.queryArticleList = function (params) {
