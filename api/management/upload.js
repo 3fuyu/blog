@@ -47,10 +47,10 @@ let uploadApis = [{
                                 setImg(res, files.img);
                             }
 
-                            res.writeHead(200, {'content-type': 'text/plain'});
-                            res.write('received upload: \n\n');
-
-                            res.end(util.inspect({code: 200, description: 'success'}));
+                            res.send({
+                                code: 200,
+                                description: 'success'
+                            });
                         });
                     } else {
                         if (_.isArray(files.img)) {

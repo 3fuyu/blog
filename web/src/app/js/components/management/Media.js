@@ -23,12 +23,13 @@ const styles = {
         opacity: 0,
     },
     img_container: {
-        position: "relative",
+        position: 'relative',
         width: 130,
         height: 130
     },
     imgs: {
-        display: "flex"
+        display: 'flex',
+        flexWrap: 'wrap'
     },
     img: {
         margin: 15,
@@ -38,17 +39,17 @@ const styles = {
     },
     img_close: {
         position: 'absolute',
-        display: "flex",
-        alignItems: "cengter",
-        justifyContent: "center",
+        display: 'flex',
+        alignItems: 'cengter',
+        justifyContent: 'center',
         top: 15,
         right: 15,
         width: 20,
         height: 20,
-        borderRadius: "50%",
+        borderRadius: '50%',
         fontSize: 12,
-        color: "#fff",
-        backgroundColor: "rgba(0, 0, 0, 0.34)"
+        color: '#fff',
+        backgroundColor: 'rgba(0, 0, 0, 0.34)'
     },
     upload_btn: {
         margin: 12
@@ -80,7 +81,7 @@ class Media extends Component {
 
     componentDidMount() {
         var params = {
-            fileInput: $("#fileImage").get(0),
+            fileInput: $('#fileImage').get(0),
             filter: this.filter,
             onSelect: this.onSelect.bind(this),
             onProcess: this.onProgress,
@@ -96,9 +97,9 @@ class Media extends Component {
     filter(files) {
         var arrFiles = [];
         for (var i = 0, file; file = files[i]; i++) {
-            if (file.type.indexOf("image") === 0) {
+            if (file.type.indexOf('image') === 0) {
                 if (file.size >= 512000) {
-                    alert('您这张"' + file.name + '"图片大小过大，应小于500k');
+                    alert('您这张' + file.name + '图片大小过大，应小于500k');
                 } else {
                     arrFiles.push(file);
                 }
@@ -137,7 +138,7 @@ class Media extends Component {
                     }
                     reader.readAsDataURL(value);
                 } else {
-                    console.log("选择成功");
+                    console.log('选择成功');
                 }
             });
         };
@@ -145,7 +146,7 @@ class Media extends Component {
     }
 
     onProgress(file, loaded, total) {
-        var eleProgress = $("#uploadProgress_" + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
+        var eleProgress = $('#uploadProgress_' + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
         eleProgress.show().html(percent);
     }
 
