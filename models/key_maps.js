@@ -16,6 +16,12 @@ var mapsSchema = mongoose.Schema({
     },
     'terms_map_value': {
         type: 'String'
+    },
+    'imgs_map_key': {
+        type: 'Boolean'
+    },
+    'imgs_map_value': {
+        type: 'String'
     }
 });
 
