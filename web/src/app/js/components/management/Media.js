@@ -163,13 +163,14 @@ class Media extends Component {
             imgsArr.splice(index, 1);
         }
 
-        this.setState({
-            imgs: imgsArr
-        });
-
         if (imgsArr.length === 0) {
             this.setState({
-                isShow: false
+                isShow: false,
+                imgs: imgsArr
+            });
+        } else {
+            this.setState({
+                imgs: imgsArr
             });
         }
 
@@ -180,11 +181,15 @@ class Media extends Component {
         let form = new FormData($('#uploadForm')[0]),
             t = this;
 
+        // t.state.imgs.forEach(function (value, key) {
+        //     form.append('file[]', value);
+        // });
         console.log(form);
         $.ajax({
             url: 'http://localhost:8080/api/admin/upload/image',
             type: 'post',
             data: form,
+            dataType: 'json',
             async: false,
             processData: false,
             contentType: false,

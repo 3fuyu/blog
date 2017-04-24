@@ -11,6 +11,7 @@ let keyMapsModel = require('../../models/key_maps');
 let imgsModel = require('../../models/management/attachment/imgs');
 let fs = require('fs');
 let Tools = require('../../tools/tools');
+let _ = require('lodash');
 
 let baseRoute = '/admin/upload'
 
@@ -19,61 +20,52 @@ let uploadApis = [{
     type: 'post',
     url: baseRoute + '/image',
     success: function (req, res) {
-        let form = new formidable.IncomingForm(),
-            max_id = 1;
+        let form = new formidable.IncomingForm();
 
+        form.keepExtensions = true;
+        form.multiples = true;
         form.parse(req, function (err, fields, files) {
-            console.log(files);
-            let name = +new Date() + '.' + files.img.type.split('/')[1];
-            let url = '/static/imgs/' + name;
 
             keyMapsModel.find({imgs_map_key: true}, function (err, docs) {
                 if (err) {
                     console.error(err);
                 } else {
                     if (docs.length === 0) {
-                        let imgsMapKey = JSON.stringify({max_id: 1});
-
                         let keyMapsEntity = new keyMapsModel({
                             imgs_map_key: true,
-                            imgs_map_value: imgsMapKey
+                            imgs_max_id: 1
                         });
 
                         keyMapsEntity.save(function (err, docs) {
                             if (err) console.error(err);
+
+                            if (_.isArray(files.img)) {
+                                files.img.forEach(function (value, key) {
+                                    setImg(res, value);
+                                });
+                            } else {
+                                setImg(res, files.img);
+                            }
+
+                            res.writeHead(200, {'content-type': 'text/plain'});
+                            res.write('received upload: \n\n');
+
+                            res.end(util.inspect({code: 200, description: 'success'}));
                         });
                     } else {
-                        max_id = parseInt(JSON.parse(docs[0].imgs_map_value).max_id) + 1;
-                    }
-
-                    // 存数据库
-                    let imgsEntity = new imgsModel({
-                        _id: max_id,
-                        name: files.img.name,
-                        url: url
-                    });
-
-                    imgsEntity.save(function (err, docs) {
-                        if (err) {
-                            console.error('Somthing wrong: ' + err);
-                        } else {
-                            let conditions = {imgs_map_key: true};
-                            let update = {$set: {imgs_map_value: JSON.stringify({max_id: max_id})}};
-                            let options = {upsert: true};
-
-                            keyMapsModel.update(conditions, update, options, function (err, suc) {
-                                if (err) console.error(err);
-
-                                if (suc) console.log(suc);
-
-                                res.writeHead(200, {'content-type': 'text/plain'});
-                                res.write('received upload: \n\n');
-                                // res.end(util.inspect({fields: fields, files: files}));
-                                res.end(util.inspect({code: 200, description: 'success', data: {url: url}}));
-                                fs.renameSync(files.img.path, './static/imgs/' + name);
+                        if (_.isArray(files.img)) {
+                            files.img.forEach(function (value, key) {
+                                setImg(res, value);
                             });
+                        } else {
+                            setImg(res, files.img);
                         }
-                    });
+
+                        res.send({
+                            code: 200,
+                            description: 'success'
+                        });
+                    }
                 }
             });
         });
@@ -113,5 +105,26 @@ let uploadApis = [{
         });
     }
 }];
+
+function setImg(res, img) {
+    keyMapsModel.findOneAndUpdate({imgs_map_key: true}, {$inc: {'imgs_max_id': 1}}, function (err, suc) {
+        let name = +new Date() + '.' + img.type.split('/')[1],
+            url = '/static/imgs/' + name;
+
+        if (err) return console.log(err);
+
+        // 存数据库
+        let imgsEntity = new imgsModel({
+            _id: suc.imgs_max_id,
+            name: img.name,
+            url: url
+        });
+
+        imgsEntity.save(function (err, docs) {
+            fs.renameSync(img.path, './static/imgs/' + name);
+        });
+    });
+}
+
 
 module.exports = uploadApis;
