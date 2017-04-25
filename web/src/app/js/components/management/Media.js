@@ -236,7 +236,7 @@ class Media extends Component {
                                 <img src={value.url} alt="" style={styles.img} className="imgs_view" onClick={() => _this.copyUrl(value.url)} data-clipboard-text={value.url} />
                                 <div style={styles.img_close} onClick={() => _this.deleteImgList(value.id)}>
                                     <i className="icon iconfont icon-close"
-                                       style={{fontSize: '12px', position: 'relative', top: '-1px'}}></i>
+                                       style={{fontSize: '12px', position: 'relative', top: '-1px', zIndex: '99'}}></i>
                                 </div>
                             </div>
                         );
