@@ -199,7 +199,6 @@ class Media extends Component {
             processData: false,
             contentType: false,
             success: function (data) {
-                console.log('success');
                 t.getImgList();
                 t.deleteImg('all');
                 FYT.tips('上传成功');
@@ -216,7 +215,6 @@ class Media extends Component {
         DataService.adminDelImg({
             id: id
         }).then(function (data) {
-            console.log(data);
             t.getImgList();
             FYT.tips('删除成功');
         });
@@ -224,6 +222,7 @@ class Media extends Component {
 
     copyUrl(url) {
         this.clip.setText(url);
+        this.clip.emit('copy');
         FYT.tips('复制成功');
     }
 
