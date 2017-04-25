@@ -179,8 +179,6 @@ class Media extends Component {
                 imgs: imgsArr
             });
         }
-
-        console.log('delete');
     }
 
     submitMedia() {
