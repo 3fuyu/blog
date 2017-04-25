@@ -184,9 +184,11 @@ class Media extends Component {
     submitMedia() {
         let form = new FormData($('#uploadForm')[0]),
             t = this,
-            host = window.location.host;
+            host = window.location.origin;
 
-        host = host.indexOf('3000') > -1 ? 'http://localhost:8080' : host;
+        if (host.indexOf('3000') > -1) {
+            host = 'http://localhost:8080';
+        }
 
         $.ajax({
             url: host + '/api/admin/upload/image',
