@@ -183,14 +183,13 @@ class Media extends Component {
 
     submitMedia() {
         let form = new FormData($('#uploadForm')[0]),
-            t = this;
+            t = this,
+            host = window.location.host;
 
-        // t.state.imgs.forEach(function (value, key) {
-        //     form.append('file[]', value);
-        // });
-        console.log(form);
+        host = host.indexOf('3000') > -1 ? 'http://localhost:8080' : host;
+
         $.ajax({
-            url: 'http://localhost:8080/api/admin/upload/image',
+            url: host + '/api/admin/upload/image',
             type: 'post',
             data: form,
             dataType: 'json',
