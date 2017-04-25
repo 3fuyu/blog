@@ -55,6 +55,7 @@ const config = {
             {from: 'src/www/images', to: 'images'},
             {from: 'src/www/index.html'},
             {from: 'src/www/versions.json'},
+            {from: 'src/app/js/lib/ZeroClipboard.swf'},
         ]),
     ],
     module: {

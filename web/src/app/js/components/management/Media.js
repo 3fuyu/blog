@@ -7,6 +7,7 @@ import RaisedButton from "../../../../../node_modules/material-ui/RaisedButton";
 import UP from "../lib/upload";
 import DataService from "../../service/DataService";
 import FYT from "../../service/FYToolService";
+import ZeroClipboard from "../../lib/ZeroClipboard.min";
 
 const styles = {
     button: {
@@ -80,23 +81,27 @@ class Media extends Component {
     }
 
     componentDidMount() {
-        var params = {
+        let params = {
             fileInput: $('#fileImage').get(0),
             filter: this.filter,
             onSelect: this.onSelect.bind(this),
             onProcess: this.onProgress,
             onSuccess: this.onSuccess,
             onFailure: this.onFailure
-        }
-
-        var upload = _.extend(UP, params);
+        };
+        let upload = _.extend(UP, params);
+        let t = this;
 
         upload.init();
+
+        setTimeout(function () {
+            t.clip = new ZeroClipboard($('.imgs_view'));
+        }, 50);
     }
 
     filter(files) {
-        var arrFiles = [];
-        for (var i = 0, file; file = files[i]; i++) {
+        let arrFiles = [];
+        for (let i = 0, file; file = files[i]; i++) {
             if (file.type.indexOf('image') === 0) {
                 if (file.size >= 512000) {
                     alert('您这张' + file.name + '图片大小过大，应小于500k');
@@ -113,14 +118,14 @@ class Media extends Component {
     }
 
     onSelect(files) {
-        var html = '', t = this;
-        var funAppendImage = function () {
+        let html = '', t = this;
+        let funAppendImage = function () {
 
             imgsArr = files;
 
             files.forEach(function (value, key) {
                 if (value) {
-                    var reader = new FileReader()
+                    let reader = new FileReader()
                     reader.onload = function (e) {
                         console.log(e);
 
@@ -146,7 +151,7 @@ class Media extends Component {
     }
 
     onProgress(file, loaded, total) {
-        var eleProgress = $('#uploadProgress_' + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
+        let eleProgress = $('#uploadProgress_' + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
         eleProgress.show().html(percent);
     }
 
@@ -207,7 +212,7 @@ class Media extends Component {
     }
 
     deleteImgList(id) {
-        var t = this;
+        let t = this;
 
         DataService.adminDelImg({
             id: id
@@ -218,8 +223,13 @@ class Media extends Component {
         });
     }
 
+    copyUrl(url) {
+        this.clip.setText(url);
+        FYT.tips('复制成功');
+    }
+
     render() {
-        var _this = this;
+        let _this = this;
 
         return (
             <div>
@@ -227,7 +237,7 @@ class Media extends Component {
                     {this.state.imgsList.map(function (value, index) {
                         return (
                             <div key={index} style={styles.img_container}>
-                                <img src={value.url} alt="" style={styles.img}/>
+                                <img src={value.url} alt="" style={styles.img} className="imgs_view" onClick={() => _this.copyUrl(value.url)} data-clipboard-text={value.url} />
                                 <div style={styles.img_close} onClick={() => _this.deleteImgList(value.id)}>
                                     <i className="icon iconfont icon-close"
                                        style={{fontSize: '12px', position: 'relative', top: '-1px'}}></i>
