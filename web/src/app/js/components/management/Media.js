@@ -221,8 +221,6 @@ class Media extends Component {
     }
 
     copyUrl(url) {
-        this.clip.setText(url);
-        this.clip.emit('copy');
         FYT.tips('复制成功');
     }
 
