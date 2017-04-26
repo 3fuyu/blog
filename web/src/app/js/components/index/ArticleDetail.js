@@ -33,7 +33,10 @@ class ArticleDetail extends Component {
 
     loadData() {
         let t = this,
-            id = this.props.params.id;
+            id = '',
+            hash = window.location.hash;
+
+        id = hash.split('/')[hash.split('/').length - 1];
 
         window.scrollTo(0, 0);
 
