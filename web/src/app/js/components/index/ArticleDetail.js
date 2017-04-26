@@ -27,6 +27,11 @@ class ArticleDetail extends Component {
     }
 
     componentWillMount() {
+        this.loadData();
+        this.initDuoShuo();
+    }
+
+    loadData() {
         let t = this,
             id = this.props.params.id;
 
@@ -39,8 +44,11 @@ class ArticleDetail extends Component {
                 articleObj: data
             });
         });
+    }
 
-        this.initDuoShuo();
+    componentWillReceiveProps() {
+        this.loadData();
+        console.log('come in');
     }
 
     render() {
