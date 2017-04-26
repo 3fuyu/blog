@@ -2,7 +2,7 @@
  * Created by 3fuyu on 16/10/11.
  */
 
-import {Component} from 'react';
+import {Component, PropTypes} from 'react';
 import {
     Table,
     TableBody,
@@ -36,6 +36,10 @@ class ArticleList extends Component {
         };
     }
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired,
+    };
+
     componentWillMount() {
         this.renderList();
     }
@@ -63,6 +67,13 @@ class ArticleList extends Component {
                 t.renderList();
             });
         });
+    }
+
+    editArticle(row) {
+        let t = this;
+        if (!row.id) return;
+
+        t.context.router.push('/management/new-article/' + row.id);
     }
 
     render() {
@@ -97,7 +108,7 @@ class ArticleList extends Component {
                                 <TableRowColumn>{row.postCategoryName}</TableRowColumn>
                                 <TableRowColumn>
                                     <FlatButton label="del" secondary={true} onClick={()=>this.delArticle(row)}/>
-                                    <FlatButton label="edit" primary={true}/>
+                                    <FlatButton label="edit" primary={true} onClick={()=>this.editArticle(row)} />
                                 </TableRowColumn>
                             </TableRow>
                         ))}

@@ -25,12 +25,13 @@ class NewArticle extends Component {
     state = {
         title: '',
         date: new Date(),
-        dataSource: []
+        dataSource: [],
+        content: ''
     };
 
     static contextTypes = {
         muiTheme: PropTypes.object.isRequired,
-        router: PropTypes.object.isRequired,
+        router: PropTypes.object.isRequired
     };
 
     getDate() {
@@ -58,10 +59,26 @@ class NewArticle extends Component {
                 $(parentCategory).fadeOut(100);
             }
         });
-
     }
 
     componentWillMount() {
+        let type = this.props.params.type,
+            t = this;
+
+        if (type && type !== 'new') {
+            DataService.adminGetArticle({
+                id: type
+            }).then(function (suc) {
+                let data = suc[0];
+                t.setState({
+                    content: data.postContent,
+                    date: new Date(data.postDate),
+                    title: data.postTitle
+                });
+                console.log(data);
+            });
+        }
+
         this.getCategoryList();
     }
 
@@ -76,23 +93,45 @@ class NewArticle extends Component {
     }
 
     submit() {
-        const t = this;
-        DataService.adminPostNew({
-            title: t.state.title,
-            content: t.refs.articleContent.value,
-            categoryId: categoryObj.id,
-            categoryName: categoryObj.name,
-            date: +new Date(t.state.date)
-        }).then(function (data) {
-            Util.tips('发布成功');
-            t.context.router.push('/management/article-list');
-        });
+        const t = this,
+            type = this.props.params.type;
+
+        if (type === 'new') {
+            DataService.adminPostNew({
+                title: t.state.title,
+                content: t.refs.articleContent.value,
+                categoryId: categoryObj.id,
+                categoryName: categoryObj.name,
+                date: +new Date(t.state.date)
+            }).then(function (data) {
+                Util.tips('发布成功');
+                t.context.router.push('/management/article-list');
+            });
+        } else {
+            DataService.adminPostUpdate({
+                id: this.props.params.type,
+                title: t.state.title,
+                content: t.refs.articleContent.value,
+                categoryId: categoryObj.id,
+                categoryName: categoryObj.name,
+                date: +new Date(t.state.date)
+            }).then(function (data) {
+                Util.tips('发布成功');
+                t.context.router.push('/management/article-list');
+            });
+        }
     }
 
     titleChange(e) {
         this.setState({
             title: e.target.value
         });
+    }
+
+    contentChange(e) {
+        this.setState({
+            content: e.target.value
+        })
     }
 
     dateChange(event, date) {
@@ -142,7 +181,7 @@ class NewArticle extends Component {
                     onUpdateInput={(value) => this.handleUpdateInput(value)}
                 />
 
-                <textarea name="newArticle" id="article-editor" ref="articleContent"></textarea>
+                <textarea name="newArticle" id="article-editor" ref="articleContent" value={this.state.content} onChange={(event) => this.contentChange(event)}></textarea>
 
                 <FloatingActionButton className="article-submit" onClick={() => this.submit()}>
                     <ContentAdd />

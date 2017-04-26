@@ -188,6 +188,14 @@ dataService.adminDelArticle = function (params) {
     return post('admin/article/del', params);
 };
 
+dataService.adminGetArticle = function (params) {
+    return get('admin/article/get', params);
+};
+
+dataService.adminPostUpdate = function (params) {
+    return post('admin/article/update', params);
+};
+
 dataService.getUserInfo = function (params) {
     return get('admin/user/getUserInfo', params);
 };

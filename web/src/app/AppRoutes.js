@@ -29,7 +29,7 @@ const AppRoutes = (
         <Route path="login" component={Login}/>
 
         <Route path="management">
-            <Route path="new-article" component={NewArticle}/>
+            <Route path="new-article/:type" component={NewArticle}/>
             <Route path="article-list" component={ArticleList}/>
             <Route path="article-category" component={ArticleCategory}/>
             <Route path="media" component={Media}></Route>

@@ -90,9 +90,9 @@ class AppNavDrawer extends Component {
                         primaryTogglesNestedList={true}
                         nestedItems={[
                         <ListItem primaryText="新建文章"
-                            value="/management/new-article"
+                            value="/management/new-article/new"
                             key="1"
-                            href="#/management/new-article"
+                            href="#/management/new-article/new"
                         />,
                         <ListItem primaryText="文章列表"
                             value="/management/article-list"

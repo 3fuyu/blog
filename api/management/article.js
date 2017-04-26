@@ -28,7 +28,7 @@ let postApis = [{
                 if (lang && hljs.getLanguage(lang)) {
                     return hljs.highlight(lang, code, true).value;
                 } else {
-                console.log(hljs.highlightAuto(code).value);
+                    console.log(hljs.highlightAuto(code).value);
                     return hljs.highlightAuto(code).value;
                 }
             }
@@ -90,7 +90,7 @@ let postApis = [{
     }
 }, {
 
-    // 查询文章
+    // 查询文章列表
     type: 'get',
     url: baseRoute + '/queryList',
     success: function (req, res, next) {
@@ -98,6 +98,47 @@ let postApis = [{
         .find({})
         .sort({'post_date': 'desc'})
         .exec(function (err, data) {
+            res.send({
+                code: 200,
+                description: 'success',
+                data: Tools.para2camel(data)
+            });
+        });
+    }
+}, {
+
+    // 查询文章详情
+    type: 'get',
+    url: baseRoute + '/get',
+    success: function (req, res, next) {
+        postsModel
+        .find({_id: req.query.id}, function (err, data) {
+            res.send({
+                code: 200,
+                description: 'success',
+                data: Tools.para2camel(data)
+            });
+        });
+    }
+}, {
+
+    // 更新文章详情
+    type: 'post',
+    url: baseRoute + '/update',
+    success: function (req, res, next) {
+        let query = {_id: req.body.id},
+            update = {
+                post_author: '3fuyu',
+                post_content: req.body.content,
+                post_md_content: MD(req.body.content),
+                post_title: req.body.title,
+                post_category_id: req.body.categoryId,
+                post_category_name: req.body.categoryName,
+                post_date: req.body.date || +new Date()
+            },
+            options = {multi: true};
+
+        postsModel.update(query, update, options, function (err, data) {
             res.send({
                 code: 200,
                 description: 'success',

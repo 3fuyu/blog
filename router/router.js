@@ -35,8 +35,8 @@ apis.forEach(function (value, key) {
 function authorize(req, res, next) {
 
     // debug 去掉登录态，方便开发
-    // next();
-    // return;
+    next();
+    return;
 
     if (req.route.path !== '/admin/user/login' && req.route.path.indexOf('/admin/') > -1) {
         if (!req.session.user_id) {
