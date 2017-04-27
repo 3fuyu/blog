@@ -35,7 +35,7 @@ class NewArticle extends Component {
     };
 
     getDate() {
-        let date = new Date();
+        let date = new Date(this.state.date || '');
 
         return moment(date).format('YYYY-MM-DD');
     }
@@ -72,7 +72,7 @@ class NewArticle extends Component {
                 let data = suc[0];
                 t.setState({
                     content: data.postContent,
-                    date: new Date(data.postDate),
+                    date: data.postDate,
                     title: data.postTitle
                 });
                 console.log(data);
@@ -162,12 +162,6 @@ class NewArticle extends Component {
                     onChange={(event) => this.titleChange(event)}
                 />
 
-                <DatePicker
-                    hintText="Date Input"
-                    style={{zIndex: '99',position:'relative'}}
-                    value={this.state.date}
-                    onChange={(event, date) => this.dateChange(event, date)}
-                />
                 <div className="article-date">Date: &nbsp;&nbsp;&nbsp;&nbsp;{date}</div>
 
                 <AutoComplete
