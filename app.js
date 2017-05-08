@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var proxy = require('./proxy');
 var session = require ('express-session');
 var router = require('./router/router');
+var compression = require('compression');
 var baseUrl = '/api';
 var app = express();
 
@@ -40,7 +41,7 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /web
 //app.use(favicon(path.join(__dirname, 'web', 'favicon.ico')));
 // 压缩
-// app.use(express.compress());
+app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
