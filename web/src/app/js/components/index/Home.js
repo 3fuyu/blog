@@ -184,6 +184,18 @@ class Home extends Component {
         this.context.router.push(hash);
         // window.open('http://' + window.location.host + this.context.router.createHref(hash));
     }
+    goTop() {
+        let scrollTime = 1000,  // ms
+            nowTime = 0;
+
+        let time = setInterval(function () {
+            nowTime++;
+            document.body.scrollTop = document.body.scrollTop - 20;
+            if (document.body.scrollTop === 0) {
+                clearInterval(time);
+            }
+        }, 1);
+    }
     render() {
 
         return (
@@ -258,7 +270,7 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="goup">
+                <div className="goup" onClick={() => this.goTop()}>
                     <i className="iconfont icon-pullup"></i>
                 </div>
             </div>
