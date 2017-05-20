@@ -53,18 +53,22 @@ class Home extends Component {
 
     navAnimation() {
         let $target = $('#home .head'),
+            $topup = $('#home .goup'),
             userAgent = window.navigator.userAgent,
             isFirfox = userAgent.indexOf('Firefox') > -1 ? true : false;
 
         // 100 像素前后逻辑
         var scrollTopFunc = function (e) {
             let scrollTop = 0,
+                scrollBottom = 0,
                 scrollTarget = $(window);
 
             if (isFirfox) {
                 scrollTop = scrollTarget.scrollTop();
+                scrollBottom = scrollTarget.scrollBottom();
             } else {
                 scrollTop = e.target.getElementsByClassName('3fuyu-blog')[0].scrollTop;
+                scrollBottom = e.target.getElementsByClassName('3fuyu-blog')[0].offsetHeight - e.target.getElementsByClassName('3fuyu-blog')[0].scrollTop - window.innerHeight;
             }
 
             if (scrollTop > 0) {
@@ -77,6 +81,12 @@ class Home extends Component {
                 $target.addClass('head-hide');
             } else {
                 $target.removeClass('head-hide');
+            }
+
+            if (scrollTop > 1000 && scrollBottom > 300) {
+                $topup.addClass('goup-show');
+            } else {
+                $topup.removeClass('goup-show');
             }
         }
 
@@ -247,6 +257,9 @@ class Home extends Component {
                             <span>Copyright © 2014 - {new Date().getFullYear()} ICP 16097049. All Rights Reserved. Powered By 3Fuyu.</span>
                         </div>
                     </div>
+                </div>
+                <div className="goup">
+                    <i className="iconfont icon-pullup"></i>
                 </div>
             </div>
         );
