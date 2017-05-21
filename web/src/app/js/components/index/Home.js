@@ -194,9 +194,9 @@ class Home extends Component {
             nowDistance = document.body.scrollTop;
 
             if (nowDistance > distance/2) {
-                nowTime += 0.5 + 0.01*nowTime;
+                nowTime += 0.5;
             } else if (nowTime >1) {
-                nowTime -= 0.5 + 0.01*nowTime;
+                nowTime -= 0.5;
             } else {
                 nowTime = 1;
             }
