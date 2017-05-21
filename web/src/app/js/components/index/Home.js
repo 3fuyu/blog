@@ -185,12 +185,25 @@ class Home extends Component {
         // window.open('http://' + window.location.host + this.context.router.createHref(hash));
     }
     goTop() {
-        let scrollTime = 1000,  // ms
-            nowTime = 0;
+        let nowTime = 0,
+            changeDistance = 0,
+            distance = document.body.scrollTop,
+            nowDistance = 0;
 
         let time = setInterval(function () {
-            nowTime++;
-            document.body.scrollTop = document.body.scrollTop - 20;
+            nowDistance = document.body.scrollTop;
+
+            if (nowDistance > distance/2) {
+                nowTime += 0.5 + 0.01*nowTime;
+            } else if (nowTime >1) {
+                nowTime -= 0.5 + 0.01*nowTime;
+            } else {
+                nowTime = 1;
+            }
+
+            changeDistance = nowTime;
+
+            document.body.scrollTop = document.body.scrollTop - changeDistance;
             if (document.body.scrollTop === 0) {
                 clearInterval(time);
             }
