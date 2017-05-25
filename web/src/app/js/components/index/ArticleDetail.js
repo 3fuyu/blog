@@ -86,6 +86,7 @@ class ArticleDetail extends Component {
                     </div>
                 </div>
                 <div id="SOHUCS"></div>
+                <div id="uyan_frame"></div>
             </div>
 
         );
