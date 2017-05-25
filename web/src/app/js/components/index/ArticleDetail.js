@@ -15,23 +15,6 @@ class ArticleDetail extends Component {
         categorys: ['java', 'javascript', 'python', 'ruby', 'c', 'c++', 'c#', 'ObjectC', 'go']
     };
 
-    initDuoShuo() {
-        let ds = document.createElement('script');
-        window.changyan.api.config({
-            appid: 'cyt1S1w3M',
-            conf: 'prod_73f06d34400f0e589effbae941fad7d8'
-        });
-        document.getElementById('SOHUCS').setAttribute('sid', this.state.articleObj.id);
-
-
-        // ds.type = 'text/javascript';
-        // ds.async = true;
-        // ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        // ds.charset = 'UTF-8';
-        // (document.getElementsByTagName('head')[0]
-        // || document.getElementsByTagName('body')[0]).appendChild(ds);
-    }
-
     componentWillMount() {
         this.loadData();
     }
@@ -51,7 +34,6 @@ class ArticleDetail extends Component {
             t.setState({
                 articleObj: data
             });
-            t.initDuoShuo();
         });
     }
 
@@ -87,7 +69,6 @@ class ArticleDetail extends Component {
                         </div>
                     </div>
                 </div>
-                <div id="SOHUCS"></div>
                 <div id="cloud-tie-wrapper" className="cloud-tie-wrapper"></div>
             </div>
 
