@@ -69,7 +69,7 @@ class ArticleDetail extends Component {
                         </div>
                     </div>
                 </div>
-                <div id="cloud-tie-wrapper" className="cloud-tie-wrapper"></div>
+                <div id="cloud-tie-wrapper" className="cloud-tie-wrapper" style={{margin: '10px 125px 30px 125px'}}></div>
             </div>
 
         );
