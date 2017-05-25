@@ -17,9 +17,11 @@ class ArticleDetail extends Component {
 
     componentWillMount() {
         this.loadData();
-        this.initComment();
     }
+    componentDidMount() {
+        this.initComment();
 
+    }
     initComment() {
         var t = this;
 
@@ -67,6 +69,8 @@ class ArticleDetail extends Component {
 
                         <div dangerouslySetInnerHTML={{__html: this.state.articleObj.postMdContent}}
                              className="article-content"></div>
+
+                        <div id="SOHUCS"></div>
                     </div>
                     <div className="article-sidebar">
                         <div className="article-sidebar-tag">
@@ -84,7 +88,7 @@ class ArticleDetail extends Component {
                 <div id="cloud-tie-wrapper" className="cloud-tie-wrapper"
                      style={{margin: '10px 125px 30px 125px'}}></div>
 
-                <div id="SOHUCS"></div>
+
             </div>
 
         );
