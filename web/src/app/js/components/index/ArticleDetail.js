@@ -19,6 +19,18 @@ class ArticleDetail extends Component {
         this.loadData();
     }
 
+    initComment() {
+        var cloudTieConfig = {
+            url: document.location.href,
+            sourceId: this.state.articleObj.id,
+            productKey: "d9c9a7f3bc264b00a98d8ca10c603e43",
+            target: "cloud-tie-wrapper"
+        };
+
+        var yunManualLoad = true;
+        Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+    }
+
     loadData() {
         let t = this,
             id = '',
@@ -34,6 +46,7 @@ class ArticleDetail extends Component {
             t.setState({
                 articleObj: data
             });
+            t.initComment();
         });
     }
 
@@ -69,7 +82,8 @@ class ArticleDetail extends Component {
                         </div>
                     </div>
                 </div>
-                <div id="cloud-tie-wrapper" className="cloud-tie-wrapper" style={{margin: '10px 125px 30px 125px'}}></div>
+                <div id="cloud-tie-wrapper" className="cloud-tie-wrapper"
+                     style={{margin: '10px 125px 30px 125px'}}></div>
             </div>
 
         );
