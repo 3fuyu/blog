@@ -20,20 +20,16 @@ class ArticleDetail extends Component {
     }
 
     initComment() {
-        window.changyan.api.config({
-            appid: 'cyt1S1w3M',
-            conf: 'prod_73f06d34400f0e589effbae941fad7d8'
-        });
-        document.getElementById('SOHUCS').setAttribute('sid', this.state.articleObj.id);
-        // var cloudTieConfig = {
-        //     url: document.location.href,
-        //     sourceId: this.state.articleObj.id,
-        //     productKey: "d9c9a7f3bc264b00a98d8ca10c603e43",
-        //     target: "cloud-tie-wrapper"
-        // };
-        //
-        // var yunManualLoad = true;
-        // Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+        var t = this;
+
+        setTimeout(function () {
+            document.getElementById('SOHUCS').setAttribute('sid', t.state.articleObj.id);
+
+            window.changyan.api.config({
+                appid: 'cyt1S1w3M',
+                conf: 'prod_73f06d34400f0e589effbae941fad7d8'
+            });
+        }, 500)
     }
 
     loadData() {
