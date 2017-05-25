@@ -20,15 +20,20 @@ class ArticleDetail extends Component {
     }
 
     initComment() {
-        var cloudTieConfig = {
-            url: document.location.href,
-            sourceId: this.state.articleObj.id,
-            productKey: "d9c9a7f3bc264b00a98d8ca10c603e43",
-            target: "cloud-tie-wrapper"
-        };
-
-        var yunManualLoad = true;
-        Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+        window.changyan.api.config({
+            appid: 'cyt1S1w3M',
+            conf: 'prod_73f06d34400f0e589effbae941fad7d8'
+        });
+        document.getElementById('SOHUCS').setAttribute('sid', this.state.articleObj.id);
+        // var cloudTieConfig = {
+        //     url: document.location.href,
+        //     sourceId: this.state.articleObj.id,
+        //     productKey: "d9c9a7f3bc264b00a98d8ca10c603e43",
+        //     target: "cloud-tie-wrapper"
+        // };
+        //
+        // var yunManualLoad = true;
+        // Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
     }
 
     loadData() {
@@ -84,6 +89,8 @@ class ArticleDetail extends Component {
                 </div>
                 <div id="cloud-tie-wrapper" className="cloud-tie-wrapper"
                      style={{margin: '10px 125px 30px 125px'}}></div>
+
+                <div id="SOHUCS"></div>
             </div>
 
         );
