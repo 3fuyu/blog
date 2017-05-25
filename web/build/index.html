@@ -22,12 +22,19 @@
 <div id='app'></div>
 <div id="alert"></div>
 <div id="dialog"></div>
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <!--高速版-->
 <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
 
-<!-- UY BEGIN -->
-<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134640"></script>
-<!-- UY END -->
+<script>
+    var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "d9c9a7f3bc264b00a98d8ca10c603e43",
+        target: "cloud-tie-wrapper"
+    };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
 
 <script src="app.js"></script>
 

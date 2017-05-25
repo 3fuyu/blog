@@ -22,6 +22,8 @@ class ArticleDetail extends Component {
             conf: 'prod_73f06d34400f0e589effbae941fad7d8'
         });
         document.getElementById('SOHUCS').setAttribute('sid', this.state.articleObj.id);
+
+
         // ds.type = 'text/javascript';
         // ds.async = true;
         // ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
@@ -86,7 +88,7 @@ class ArticleDetail extends Component {
                     </div>
                 </div>
                 <div id="SOHUCS"></div>
-                <div id="uyan_frame"></div>
+                <div id="cloud-tie-wrapper" className="cloud-tie-wrapper"></div>
             </div>
 
         );
