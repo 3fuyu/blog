@@ -17,19 +17,18 @@ class ArticleDetail extends Component {
 
     componentWillMount() {
         this.loadData();
+        this.initComment();
     }
 
     initComment() {
         var t = this;
 
-        setTimeout(function () {
-            document.getElementById('SOHUCS').setAttribute('sid', t.state.articleObj.id);
+        document.getElementById('SOHUCS').setAttribute('sid', window.location.hash);
 
-            window.changyan.api.config({
-                appid: 'cyt1S1w3M',
-                conf: 'prod_73f06d34400f0e589effbae941fad7d8'
-            });
-        }, 500)
+        window.changyan.api.config({
+            appid: 'cyt1S1w3M',
+            conf: 'prod_73f06d34400f0e589effbae941fad7d8'
+        });
     }
 
     loadData() {
@@ -47,7 +46,6 @@ class ArticleDetail extends Component {
             t.setState({
                 articleObj: data
             });
-            t.initComment();
         });
     }
 
