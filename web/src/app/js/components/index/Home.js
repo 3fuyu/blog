@@ -10,17 +10,23 @@ import "../../../css/markdown.less";
 import moment from "moment";
 import DataService from "../../service/DataService";
 import IconButton from "../../../../../node_modules/material-ui/IconButton";
+import RefreshIndicator from "../../../../../node_modules/material-ui/RefreshIndicator";
 import FYT from "../../service/FYToolService";
 
 let listData,
+    pageObj,
     scrollTop = 0;
 class Home extends Component {
 
     state = {
         articleList: listData || [],
+        pageObj: {},
         styles: {
             footerStyle: {
                 display: 'none'
+            },
+            pullUpFresh: {
+                display: 'block'
             }
         }
     };
@@ -33,7 +39,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.getData();
+        this.getList();
         this.navAnimation();
     }
 
@@ -52,7 +58,8 @@ class Home extends Component {
     }
 
     navAnimation() {
-        let $target = $('#home .head'),
+        let t = this,
+            $target = $('#home .head'),
             $topup = $('#home .goup'),
             userAgent = window.navigator.userAgent,
             isFirfox = userAgent.indexOf('Firefox') > -1 ? true : false;
@@ -61,7 +68,8 @@ class Home extends Component {
         var scrollTopFunc = function (e) {
             let scrollTop = 0,
                 scrollBottom = 0,
-                scrollTarget = $(window);
+                scrollTarget = $(window),
+                eventLock = false;
 
             if (isFirfox) {
                 scrollTop = scrollTarget.scrollTop();
@@ -87,6 +95,18 @@ class Home extends Component {
                 $topup.addClass('goup-show');
             } else {
                 $topup.removeClass('goup-show');
+            }
+
+            if (scrollBottom === 0) {
+                if (!eventLock) {
+                    eventLock = true;
+                    t.getData(function () {
+                        // 确保渲染完成 2s 内不刷新接口
+                        setTimeout(function () {
+                            eventLock = false;
+                        }, 2000);
+                    });
+                }
             }
         }
 
@@ -124,34 +144,65 @@ class Home extends Component {
         }
     }
 
-    getData() {
+    getList() {
         let t = this;
 
         if (!listData) {
             FYT.startLoading(ReactDOM.findDOMNode(document.getElementsByClassName('content')[0]));
-            DataService.queryArticleList().then(function (data) {
-                FYT.endLoading();
-
-                listData = data;
+            t.getData();
+        } else {
+            window.scrollTo(0, scrollTop);
+            if (listData.pageObj && listData.pageObj.isFinish) {
                 t.setState({
-                    articleList: data,
                     styles: {
                         footerStyle: {
                             display: 'block'
+                        },
+                        pullUpFresh: {
+                            display: 'none'
                         }
                     }
                 });
-            });
-        } else {
-            window.scrollTo(0, scrollTop);
+            }
+        }
+    }
+
+    getData(callback) {
+        var t = this,
+            pageIndex = t.state.pageObj && t.state.pageObj.nextPage || 1;
+
+        if (pageObj && pageObj.isFinish) {
+            return;
+        }
+
+        DataService.queryArticleList({
+            pageSize: 10,
+            pageIndex: pageIndex
+        }).then(function (data) {
+            FYT.endLoading();
+            if (listData) {
+                listData = listData.concat(data.data);
+            } else {
+                listData = data.data;
+            }
+
+            pageObj = data.pageObj;
+
             t.setState({
+                articleList: listData,
+                pageObj: data.pageObj,
                 styles: {
                     footerStyle: {
-                        display: 'block'
+                        display: data.pageObj.isFinish ? 'block' : 'none'
+                    },
+                    pullUpFresh: {
+                        display: data.pageObj.isFinish ? 'none' : 'block'
                     }
                 }
             });
-        }
+
+            callback && callback();
+        });
     }
 
     categoryBackUp() {
@@ -168,9 +219,11 @@ class Home extends Component {
             </div>
         )
     }
+
     cacheScroll() {
         scrollTop = document.body.scrollTop;
     }
+
     goDetail(value) {
         let date = new Date(value.postDate),
             year = date.getFullYear(),
@@ -184,6 +237,7 @@ class Home extends Component {
         this.context.router.push(hash);
         // window.open('http://' + window.location.host + this.context.router.createHref(hash));
     }
+
     goTop() {
         let nowTime = 0,
             changeDistance = 0,
@@ -193,9 +247,9 @@ class Home extends Component {
         let time = setInterval(function () {
             nowDistance = document.body.scrollTop;
 
-            if (nowDistance > distance/2) {
+            if (nowDistance > distance / 2) {
                 nowTime += 0.5;
-            } else if (nowTime >1) {
+            } else if (nowTime > 1) {
                 nowTime -= 0.5;
             } else {
                 nowTime = 1;
@@ -209,6 +263,7 @@ class Home extends Component {
             }
         }, 1);
     }
+
     render() {
 
         return (
@@ -217,12 +272,12 @@ class Home extends Component {
                     <span className="menu-logo"><img src="images/3fuyu.png" alt="" className="logo"/></span>
                     <ul className="menu-list">
                         {/*
-                        <li className="menu-item">HOME</li>
-                        <li className="menu-item">WEB</li>
-                        <li className="menu-item">UBUNTU</li>
-                        <li className="menu-item">PYTHON</li>
-                        <li className="menu-item">JAVA</li>
-                        */}
+                         <li className="menu-item">HOME</li>
+                         <li className="menu-item">WEB</li>
+                         <li className="menu-item">UBUNTU</li>
+                         <li className="menu-item">PYTHON</li>
+                         <li className="menu-item">JAVA</li>
+                         */}
                     </ul>
                 </div>
                 <div className="banner">
@@ -282,6 +337,14 @@ class Home extends Component {
                             <span>Copyright © 2014 - {new Date().getFullYear()} ICP 16097049. All Rights Reserved. Powered By 3Fuyu.</span>
                         </div>
                     </div>
+                </div>
+                <div className="pull-up-fresh" style={this.state.styles.pullUpFresh}>
+                    <RefreshIndicator
+                        size={40}
+                        left={0}
+                        top={0}
+                        status="loading"
+                    />
                 </div>
                 <div className="goup" onClick={() => this.goTop()}>
                     <i className="iconfont icon-pullup"></i>
