@@ -56,10 +56,9 @@ class ArticleDetail extends Component {
         });
     }
 
-    componentWillReceiveProps() {
-        this.loadData();
-        console.log('come in');
-    }
+    // componentWillReceiveProps() {
+    //     this.loadData();
+    // }
 
     render() {
         return (
@@ -92,8 +91,6 @@ class ArticleDetail extends Component {
                 </div>
                 <div id="cloud-tie-wrapper" className="cloud-tie-wrapper"
                      style={{margin: '10px 125px 30px 125px'}}></div>
-
-
             </div>
 
         );
