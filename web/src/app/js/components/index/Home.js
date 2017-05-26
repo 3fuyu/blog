@@ -21,6 +21,8 @@ class Home extends Component {
     state = {
         articleList: listData || [],
         pageObj: {},
+        banner_1: '',
+        banner_2: 'y-hide',
         styles: {
             footerStyle: {
                 display: 'none'
@@ -100,7 +102,7 @@ class Home extends Component {
             if (scrollBottom === 0) {
                 if (!eventLock) {
                     eventLock = true;
-                    t.getData(function () {
+                    t.getData('', function () {
                         // 确保渲染完成 2s 内不刷新接口
                         setTimeout(function () {
                             eventLock = false;
@@ -167,7 +169,7 @@ class Home extends Component {
         }
     }
 
-    getData(callback) {
+    getData(type, callback) {
         var t = this,
             pageIndex = t.state.pageObj && t.state.pageObj.nextPage || 1;
 
@@ -176,6 +178,7 @@ class Home extends Component {
         }
 
         DataService.queryArticleList({
+            type: type,
             pageSize: 10,
             pageIndex: pageIndex
         }).then(function (data) {
@@ -264,24 +267,94 @@ class Home extends Component {
         }, 1);
     }
 
-    render() {
+    category(e) {
+        let type = e.currentTarget.getAttribute('class').split(' ')[1],
+            $target = $(e.currentTarget);
 
+        $target.parent().children().removeClass('selected');
+        $target.addClass('selected');
+
+        switch (type) {
+            case 'home':
+                $target.removeClass('selected');
+                this.context.router.push('/');
+                this.setBanner('big');
+                break;
+            case 'web':
+                this.setBanner('small');
+                break;
+            case 'linux':
+                this.setBanner('small');
+                break;
+            case 'laboratory':
+                break;
+            case 'github':
+                window.open('https://github.com/3fuyu');
+                break;
+            case 'about':
+                this.setBanner('small');
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    setBanner(type) {
+        if (type === 'small') {
+            this.setState({
+                banner_1: 'y-hide',
+                banner_2: ''
+            });
+        } else if (type === 'big') {
+            this.setState({
+                banner_1: '',
+                banner_2: 'y-hide'
+            })
+        }
+    }
+
+    render() {
         return (
             <div id="home">
                 <div className="head">
                     <span className="menu-logo"><img src="images/3fuyu.png" alt="" className="logo"/></span>
                     <ul className="menu-list">
-                        {/*
-                         <li className="menu-item">HOME</li>
-                         <li className="menu-item">WEB</li>
-                         <li className="menu-item">UBUNTU</li>
-                         <li className="menu-item">PYTHON</li>
-                         <li className="menu-item">JAVA</li>
-                         */}
+                        <li className="menu-item home" onClick={(e)=>this.category(e)}>
+                            <div>HOME
+                                <div className="line"></div>
+                            </div>
+                        </li>
+                        <li className="menu-item web" onClick={(e)=>this.category(e)}>
+                            <div>WEB
+                                <div className="line"></div>
+                            </div>
+                        </li>
+                        <li className="menu-item linux" onClick={(e)=>this.category(e)}>
+                            <div>LINUX
+                                <div className="line"></div>
+                            </div>
+                        </li>
+                        <li className="menu-item laboratory" onClick={(e)=>this.category(e)}>
+                            <div>LABORATORY
+                                <div className="line"></div>
+                            </div>
+                        </li>
+                        <li className="menu-item github" onClick={(e)=>this.category(e)}>
+                            <div>GITHUB
+                                <div className="line"></div>
+                            </div>
+                        </li>
+                        <li className="menu-item about" onClick={(e)=>this.category(e)}>
+                            <div>ABOUT
+                                <div className="line"></div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div className="banner">
-                    <img src="images/banner_small.jpg" alt=""/>
+                    <img src="images/banner_small.jpg" className={this.state.banner_1} alt=""/>
+                    <img src="images/banner_small_two.jpg" className={this.state.banner_2} alt=""/>
                 </div>
 
                 <div className="content">
@@ -354,4 +427,6 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export
+default
+Home;
