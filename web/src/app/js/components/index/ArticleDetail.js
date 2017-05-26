@@ -7,6 +7,7 @@ import DataServicce from "../../service/DataService";
 import moment from "moment";
 import "../../../css/articleDetail.less";
 import "../../../../../node_modules/highlight.js/styles/github-gist.css";
+import changyan from "../../lib/changyan";
 
 class ArticleDetail extends Component {
 
@@ -18,19 +19,23 @@ class ArticleDetail extends Component {
     componentWillMount() {
         this.loadData();
     }
+
     componentDidMount() {
         this.initComment();
-
     }
+
     initComment() {
         var t = this;
 
         document.getElementById('SOHUCS').setAttribute('sid', window.location.hash);
 
+        changyan.load();
+
         window.changyan.api.config({
             appid: 'cyt1S1w3M',
             conf: 'prod_73f06d34400f0e589effbae941fad7d8'
         });
+
     }
 
     loadData() {
