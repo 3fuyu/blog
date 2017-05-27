@@ -173,7 +173,7 @@ class Home extends Component {
         var t = this,
             pageIndex = para && para.pageIndex || t.state.pageObj && t.state.pageObj.nextPage || 1;
 
-        if (pageObj && pageObj.isFinish) {
+        if (!(para && para.type) && pageObj && pageObj.isFinish) {
             return;
         }
 
@@ -282,7 +282,7 @@ class Home extends Component {
                 $target.removeClass('selected');
                 this.context.router.push('/');
                 this.setBanner('big');
-                this.getData();
+                this.getData({type: 0, pageIndex: 1});
                 break;
             case 'web':
                 this.setBanner('small');
