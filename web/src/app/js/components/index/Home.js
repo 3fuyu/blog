@@ -272,6 +272,7 @@ class Home extends Component {
             $target = $(e.currentTarget);
 
         listData = [];
+        pageObj = {};
 
         $target.parent().children().removeClass('selected');
         $target.addClass('selected');
