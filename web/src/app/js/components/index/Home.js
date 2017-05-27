@@ -169,16 +169,16 @@ class Home extends Component {
         }
     }
 
-    getData(type, callback) {
+    getData(para, callback) {
         var t = this,
-            pageIndex = t.state.pageObj && t.state.pageObj.nextPage || 1;
+            pageIndex = para && para.pageIndex || t.state.pageObj && t.state.pageObj.nextPage || 1;
 
         if (pageObj && pageObj.isFinish) {
             return;
         }
 
         DataService.queryArticleList({
-            type: type,
+            type: para && para.type || '',
             pageSize: 10,
             pageIndex: pageIndex
         }).then(function (data) {
@@ -271,20 +271,26 @@ class Home extends Component {
         let type = e.currentTarget.getAttribute('class').split(' ')[1],
             $target = $(e.currentTarget);
 
+        listData = [];
+
         $target.parent().children().removeClass('selected');
         $target.addClass('selected');
 
+        // type 0 all 1 web 2 linux
         switch (type) {
             case 'home':
                 $target.removeClass('selected');
                 this.context.router.push('/');
                 this.setBanner('big');
+                this.getData();
                 break;
             case 'web':
                 this.setBanner('small');
+                this.getData({type: 1, pageIndex: 1});
                 break;
             case 'linux':
                 this.setBanner('small');
+                this.getData({type: 2, pageIndex: 1});
                 break;
             case 'laboratory':
                 break;

@@ -31,12 +31,38 @@ var postApis = [{
     success: function (req, res, next) {
         let pageIndex = parseInt(req.query.pageIndex),
             pageSize = parseInt(req.query.pageSize),
-            position = parseInt(pageIndex - 1);
+            position = parseInt(pageIndex - 1),
+            search = {},
+            type = req.query.type || '',
+            category = [],
+            _postModel,
+            __postModel;
 
-        console.log(pageIndex, pageSize, position);
+        if (type) {
+            switch (type) {
+                case '1':
+                    category.push('js', 'javascript', 'angularJs', 'web前端', 'react');
+                    break;
+                case '2':
+                    category.push('ubuntu', 'linux');
+                    break;
+                default:
+                    break;
+            }
+            search.post_category_name = type;
+        }
 
-        postsModel
-        .find({})
+        if (category.length > 0) {
+            _postModel = postsModel.where('post_category_name').in(category);
+            // copy 一份统计数据用
+            __postModel = postsModel.where('post_category_name').in(category);
+        } else {
+            _postModel = postsModel.find({});
+            // copy 一份统计数据用
+            __postModel = postsModel.find({});
+        }
+
+        _postModel
         .skip(position)
         .limit(pageSize)
         .sort({'post_date': 'desc'})
@@ -44,7 +70,7 @@ var postApis = [{
             if (err) {
                 res.send(err);
             } else {
-                postsModel.count(function (errcount, count) {
+                __postModel.count(function (errcount, count) {
                     if (errcount) {
                         res.send(errcount);
                     } else {
@@ -66,12 +92,10 @@ var postApis = [{
                         });
                     }
                 });
-
             }
-
         });
     }
-}, ];
+},];
 
 
 module.exports = postApis;
