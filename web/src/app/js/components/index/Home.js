@@ -150,7 +150,6 @@ class Home extends Component {
         let t = this;
 
         if (!listData) {
-            FYT.startLoading(ReactDOM.findDOMNode(document.getElementsByClassName('content')[0]));
             t.getData();
         } else {
             window.scrollTo(0, scrollTop);
@@ -177,6 +176,7 @@ class Home extends Component {
             return;
         }
 
+        FYT.startLoading(ReactDOM.findDOMNode(document.getElementsByClassName('content')[0]));
         DataService.queryArticleList({
             type: para && para.type || '',
             pageSize: 10,
