@@ -208,21 +208,6 @@ class Home extends Component {
         });
     }
 
-    categoryBackUp() {
-        return (
-            <div className="category">
-                <ul className="category-list">
-                    <li className="category-item">分类目录</li>
-                    <li className="category-item">javascript</li>
-                    <li className="category-item">java</li>
-                    <li className="category-item">python</li>
-                    <li className="category-item">mongodb</li>
-                    <li className="category-item">nodejs</li>
-                </ul>
-            </div>
-        )
-    }
-
     cacheScroll() {
         scrollTop = document.body.scrollTop;
     }
@@ -276,6 +261,7 @@ class Home extends Component {
 
         $target.parent().children().removeClass('selected');
         $target.addClass('selected');
+        window.scrollTo(0, 0);
 
         // type 0 all 1 web 2 linux
         switch (type) {
