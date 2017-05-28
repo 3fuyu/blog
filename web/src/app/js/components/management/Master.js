@@ -172,7 +172,6 @@ class Master extends Component {
 
         return (
             <div>
-                <Title render="3fuyu's blog"/>
                 <AppBar
                     onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
                     title={title}
