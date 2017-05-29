@@ -16,11 +16,30 @@ var postApis = [{
         .find({'_id': req.query.id})
         .sort({'post_date': 'desc'})
         .exec(function (err, data) {
-            res.send({
-                code: 200,
-                description: 'success',
-                data: Tools.para2camel(data)[0]
-            });
+
+            if (err) {
+                res.send(err);
+            } else {
+                let query = {_id: req.query.id},
+                    update = '',
+                    options = {multi: false};
+
+                if (data[0].view_count) {
+                    update = {$inc: {view_count: 1}};
+                } else {
+                    update = {$set: {view_count: 1}}
+                }
+
+                postsModel.update(query, update, options, function (err, data) {
+                });
+
+                res.send({
+                    code: 200,
+                    description: 'success',
+                    data: Tools.para2camel(data)[0]
+                });
+            }
+
         });
     }
 }, {
@@ -95,7 +114,7 @@ var postApis = [{
             }
         });
     }
-},];
+}];
 
 
 module.exports = postApis;

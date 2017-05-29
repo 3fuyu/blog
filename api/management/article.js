@@ -62,7 +62,8 @@ let postApis = [{
                     post_category_id: req.body.categoryId,
                     post_category_name: req.body.categoryName,
                     post_date: req.body.date || +new Date(),
-                    _id: max_id
+                    _id: max_id,
+                    view_count: 0
                 });
 
                 postEntity.save(function (err, tree) {

@@ -63,6 +63,9 @@ var postsSchema = new Schema({
     "post_type": {
         type: 'String',
     },
+    "view_count": {
+        type: 'Number',
+    },
     "comment_count": {
         type: 'String',
     }

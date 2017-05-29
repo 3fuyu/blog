@@ -262,6 +262,7 @@ let loadingTime = 0;
 let originContainer = '';
 
 let startLoading = function (container) {
+    $(container).parent().find('.loading').remove();
     $(container).after('<div class="loading"></div>');
 
     loadingContainer = $(container).next('.loading')[0];
@@ -283,10 +284,12 @@ let endLoading = function () {
         setTimeout(function () {
             originContainer.show();
             loadingContainer.remove();
+            originContainer.parent().find('.loading').remove();
         }, 1000 - loadingTime);
     } else {
         originContainer.show();
         loadingContainer.remove();
+        originContainer.parent().find('.loading').remove();
     }
 }
 

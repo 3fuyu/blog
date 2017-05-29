@@ -379,10 +379,10 @@ class Home extends Component {
                                     <div className="count">
                                         <ul className="count-list">
                                             <li className="count-item count-one">
-                                                <i className="iconfont icon-attention"></i>&nbsp;33
+                                                <i className="iconfont icon-attention"></i>&nbsp;{value.viewCount || 0}
                                             </li>
                                             <li className="count-item count-two">
-                                                <i className="iconfont icon-comment_light"></i>&nbsp;33
+                                                <i className="iconfont icon-comment_light"></i>&nbsp;{value.commentCount || 0}
                                             </li>
                                         </ul>
                                     </div>
