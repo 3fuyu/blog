@@ -27,7 +27,7 @@ class ArticleDetail extends Component {
     initComment() {
         var t = this;
 
-        document.getElementById('SOHUCS').setAttribute('sid', window.location.hash);
+        document.getElementById('SOHUCS').setAttribute('sid', window.location.hash.split('#')[1]);
 
         changyan.load();
 
