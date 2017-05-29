@@ -378,9 +378,12 @@ class Home extends Component {
                                     </div>
                                     <div className="count">
                                         <ul className="count-list">
-                                            <li className="count-item count-one"></li>
-                                            <li className="count-item count-two"></li>
-                                            <li className="count-item count-three"></li>
+                                            <li className="count-item count-one">
+                                                <i className="iconfont icon-attention"></i>&nbsp;33
+                                            </li>
+                                            <li className="count-item count-two">
+                                                <i className="iconfont icon-comment_light"></i>&nbsp;33
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
