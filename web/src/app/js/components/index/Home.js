@@ -383,6 +383,7 @@ class Home extends Component {
                                             </li>
                                             <li className="count-item count-two">
                                                 <i className="iconfont icon-comment_light"></i>&nbsp;{value.commentCount || 0}
+                                                <span id={window.location.hash} className="cy_cmt_count"></span>
                                             </li>
                                         </ul>
                                     </div>
