@@ -25,8 +25,10 @@ var postApis = [{
                     options = {multi: false};
 
                 if (data[0].view_count) {
+                    // 原子操作，+1
                     update = {$inc: {view_count: 1}};
                 } else {
+                    // 没有则插入该字段
                     update = {$set: {view_count: 1}}
                 }
 
