@@ -3,6 +3,7 @@
 var express = require('express');
 var postsModel = require('../../models/management/article/posts');
 var Tools = require('../../tools/tools');
+let request = require('superagent');
 
 var baseRoute = '/article';
 
@@ -22,7 +23,7 @@ var postApis = [{
             } else {
                 let query = {_id: req.query.id},
                     update = '',
-                    options = {multi: false};
+                    options = {multi: true};
 
                 if (data[0].view_count) {
                     // 原子操作，+1
@@ -32,8 +33,30 @@ var postApis = [{
                     update = {$set: {view_count: 1}}
                 }
 
-                postsModel.update(query, update, options, function (err, data) {
+                request
+                .get('http://changyan.sohu.com/api/2/topic/count')
+                .type('form')
+                .send({
+                    client_id: 'cyt1S1w3M',
+                    topic_source_id: '99'
+                })
+                .end(function (err, suc) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        if (update.$set) {
+                            update.$set.comment_count = suc.body.result.comments;
+                        } else {
+                            update.$set = {
+                                comment_count: suc.body.result.comments
+                            }
+                        }
+
+                        postsModel.update(query, update, options, function (err, data) {
+                        });
+                    }
                 });
+
 
                 res.send({
                     code: 200,

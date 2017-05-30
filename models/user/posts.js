@@ -55,7 +55,7 @@ var postsSchema = new Schema({
         type: 'Number',
     },
     "comment_count": {
-        type: 'String',
+        type: 'Number',
     }
 }, { _id: false });
 

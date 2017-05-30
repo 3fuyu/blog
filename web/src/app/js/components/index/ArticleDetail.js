@@ -25,9 +25,10 @@ class ArticleDetail extends Component {
     }
 
     initComment() {
-        var t = this;
+        let t = this,
+            hash = window.location.hash;
 
-        document.getElementById('SOHUCS').setAttribute('sid', window.location.hash.split('#')[1]);
+        document.getElementById('SOHUCS').setAttribute('sid', hash.split('/')[hash.split('/').length - 1]);
 
         changyan.load();
 
@@ -35,7 +36,6 @@ class ArticleDetail extends Component {
             appid: 'cyt1S1w3M',
             conf: 'prod_73f06d34400f0e589effbae941fad7d8'
         });
-
     }
 
     loadData() {
