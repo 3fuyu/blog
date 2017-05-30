@@ -51,6 +51,8 @@ var postApis = [{
                                 comment_count: suc.body.result.comments
                             }
                         }
+                        console.log('update', update);
+                        console.log('suc', suc.body);
 
                         postsModel.update(query, update, options, function (err, data) {
                         });
