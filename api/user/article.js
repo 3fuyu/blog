@@ -34,12 +34,8 @@ var postApis = [{
                 }
 
                 request
-                .get('http://changyan.sohu.com/api/2/topic/count')
+                .get('http://changyan.sohu.com/api/2/topic/count?client_id=cyt1S1w3M&topic_id=&topic_source_id=99&topic_url=')
                 .type('form')
-                .send({
-                    client_id: 'cyt1S1w3M',
-                    topic_source_id: '99'
-                })
                 .end(function (err, suc) {
                     if (err) {
                         console.log(err);
