@@ -34,21 +34,19 @@ var postApis = [{
                 }
 
                 request
-                .get('http://changyan.sohu.com/api/2/topic/count?client_id=cyt1S1w3M&topic_id=&topic_source_id=99&topic_url=')
+                .get('http://changyan.sohu.com/api/2/topic/count?client_id=cyt1S1w3M&topic_id=&topic_source_id=' + req.query.id + '&topic_url=')
                 .type('form')
                 .end(function (err, suc) {
                     if (err) {
                         console.log(err);
                     } else {
                         if (update.$set) {
-                            update.$set.comment_count = suc.body.result.comments;
+                            update.$set.comment_count = suc.body.result[req.query.id].comments;
                         } else {
                             update.$set = {
-                                comment_count: suc.body.result.comments
+                                comment_count: suc.body.result[req.query.id].comments
                             }
                         }
-                        console.log('update', update);
-                        console.log('suc', suc.body);
 
                         postsModel.update(query, update, options, function (err, data) {
                         });

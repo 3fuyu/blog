@@ -43,17 +43,6 @@ class Home extends Component {
     componentDidMount() {
         this.getList();
         this.navAnimation();
-        this.initComment();
-    }
-    initComment() {
-        if (!listData) {
-            let cyNum = document.createElement('script');
-            cyNum.src = 'https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyt1S1w3M';
-            cyNum.id = 'cy_cmt_num';
-            setTimeout(function () {
-                document.body.appendChild(cyNum);
-            }, 1000);
-        }
     }
 
     componentWillUnmount() {
@@ -393,8 +382,7 @@ class Home extends Component {
                                                 <i className="iconfont icon-attention"></i>&nbsp;{value.viewCount || 0}
                                             </li>
                                             <li className="count-item count-two">
-                                                <i className="iconfont icon-comment_light"></i>&nbsp;
-                                                <span id={'sourceId::' + value.id} className="cy_cmt_count"></span>
+                                                <i className="iconfont icon-comment_light"></i>&nbsp;{value.commentCount || 0}
                                             </li>
                                         </ul>
                                     </div>
