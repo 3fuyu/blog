@@ -33,6 +33,7 @@ var postApis = [{
                     update = {$set: {view_count: 1}}
                 }
 
+                // 获取畅言评论数
                 request
                 .get('http://changyan.sohu.com/api/2/topic/count?client_id=cyt1S1w3M&topic_id=&topic_source_id=' + req.query.id + '&topic_url=')
                 .type('form')
@@ -52,7 +53,6 @@ var postApis = [{
                         });
                     }
                 });
-
 
                 res.send({
                     code: 200,

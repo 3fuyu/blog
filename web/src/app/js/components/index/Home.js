@@ -103,10 +103,10 @@ class Home extends Component {
                 if (!eventLock) {
                     eventLock = true;
                     t.getData('', function () {
-                        // 确保渲染完成 2s 内不刷新接口
+                        // 确保渲染完成 4s 内不刷新接口
                         setTimeout(function () {
                             eventLock = false;
-                        }, 2000);
+                        }, 4000);
                     });
                 }
             }
@@ -223,7 +223,6 @@ class Home extends Component {
         this.cacheScroll();
 
         this.context.router.push(hash);
-        // window.open('http://' + window.location.host + this.context.router.createHref(hash));
     }
 
     goTop() {
@@ -290,7 +289,6 @@ class Home extends Component {
             default:
                 break;
         }
-
     }
 
     setBanner(type) {
@@ -423,6 +421,4 @@ class Home extends Component {
     }
 }
 
-export
-default
-Home;
+export default Home;
