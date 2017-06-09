@@ -8,6 +8,7 @@ import "../../../css/base.less";
 import "../../../css/home.less";
 import "../../../css/markdown.less";
 import moment from "moment";
+import Loading from "../../components/lib/Loading";
 import DataService from "../../service/DataService";
 import IconButton from "../../../../../node_modules/material-ui/IconButton";
 import RefreshIndicator from "../../../../../node_modules/material-ui/RefreshIndicator";
@@ -15,7 +16,8 @@ import FYT from "../../service/FYToolService";
 
 let listData,
     pageObj,
-    scrollTop = 0;
+    scrollTop = 0,
+    eventLock = false;
 class Home extends Component {
 
     state = {
@@ -29,6 +31,9 @@ class Home extends Component {
             },
             pullUpFresh: {
                 display: 'block'
+            },
+            loadingStyle: {
+                display: 'block'
             }
         }
     };
@@ -38,10 +43,10 @@ class Home extends Component {
     };
 
     componentWillMount() {
+        this.getList();
     }
 
     componentDidMount() {
-        this.getList();
         this.navAnimation();
     }
 
@@ -70,8 +75,7 @@ class Home extends Component {
         var scrollTopFunc = function (e) {
             let scrollTop = 0,
                 scrollBottom = 0,
-                scrollTarget = $(window),
-                eventLock = false;
+                scrollTarget = $(window);
 
             if (isFirfox) {
                 scrollTop = scrollTarget.scrollTop();
@@ -103,10 +107,10 @@ class Home extends Component {
                 if (!eventLock) {
                     eventLock = true;
                     t.getData('', function () {
-                        // 确保渲染完成 4s 内不刷新接口
+                        // 确保渲染完成 2s 内不刷新接口
                         setTimeout(function () {
                             eventLock = false;
-                        }, 4000);
+                        }, 2000);
                     });
                 }
             }
@@ -176,13 +180,11 @@ class Home extends Component {
             return;
         }
 
-        FYT.startLoading(ReactDOM.findDOMNode(document.getElementsByClassName('content')[0]));
         DataService.queryArticleList({
             type: para && para.type || '',
             pageSize: 10,
             pageIndex: pageIndex
         }).then(function (data) {
-            FYT.endLoading();
             if (listData) {
                 listData = listData.concat(data.data);
             } else {
@@ -200,6 +202,9 @@ class Home extends Component {
                     },
                     pullUpFresh: {
                         display: data.pageObj.isFinish ? 'none' : 'block'
+                    },
+                    loadingStyle: {
+                        display: 'none'
                     }
                 }
             });
@@ -257,6 +262,9 @@ class Home extends Component {
 
         listData = [];
         pageObj = {};
+
+        this.state.styles.loadingStyle = {display: 'block'};
+        this.forceUpdate();
 
         $target.parent().children().removeClass('selected');
         $target.addClass('selected');
@@ -387,6 +395,7 @@ class Home extends Component {
                                 </div>
                             </div>
                         ))}
+                        <Loading  style={this.state.styles.loadingStyle}/>
                     </div>
                 </div>
                 <div className="footer" style={this.state.styles.footerStyle}>

@@ -262,35 +262,58 @@ let loadingTime = 0;
 let originContainer = '';
 
 let startLoading = function (container) {
-    $(container).parent().find('.loading').remove();
-    $(container).after('<div class="loading"></div>');
+    if (container) {
+        $(container).parent().find('.loading').remove();
+        $(container).after('<div class="loading"></div>');
 
-    loadingContainer = $(container).next('.loading')[0];
-    loadingTime = +new Date();
-    originContainer = $(container);
+        loadingContainer = $(container).next('.loading')[0];
+        loadingTime = +new Date();
+        originContainer = $(container);
 
-    originContainer.hide();
+        originContainer.hide();
 
-    render(<MuiThemeProvider>
-            <Loading/>
-        </MuiThemeProvider>,
-        loadingContainer);
+        render(<MuiThemeProvider>
+                <Loading/>
+            </MuiThemeProvider>,
+            loadingContainer);
+    } else {
+        loadingContainer = $('#loading')[0];
+        loadingTime = +new Date();
+
+        render(<MuiThemeProvider>
+                <Loading/>
+            </MuiThemeProvider>,
+            loadingContainer);
+    }
 }
 
 let endLoading = function () {
-    loadingTime = +new Date() - loadingTime;
+    if (originContainer) {
+        loadingTime = +new Date() - loadingTime;
 
-    if (loadingTime < 1000) {
-        setTimeout(function () {
+        if (loadingTime < 1000) {
+            setTimeout(function () {
+                originContainer.show();
+                loadingContainer.remove();
+                originContainer.parent().find('.loading').remove();
+            }, 1000 - loadingTime);
+        } else {
             originContainer.show();
             loadingContainer.remove();
             originContainer.parent().find('.loading').remove();
-        }, 1000 - loadingTime);
+        }
     } else {
-        originContainer.show();
-        loadingContainer.remove();
-        originContainer.parent().find('.loading').remove();
+        loadingTime = +new Date() - loadingTime;
+
+        if (loadingTime < 1000) {
+            setTimeout(function () {
+                loadingContainer.remove();
+            }, 1000 - loadingTime);
+        } else {
+            loadingContainer.remove();
+        }
     }
+
 }
 
 
