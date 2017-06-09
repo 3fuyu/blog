@@ -238,11 +238,14 @@ class Home extends Component {
 
         let time = setInterval(function () {
             nowDistance = document.body.scrollTop;
+            if (nowDistance > 10000) {
+
+            }
 
             if (nowDistance > distance / 2) {
-                nowTime += 0.5;
+                nowTime += 0.5 + (nowDistance-distance/2)/(distance/2);
             } else if (nowTime > 1) {
-                nowTime -= 0.5;
+                nowTime -= 0.5 + (distance/2 - nowDistance)/(distance/2);
             } else {
                 nowTime = 1;
             }
