@@ -77,12 +77,25 @@ class Home extends Component {
                 scrollBottom = 0,
                 scrollTarget = $(window);
 
+            let get_scrollTop_of_body = function () {
+                let _scrollTop;
+
+                if (typeof window.pageYOffset != 'undefined') {//pageYOffset指的是滚动条顶部到网页顶部的距离
+                    _scrollTop = window.pageYOffset;
+                } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+                    _scrollTop = document.documentElement.scrollTop;
+                } else if (typeof document.body != 'undefined') {
+                    _scrollTop = document.body.scrollTop;
+                }
+                return _scrollTop;
+            }
+
+            scrollTop = get_scrollTop_of_body();
+
             if (isFirfox) {
-                scrollTop = scrollTarget.scrollTop();
                 scrollBottom = scrollTarget.scrollBottom();
             } else {
-                scrollTop = e.target.getElementsByClassName('3fuyu-blog')[0].scrollTop;
-                scrollBottom = e.target.getElementsByClassName('3fuyu-blog')[0].offsetHeight - e.target.getElementsByClassName('3fuyu-blog')[0].scrollTop - window.innerHeight;
+                scrollBottom = document.body.offsetHeight - document.body.scrollTop - window.innerHeight;
             }
 
             if (scrollTop > 0) {
@@ -243,9 +256,9 @@ class Home extends Component {
             }
 
             if (nowDistance > distance / 2) {
-                nowTime += 0.5 + (nowDistance-distance/2)/(distance/2);
+                nowTime += 0.5 + (nowDistance - distance / 2) / (distance / 2);
             } else if (nowTime > 1) {
-                nowTime -= 0.5 + (distance/2 - nowDistance)/(distance/2);
+                nowTime -= 0.5 + (distance / 2 - nowDistance) / (distance / 2);
             } else {
                 nowTime = 1;
             }
@@ -322,32 +335,32 @@ class Home extends Component {
                 <div className="head">
                     <span className="menu-logo"><img src="images/3fuyu.png" alt="" className="logo"/></span>
                     <ul className="menu-list">
-                        <li className="menu-item home" onClick={(e)=>this.category(e)}>
+                        <li className="menu-item home" onClick={(e) => this.category(e)}>
                             <div>HOME
                                 <div className="line"></div>
                             </div>
                         </li>
-                        <li className="menu-item web" onClick={(e)=>this.category(e)}>
+                        <li className="menu-item web" onClick={(e) => this.category(e)}>
                             <div>WEB
                                 <div className="line"></div>
                             </div>
                         </li>
-                        <li className="menu-item linux" onClick={(e)=>this.category(e)}>
+                        <li className="menu-item linux" onClick={(e) => this.category(e)}>
                             <div>LINUX
                                 <div className="line"></div>
                             </div>
                         </li>
-                        <li className="menu-item laboratory" onClick={(e)=>this.category(e)}>
+                        <li className="menu-item laboratory" onClick={(e) => this.category(e)}>
                             <div>LABORATORY
                                 <div className="line"></div>
                             </div>
                         </li>
-                        <li className="menu-item github" onClick={(e)=>this.category(e)}>
+                        <li className="menu-item github" onClick={(e) => this.category(e)}>
                             <div>GITHUB
                                 <div className="line"></div>
                             </div>
                         </li>
-                        <li className="menu-item about" onClick={(e)=>this.category(e)}>
+                        <li className="menu-item about" onClick={(e) => this.category(e)}>
                             <div>ABOUT
                                 <div className="line"></div>
                             </div>
@@ -398,7 +411,7 @@ class Home extends Component {
                                 </div>
                             </div>
                         ))}
-                        <Loading  style={this.state.styles.loadingStyle}/>
+                        <Loading style={this.state.styles.loadingStyle}/>
                     </div>
                 </div>
                 <div className="footer" style={this.state.styles.footerStyle}>
