@@ -279,7 +279,7 @@ class Home extends Component {
         listData = [];
         pageObj = {};
 
-        if (type !== 'laboratory' || type !== 'about') {
+        if (type !== 'laboratory' && type !== 'about') {
             this.state.styles.loadingStyle = {display: 'block'};
             this.forceUpdate();
 
@@ -305,13 +305,13 @@ class Home extends Component {
                 this.getData({type: 2, pageIndex: 1});
                 break;
             case 'laboratory':
-                FYT.tips('正在开发中 :)');
+                FYT.tips('正在开发中  ：）');
                 break;
             case 'github':
                 window.open('https://github.com/3fuyu');
                 break;
             case 'about':
-                this.setBanner('small');
+                // this.setBanner('small');
                 break;
             default:
                 break;

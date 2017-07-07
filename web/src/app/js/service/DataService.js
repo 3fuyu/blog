@@ -3,17 +3,17 @@
  */
 "use strict";
 
-var request = require('superagent');
-var FYT = require('./FYToolService.js');
-var StorageService = require('./StorageService.js');
-var _ = require('lodash');
+let request = require('superagent');
+let FYT = require('./FYToolService.js');
+let StorageService = require('./StorageService.js');
+let _ = require('lodash');
 require('babel-polyfill');
 
-var dataService = {};
+let dataService = {};
 
-var host = window.location.host;
-var baseUrl = 'http://' + host + '/api/';
-// var baseUrl = 'http://localhost:8080/api/';
+let host = window.location.host;
+let baseUrl = 'http://' + host + '/api/';
+// let baseUrl = 'http://localhost:8080/api/';
 
 function prepend(prefix, name, separator) {
     if (prefix) {
@@ -28,8 +28,8 @@ function prepend(prefix, name, separator) {
 function flatten(prefix, obj, map) {
     if (obj) {
         if (_.isArray(obj)) {
-            for (var i = 0; i < obj.length; i++) {
-                var item = obj[i];
+            for (let i = 0; i < obj.length; i++) {
+                let item = obj[i];
                 flatten(prepend(prefix, "[" + i + "]", false), item, map);
             }
         } else if (_.isPlainObject(obj)) {
@@ -52,7 +52,7 @@ function flatten(prefix, obj, map) {
 }
 
 function toFlattenMap(obj) {
-    var map = {};
+    let map = {};
 
     flatten(null, obj, map);
     return map;
@@ -90,7 +90,7 @@ function str2json(str) {
 
 function post(url, params) {
 
-    var promise = new Promise(function (resolve, reject) {
+    let promise = new Promise(function (resolve, reject) {
         request
             .post(baseUrl + url)
             .type('form')
@@ -100,7 +100,7 @@ function post(url, params) {
                 if (err || !res.ok) {
                     reject('服务器错误');
                 } else {
-                    var data = res.body;
+                    let data = res.body;
                     if (data.code === 401) {
                         FYT.tips('用户未登录');
 
@@ -123,7 +123,7 @@ function post(url, params) {
 }
 function get(url, params) {
 
-    var promise = new Promise(function (resolve, reject) {
+    let promise = new Promise(function (resolve, reject) {
         console.log(params);
         let para = '';
         if (params) {
@@ -142,7 +142,7 @@ function get(url, params) {
                 if (err || !res.ok) {
                     reject('服务器错误');
                 } else {
-                    var data = res.body;
+                    let data = res.body;
                     if (data.code === 401) {
                         FYT.tips('用户未登录');
 
@@ -164,7 +164,7 @@ function get(url, params) {
 }
 
 function processPromise(promise, url) {
-    var tempData = '';
+    let tempData = '';
     return promise.then(function (data) {
         if (data.code === 200) {
             return data.data;
