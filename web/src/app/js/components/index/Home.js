@@ -72,7 +72,7 @@ class Home extends Component {
             isFirfox = userAgent.indexOf('Firefox') > -1 ? true : false;
 
         // 100 像素前后逻辑
-        var scrollTopFunc = function (e) {
+        let scrollTopFunc = function (e) {
             let scrollTop = 0,
                 scrollBottom = 0,
                 scrollTarget = $(window);
@@ -186,7 +186,7 @@ class Home extends Component {
     }
 
     getData(para, callback) {
-        var t = this,
+        let t = this,
             pageIndex = para && para.pageIndex || t.state.pageObj && t.state.pageObj.nextPage || 1;
 
         if (!(para && para.type) && pageObj && pageObj.isFinish) {
@@ -279,12 +279,14 @@ class Home extends Component {
         listData = [];
         pageObj = {};
 
-        this.state.styles.loadingStyle = {display: 'block'};
-        this.forceUpdate();
+        if (type !== 'laboratory' || type !== 'about') {
+            this.state.styles.loadingStyle = {display: 'block'};
+            this.forceUpdate();
 
-        $target.parent().children().removeClass('selected');
-        $target.addClass('selected');
-        window.scrollTo(0, 0);
+            $target.parent().children().removeClass('selected');
+            $target.addClass('selected');
+            window.scrollTo(0, 0);
+        }
 
         // type 0 all 1 web 2 linux
         switch (type) {
@@ -303,6 +305,7 @@ class Home extends Component {
                 this.getData({type: 2, pageIndex: 1});
                 break;
             case 'laboratory':
+                FYT.tips('正在开发中 :)');
                 break;
             case 'github':
                 window.open('https://github.com/3fuyu');
