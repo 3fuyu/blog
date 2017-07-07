@@ -1,0 +1,58 @@
+#about {
+    display: flex;
+    color: #ef6b3a;
+    font-weight: bold;
+    width: 800px;
+    flex-direction: column;
+    margin: 0 auto;
+    .head {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        .logo {
+            width: 300px;
+            margin-top: 20px;
+        }
+        .discription {
+            font-size: 26px;
+            font-weight: bold;
+        }
+    }
+    .line {
+        height: 1px;
+        content: ' ';
+        margin: 10px 0 80px;
+        background-color: #ef6b3a;
+    }
+    .body {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 100px;
+        .left {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            .life {
+                .title {
+                    font-size: 30px;
+                }
+            }
+            .work {
+                .title {
+                    font-size: 30px;
+                }
+            }
+        }
+        .right {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            .title {
+                font-size: 30px;
+            }
+        }
+    }
+}

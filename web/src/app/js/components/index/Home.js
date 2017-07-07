@@ -311,6 +311,7 @@ class Home extends Component {
                 window.open('https://github.com/3fuyu');
                 break;
             case 'about':
+                this.context.router.push('/about');
                 // this.setBanner('small');
                 break;
             default:

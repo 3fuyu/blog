@@ -8,6 +8,7 @@ import NewArticle from '../app/js/components/management/NewArticle';
 import ArticleList from '../app/js/components/management/ArticleList';
 import ArticleCategory from '../app/js/components/management/ArticleCategory';
 import Media from '../app/js/components/management/Media';
+import About from '../app/js/components/index/About';
 
 
 // Here we define all our material-ui ReactComponents.
@@ -34,6 +35,8 @@ const AppRoutes = (
             <Route path="article-category" component={ArticleCategory}/>
             <Route path="media" component={Media}></Route>
         </Route>
+        <Route path="about" component={About}></Route>
+
         <Route path="article/:year/:month/:day/:id" component={ArticleDetail}></Route>
     </Route>
 );
