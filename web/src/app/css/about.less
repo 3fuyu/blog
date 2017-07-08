@@ -5,6 +5,7 @@
     width: 800px;
     flex-direction: column;
     margin: 0 auto;
+    font-size: 16px;
     .head {
         display: flex;
         flex-direction: column;
@@ -30,26 +31,44 @@
     .body {
         display: flex;
         flex-direction: column;
-        margin-bottom: 100px;
+        margin-bottom: 200px;
 
-        .life {
-
+        .about_me {
             .title {
                 font-size: 30px;
             }
         }
-        .work {
+        .about_power {
+            .title {
+                font-size: 30px;
+                span {
+                    font-size: 16px;
+                }
+            }
+            .about_power_content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        .contact_me {
             .title {
                 font-size: 30px;
             }
+            a {
+                color: #ef6b3a;
+            }
         }
-        .right {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            align-items: center;
+        .attention {
             .title {
                 font-size: 30px;
+            }
+            .attention_list {
+                display: flex;
+                img {
+                    height: 70px;
+                    margin-right: 40px;
+                }
             }
         }
     }

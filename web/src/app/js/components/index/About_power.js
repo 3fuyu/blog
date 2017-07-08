@@ -8,12 +8,12 @@ let canvas,
     mW = 380,
     mH = 380,
     mData = [
-        ['es6/7', 60],
-        ['html/html5', 75],
-        ['react', 70],
-        ['js', 85],
-        ['css/css3', 80],
-        ['nodejs', 50],
+        ['es6/7', 65],
+        ['html/html5', 82],
+        ['react', 78],
+        ['js', 90],
+        ['css/css3', 81],
+        ['nodejs', 60],
     ],
 
     mCount = mData.length, //边数
