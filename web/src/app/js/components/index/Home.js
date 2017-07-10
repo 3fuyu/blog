@@ -166,7 +166,7 @@ class Home extends Component {
     getList() {
         let t = this;
 
-        if (!listData) {
+        if (!listData || Array.isArray(listData) && listData.length === 0) {
             t.getData();
         } else {
             window.scrollTo(0, scrollTop);

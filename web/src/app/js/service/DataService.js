@@ -125,7 +125,6 @@ function post(url, params) {
 function get(url, params) {
 
     let promise = new Promise(function (resolve, reject) {
-        console.log(params);
         let para = '';
         if (params) {
             para = '?';

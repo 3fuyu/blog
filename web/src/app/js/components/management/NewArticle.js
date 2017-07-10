@@ -75,7 +75,6 @@ class NewArticle extends Component {
                     date: data.postDate,
                     title: data.postTitle
                 });
-                console.log(data);
             });
         }
 

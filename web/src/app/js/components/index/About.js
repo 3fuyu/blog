@@ -8,6 +8,9 @@ import '../../../css/about.less';
 import IconButton from "../../../../../node_modules/material-ui/IconButton";
 
 class About extends Component {
+    componentWillMount () {
+        document.body.scrollTop = 0;
+    }
     render() {
         return (
             <div id="about">
