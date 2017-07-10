@@ -51,9 +51,6 @@ class Home extends Component {
     }
 
     componentWillUnmount() {
-        listData = null;
-        pageObj = {};
-
         window.removeEventListener('scroll', function () {
             console.log('滚动已移除');
         });
@@ -314,6 +311,10 @@ class Home extends Component {
                 window.open('https://github.com/3fuyu');
                 break;
             case 'about':
+                listData = null;
+                pageObj = null;
+                scrollTop = 0;
+                eventLock = false;
                 this.context.router.push('/about');
                 // this.setBanner('small');
                 break;
