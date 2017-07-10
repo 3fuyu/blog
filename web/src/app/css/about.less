@@ -2,9 +2,7 @@
     display: flex;
     color: #ef6b3a;
     font-weight: bold;
-    width: 800px;
     flex-direction: column;
-    margin: 0 auto;
     font-size: 16px;
     font-family: "Microsoft YaHei", Helvetica, Arial, 'Hiragino Sans GB', '微软雅黑', sans-serif;
 
@@ -13,8 +11,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        margin-bottom: 50px;
+        width: 800px;
+        margin: 0 auto 50px;
         .logo {
             width: 300px;
             margin-top: 20px;
@@ -34,7 +32,8 @@
     .body {
         display: flex;
         flex-direction: column;
-        margin-bottom: 200px;
+        width: 800px;
+        margin: 0 auto 200px;
 
         .about_me {
             .title {
@@ -75,6 +74,35 @@
                 img {
                     height: 70px;
                     margin-right: 40px;
+                }
+            }
+        }
+    }
+    .footer {
+        height: 300px;
+        width: 100%;
+        background-color: #212121;
+        color: #fff;
+        font-size: 15px;
+        .footer-content {
+            text-align: center;
+            padding-top: 80px;
+            color: rgba(255, 255, 255, 0.541176);
+            .footer-content-github {
+                margin: 10px 0 30px 0;
+                span {
+                    color: rgba(255, 255, 255, 0.870588) !important;
+                }
+            }
+            .ICP {
+                font-size: 12px;
+                img {
+                    position: relative;
+                    top: 3px;
+                    margin: 0 8px;
+                    width: 14px;
+                    height: 14px;
+                    border-radius: 14px;
                 }
             }
         }

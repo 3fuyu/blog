@@ -4,7 +4,8 @@
 
 import {Component} from 'react';
 import Power from './About_power';
-import '../../../css/about.less'
+import '../../../css/about.less';
+import IconButton from "../../../../../node_modules/material-ui/IconButton";
 
 class About extends Component {
     render() {
@@ -51,6 +52,22 @@ class About extends Component {
                             <a href="https://nodejs.org/en/" target="_blank"><img src="images/nodejs.jpg" alt=""/></a>
                             <a href="https://www.mongodb.com/" target="_blank"><img src="images/mongodb.jpg" alt=""/></a>
                             <a href="https://electron.atom.io/" target="_blank"><img src="images/electron.png" alt=""/></a>
+                        </div>
+                    </div>
+                </div>
+                <div className="footer">
+                    <div className="footer-content">
+                        <div>Remembering that you are going to die</div>
+                        <div>Stay Hungry Stay Foolish</div>
+                        <div className="footer-content-github">
+                            <IconButton
+                                iconClassName="muidocs-icon-custom-github"
+                                href="https://github.com/3fuyu"
+                            />
+                        </div>
+                        <div className="ICP">
+                            <img src="images/3fuyu_small.jpg" alt=""/>
+                            <span>Copyright © 2014 - {new Date().getFullYear()} ICP 16097049. All Rights Reserved. Powered By 3Fuyu.</span>
                         </div>
                     </div>
                 </div>
