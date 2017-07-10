@@ -52,6 +52,7 @@ class Home extends Component {
 
     componentWillUnmount() {
         listData = null;
+        pageObj = {};
 
         window.removeEventListener('scroll', function () {
             console.log('滚动已移除');
