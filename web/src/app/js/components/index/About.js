@@ -37,9 +37,9 @@ class About extends Component {
                         </p>
                         <p>QQ:&nbsp;&nbsp;&nbsp;&nbsp;326141543</p>
                         <p>E-mail:&nbsp;&nbsp;&nbsp;&nbsp;sdlgdxzhangyu@163.com</p>
-                        <p>Social:&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://segmentfault.com/u/3fuyu" target="_blank">segmentfault</a>
-                            | <a href="https://www.zhihu.com/people/zhang-yu-79-30/activities" target="_blank">知乎</a>
-                        </p>
+                        {/*<p>Social:&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://segmentfault.com/u/3fuyu" target="_blank">segmentfault </a>*/}
+                             {/*| <a href="https://www.zhihu.com/people/zhang-yu-79-30/activities" target="_blank">知乎</a>*/}
+                        {/*</p>*/}
                     </div>
                     <div className="attention">
                         <p className="title">Attention</p>
