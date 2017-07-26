@@ -309,13 +309,25 @@
         // 初始化
         init();
         bindEvent();
-
         function init() {
             setTimeout(function () {
                 calWidth();
             }, 0);
 
             drawBoard();
+            playChess();
+        }
+
+        function bindEvent() {
+            document.getElementsByClassName('restart')[0].addEventListener('click', function (e) {
+                restart(e);
+            });
+            document.getElementsByClassName('undo')[0].addEventListener('click', function (e) {
+                undo(e);
+            });
+            document.getElementsByClassName('mode')[0].addEventListener('click', function (e) {
+                changeMode(e);
+            });
         }
 
         // 根据棋盘数调整棋盘位置
@@ -332,23 +344,23 @@
 
             for (var i = 0; i < boardSize * boardSize; i++) {
                 if (i === 0) {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row-left-top"></div><div class="column-left-top"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row-left-top"></div><div class="column-left-top"></div></li>';
                 } else if (i === boardSize - 1) {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row-right-top"></div><div class="column-right-top"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row-right-top"></div><div class="column-right-top"></div></li>';
                 } else if (i === boardSize * (boardSize - 1)) {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row-left-bottom"></div><div class="column-left-bottom"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row-left-bottom"></div><div class="column-left-bottom"></div></li>';
                 } else if (i === boardSize * boardSize - 1) {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row-right-bottom"></div><div class="column-right-bottom"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row-right-bottom"></div><div class="column-right-bottom"></div></li>';
                 } else if (i < boardSize) {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row-top"></div><div class="column-top"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row-top"></div><div class="column-top"></div></li>';
                 } else if (i % boardSize === 0) {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row-left"></div><div class="column-left"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row-left"></div><div class="column-left"></div></li>';
                 } else if ((i + 1) % boardSize === 0) {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row-right"></div><div class="column-right"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row-right"></div><div class="column-right"></div></li>';
                 } else if (i < boardSize * boardSize && i > boardSize * (boardSize - 1)) {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row-bottom"></div><div class="column-bottom"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row-bottom"></div><div class="column-bottom"></div></li>';
                 } else {
-                    boardDom += '<li class = "board-item" data-row="' + i % boardSize + '" data-column="' + parseInt(i / boardSize) + '" data-main="' + i % boardSize + '-' + parseInt(i / boardSize) + '"><div class="row"></div><div class="column"></div></li>';
+                    boardDom += '<li class = "board-item" data-row="' + parseInt(i / boardSize) + '" data-column="' + i % boardSize + '" data-main="' + parseInt(i / boardSize) + '-' + i % boardSize + '"><div class="row"></div><div class="column"></div></li>';
                 }
             }
 
@@ -356,77 +368,46 @@
         }
 
         // 下棋
-        function playChess(e) {
-            var target = e.target.children.length === 0 ? e.target.parentElement : e.target,
-                className = target.className;
+        function playChess() {
+            document.getElementsByClassName('board-content')[0].addEventListener('click', function (e) {
 
-            if (className.indexOf('black') <= -1 && className.indexOf('white') <= -1 && className !== 'board-content' && !winnerLock) {
+                var target = e.target.children.length === 0 ? e.target.parentElement : e.target,
+                    className = target.className;
 
-                var rowNum = parseInt(target.dataset.row),
-                    columnNum = parseInt(target.dataset.column),
-                    now = turnTo === 'black' ? 1 : 2;
+                if (className.indexOf('black') <= -1 && className.indexOf('white') <= -1 && className !== 'board-content' && !winnerLock) {
 
-                if (turnTo === 'black') {
-                    turnTo = 'white';
-                    target.className = className + ' black';
+                    var rowNum = parseInt(target.dataset.row),
+                        columnNum = parseInt(target.dataset.column),
+                        now = turnTo === 'black' ? 1 : 2;
 
-                    chessData[rowNum][columnNum] = 1;
-                } else {
-                    turnTo = 'black';
-                    target.className = className + ' white';
+                    if (turnTo === 'black') {
+                        turnTo = 'white';
+                        target.className = className + ' black';
 
-                    chessData[rowNum][columnNum] = 2;
+                        chessData[rowNum][columnNum] = 1;
+                    } else {
+                        turnTo = 'black';
+                        target.className = className + ' white';
+
+                        chessData[rowNum][columnNum] = 2;
+                    }
+
+                    cacheData.push([rowNum, columnNum]);
+
+                    checkWinner(now, rowNum, columnNum);  // 1 黑 2 白
+
+                    if (mode === 2) {
+                        computerPlay();
+                    }
                 }
-
-                cacheData.push([rowNum, columnNum]);
-
-                checkWinner(now, rowNum, columnNum);  // 1 黑 2 白
-            }
-
+            });
         }
 
         // 判断胜负
         function checkWinner(now, row, col) {
-            // 四种赢得可能性
-            var p1 = 0,
-                p2 = 0,
-                p3 = 0,
-                p4 = 0;
+            var result = setScore(now, row, col);
 
-            // 左
-            for (var a = 1; chessData[row - a][col] === now; a++) {
-                p1++;
-            }
-            // 左上
-            for (var b = 1; chessData[row - b][col - b] === now; b++) {
-                p2++;
-            }
-            // 上
-            for (var c = 1; chessData[row][col - c] === now; c++) {
-                p3++;
-            }
-            // 右上
-            for (var d = 1; chessData[row + d][col - d] === now; d++) {
-                p4++;
-            }
-            // 右
-            for (var e = 1; chessData[row + e][col] === now; e++) {
-                p1++;
-            }
-            // 右下
-            for (var f = 1; chessData[row + f][col + f] === now; f++) {
-                p2++;
-            }
-            // 下
-            for (var g = 1; chessData[row][col + g] === now; g++) {
-                p3++;
-            }
-            // 左下
-            for (var h = 1; chessData[row - h][col + h] === now; h++) {
-                p4++;
-            }
-
-            if (p1 >= 4 || p2 >= 4 || p3 >= 4 || p4 >= 4) {
+            if (result.p1 >= 4 || result.p2 >= 4 || result.p3 >= 4 || result.p4 >= 4) {
                 setTimeout(function () {
                     alert(now === 1 ? '黑方胜！' : '白方胜！');
                 }, 100);
@@ -434,20 +415,120 @@
             }
         }
 
-        function bindEvent() {
-            document.getElementsByClassName('board-content')[0].addEventListener('click', function (e) {
-                playChess(e);
-            });
-            document.getElementsByClassName('restart')[0].addEventListener('click', function (e) {
-                restart(e);
-            });
-            document.getElementsByClassName('undo')[0].addEventListener('click', function (e) {
-                undo(e);
-            });
-            document.getElementsByClassName('mode')[0].addEventListener('click', function (e) {
-                changeMode(e);
-            });
+        function setScore(now, row, col) {
+            // 四个方向
+            var p1 = 0,
+                p2 = 0,
+                p3 = 0,
+                p4 = 0,
+                notNow = now === 1 ? 2 : 1;
+
+            if (col !== 0) {
+                // 左
+                for (var a = 1; chessData[row][col - a] === now; a++) {
+                    p1++;
+
+                    var nextA = a + 1;
+
+                    if (chessData[row][col - nextA] === notNow) {
+                        p1 = p1 + 0.3;
+                    }
+                }
+            }
+            if (row !== 0 && col !== 0) {
+                // 左上
+                for (var b = 1; chessData[row - b][col - b] === now; b++) {
+                    p2++;
+
+                    var nextB = b + 1;
+
+                    if (chessData[row - nextB][col - nextB] === notNow) {
+                        p2 = p2 + 0.3;
+                    }
+                }
+            }
+            if (row !== 0) {
+                // 上
+                for (var c = 1; chessData[row - c][col] === now; c++) {
+                    p3++;
+
+                    var nextC = c + 1;
+
+                    if (chessData[row - nextC][col] === notNow) {
+                        p3 = p3 + 0.3;
+                    }
+                }
+            }
+            if (row !== 0 && col !== boardSize - 1) {
+                // 右上
+                for (var d = 1; chessData[row - d][col + d] === now; d++) {
+                    p4++;
+
+                    var nextD = d + 1;
+
+                    if (chessData[row - nextD][col + nextD] === notNow) {
+                        p4 = p4 + 0.3;
+                    }
+                }
+            }
+            if (col !== boardSize - 1) {
+                // 右
+                for (var e = 1; chessData[row][col + e] === now; e++) {
+                    p1++;
+
+                    var nextE = e + 1;
+
+                    if (chessData[row][col + nextE] === notNow) {
+                        p1 = p1 + 0.3;
+                    }
+                }
+            }
+            if (row !== boardSize - 1 && col !== boardSize - 1) {
+                // 右下
+                for (var f = 1; chessData[row + f][col + f] === now; f++) {
+                    p2++;
+
+                    var nextF = f + 1;
+
+                    if (chessData[row + nextF][col + nextF] === notNow) {
+                        p2 = p2 + 0.3;
+                    }
+                }
+            }
+            if (row !== boardSize - 1) {
+                // 下
+                for (var g = 1; chessData[row + g][col] === now; g++) {
+                    p3++;
+
+                    var nextG = g + 1;
+
+                    if (chessData[row + nextG][col] === notNow) {
+                        p3 = p3 + 0.3;
+                    }
+                }
+            }
+            if (row !== boardSize - 1 && col !== 0) {
+                // 左下
+                for (var h = 1; chessData[row + h][col - h] === now; h++) {
+                    p4++;
+
+                    var nextF = f + 1;
+
+                    if (chessData[row + nextF][col - nextF] === notNow) {
+                        p4 = p4 + 0.3;
+                    }
+                }
+            }
+
+
+            return {
+                p1: p1,
+                p2: p2,
+                p3: p3,
+                p4: p4
+            };
         }
+
 
         function restart(e) {
             chessData = new Array(boardSize);  // 棋盘数据
@@ -492,8 +573,96 @@
             }
         }
 
+        // 电脑下棋
         function computerPlay() {
+            var bestPoint = {
+                row: 0,
+                col: 0,
+                score: 0
+            };
 
+            chessData.forEach(function (value, row) {
+                value.forEach(function (result, col) {
+                    if (result === 0) {
+                        var black_p = setScore(1, row, col),
+                            white_p = setScore(2, row, col),
+                            score = 0;
+
+                        // 人5子
+                        if (black_p.p1 >= 4 || black_p.p2 >= 4 || black_p.p3 >= 4 || black_p.p4 >= 4) {
+                            score += 100;
+                        }
+                        // AI5子
+                        if (white_p.p1 >= 4 || white_p.p2 >= 4 || white_p.p3 >= 4 || white_p.p4 >= 4) {
+                            score += 200;
+                        }
+                        // 人5子
+                        if (black_p.p1 == 3 || black_p.p2 == 3 || black_p.p3 == 3 || black_p.p4 == 3) {
+                            score += 50;
+                        }
+                        // AI5子
+                        if (white_p.p1 == 3 || white_p.p2 == 3 || white_p.p3 == 3 || white_p.p4 == 3) {
+                            score += 55;
+                        }
+                        // 人5子
+                        if (black_p.p1 >= 3 && black_p.p1 <=4 || black_p.p2 >= 3 && black_p.p2 <=4 || black_p.p3 >= 3 && black_p.p3 <=4 || black_p.p4 >= 3 && black_p.p4 <=4) {
+                            score += 30;
+                        }
+                        // AI5子
+                        if (white_p.p1 >= 3 && black_p.p1 <=4 || white_p.p2 >= 3 && black_p.p2 <=4 || white_p.p3 >= 3 && black_p.p3 <=4 || white_p.p4 >= 3 && black_p.p4 <=4) {
+                            score += 30;
+                        }
+                        // 人5子
+                        if (black_p.p1 == 2 || black_p.p2 == 2 || black_p.p3 == 2 || black_p.p4 == 2) {
+                            score += 10;
+                        }
+                        // AI5子
+                        if (white_p.p1 == 2 || white_p.p2 == 2 || white_p.p3 == 2 || white_p.p4 == 2) {
+                            score += 15;
+                        }
+                        // 人5子
+                        if (black_p.p1 >= 2 && black_p.p1 <=3 || black_p.p2 >= 2 && black_p.p2 <=3 || black_p.p3 >= 2 && black_p.p3 <=3 || black_p.p4 >= 2 && black_p.p4 <=3) {
+                            score += 8;
+                        }
+                        // AI5子
+                        if (white_p.p1 >= 2 && black_p.p1 <=3 || white_p.p2 >= 2 && black_p.p2 <=3 || white_p.p3 >= 2 && black_p.p3 <=3 || white_p.p4 >= 2 && black_p.p4 <=3) {
+                            score += 8;
+                        }
+                        // 人5子
+                        if (black_p.p1 == 1 || black_p.p2 == 1 || black_p.p3 == 1 || black_p.p4 == 1) {
+                            score += 2;
+                        }
+                        // AI5子
+                        if (white_p.p1 == 1 || white_p.p2 == 1 || white_p.p3 == 1 || white_p.p4 == 1) {
+                            score += 5;
+                        }
+                        // 人5子
+                        if (black_p.p1 >= 1 && black_p.p1 <=2 || black_p.p2 >= 1 && black_p.p2 <=2 || black_p.p3 >= 1 && black_p.p3 <=2 || black_p.p4 >= 1 && black_p.p4 <=2) {
+                            score += 1;
+                        }
+                        // AI5子
+                        if (white_p.p1 >= 1 && black_p.p1 <=2 || white_p.p2 >= 1 && black_p.p2 <=2 || white_p.p3 >= 1 && black_p.p3 <=2 || white_p.p4 >= 1 && black_p.p4 <=2) {
+                            score += 1;
+                        }
+
+                        if (score > bestPoint.score) {
+                            bestPoint.score = score;
+                            bestPoint.row = row;
+                            bestPoint.col = col;
+                        }
+                    }
+                });
+            });
+
+            chessData[bestPoint.row][bestPoint.col] = 2;
+            cacheData.push([bestPoint.row, bestPoint.col]);
+            checkWinner(2, bestPoint.row, bestPoint.col);
+
+            var target = document.querySelector('[data-main="' + bestPoint.row + '-' + bestPoint.col + '"]');
+
+            target.className = target.className + ' white';
+            turnTo = 'black';
+//            console.log(bestPoint);
         }
     })();
 
