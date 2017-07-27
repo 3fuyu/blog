@@ -305,7 +305,7 @@ class Home extends Component {
                 this.getData({type: 2, pageIndex: 1});
                 break;
             case 'laboratory':
-                FYT.tips('正在开发中  ：）');
+                this.context.router.push('/laboratory');
                 break;
             case 'github':
                 window.open('https://github.com/3fuyu');
