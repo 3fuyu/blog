@@ -716,7 +716,7 @@
             cacheData.push([bestPoint.row, bestPoint.col]);
             checkWinner(2, bestPoint.row, bestPoint.col);
 
-            if (winnerLock) {
+            if (!winnerLock) {
                 var target = document.querySelector('[data-main="' + bestPoint.row + '-' + bestPoint.col + '"]');
 
                 target.className = target.className + ' white';
