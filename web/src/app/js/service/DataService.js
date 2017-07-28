@@ -12,8 +12,8 @@ require('babel-polyfill');
 let dataService = {};
 
 let host = window.location.host;
-let baseUrl = 'http://' + host + '/api/';
-// let baseUrl = 'http://localhost:8080/api/';
+// let baseUrl = 'http://' + host + '/api/';
+let baseUrl = 'http://localhost:8080/api/';
 
 
 function prepend(prefix, name, separator) {

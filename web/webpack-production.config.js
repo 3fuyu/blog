@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
     // Entry point to the project
@@ -57,6 +58,7 @@ const config = {
             {from: 'src/www/versions.json'},
             {from: 'src/app/js/lib/ZeroClipboard.swf'},
         ]),
+
     ],
     module: {
         // Allow loading of non-es5 js files.
