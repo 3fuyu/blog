@@ -57,7 +57,7 @@
     "jquery": "^3.1.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "lodash": "^3.6.0",
+    "lodash": "^4.17.20",
     "marked": "^0.3.6",
     "material-ui": "^0.15.4",
     "moment": "^2.15.1",
