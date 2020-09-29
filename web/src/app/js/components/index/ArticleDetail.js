@@ -6,7 +6,7 @@ import {Component} from "react";
 import DataServicce from "../../service/DataService";
 import moment from "moment";
 import "../../../css/articleDetail.less";
-import "../../../../../node_modules/highlight.js/styles/github-gist.css";
+import "../../../css/github-gist.css";
 import changyan from "../../lib/changyan";
 
 class ArticleDetail extends Component {
