@@ -27,7 +27,7 @@
     "babel-preset-stage-1": "6.13.0",
     "material-ui": "0.15.4",
     "md5": "2.2.1",
-    "mongoose": "4.5.8",
+    "mongoose": "5.10.7",
     "react": "15.3.1",
     "react-component": "0.0.0",
     "react-dom": "15.3.1",
