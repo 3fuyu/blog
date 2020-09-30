@@ -422,7 +422,19 @@ class Home extends Component {
                         <Loading style={this.state.styles.loadingStyle}/>
                     </div>
                 </div>
-                <div className="footer" style={this.state.styles.footerStyle}>
+
+                <div className="pull-up-fresh" style={this.state.styles.pullUpFresh}>
+                    <RefreshIndicator
+                        size={40}
+                        left={0}
+                        top={0}
+                        status="loading"
+                    />
+                </div>
+                <div className="goup" onClick={() => this.goTop()}>
+                    <i className="iconfont icon-pullup"></i>
+                </div>
+                <div className="footer">
                     <div className="footer-content">
                         <div>Remembering that you are going to die</div>
                         <div>Stay Hungry Stay Foolish</div>
@@ -434,20 +446,9 @@ class Home extends Component {
                         </div>
                         <div className="ICP">
                             <img src="images/3fuyu_small.jpg" alt=""/>
-                            <span>Copyright © 2014 - {new Date().getFullYear()} ICP 16097049. All Rights Reserved. Powered By 3Fuyu.</span>
+                            <span>Copyright © 2014 - {new Date().getFullYear()} <a target="_blank" href="https://beian.miit.gov.cn">粤ICP备16097049号.</a> All Rights Reserved. Powered By 3Fuyu.</span>
                         </div>
                     </div>
-                </div>
-                <div className="pull-up-fresh" style={this.state.styles.pullUpFresh}>
-                    <RefreshIndicator
-                        size={40}
-                        left={0}
-                        top={0}
-                        status="loading"
-                    />
-                </div>
-                <div className="goup" onClick={() => this.goTop()}>
-                    <i className="iconfont icon-pullup"></i>
                 </div>
             </div>
         );
