@@ -36,7 +36,7 @@
     "highlight.js": "9.7.0",
     "history": "2.0.1",
     "html-webpack-plugin": "2.29.0",
-    "http-proxy": "1.15.1",
+    "http-proxy": "1.18.1",
     "less": "2.7.1",
     "less-loader": "2.2.3",
     "material-ui": "0.15.4",
