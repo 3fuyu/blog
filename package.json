@@ -19,7 +19,7 @@
     "formidable": "1.1.1",
     "jade": "1.11.0",
     "lodash": "4.14.2",
-    "marked": "0.3.6",
+    "marked": "1.2.0",
     "mongoose": "4.5.8",
     "morgan": "1.7.0",
     "serve-favicon": "2.3.0"
